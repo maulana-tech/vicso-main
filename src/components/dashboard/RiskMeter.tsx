@@ -10,12 +10,11 @@ export default function RiskMeter({ score, size = 160, label = "Risk Score" }: R
   const radius = (size - 20) / 2;
   const circumference = 2 * Math.PI * radius;
   const progress = (score / 100) * circumference;
-  const color = score <= 33 ? "hsl(145, 100%, 55%)" : score <= 66 ? "hsl(25, 100%, 55%)" : "hsl(0, 80%, 55%)";
-  const glowColor = score <= 33 ? "neon-glow-green" : score <= 66 ? "neon-glow-pink" : "";
+  const color = score <= 33 ? "hsl(145, 55%, 45%)" : score <= 66 ? "hsl(38, 90%, 55%)" : "hsl(0, 65%, 50%)";
   const statusText = score <= 33 ? "LOW RISK" : score <= 66 ? "MODERATE" : "HIGH RISK";
 
   return (
-    <div className={`flex flex-col items-center ${glowColor}`}>
+    <div className="flex flex-col items-center">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="-rotate-90">
           <circle

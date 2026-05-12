@@ -9,8 +9,8 @@ function TransactionStatusBadge({ status }: { status: Transaction["status"] }) {
   const config = {
     PENDING: { icon: Clock, color: "text-yellow-500 bg-yellow-500/10", label: "Pending" },
     CONFIRMING: { icon: Loader2, color: "text-blue-500 bg-blue-500/10", label: "Confirming" },
-    CONFIRMED: { icon: CheckCircle2, color: "text-neon-green bg-neon-green/10", label: "Confirmed" },
-    FAILED: { icon: XCircle, color: "text-destructive bg-destructive/10", label: "Failed" },
+    CONFIRMED: { icon: CheckCircle2, color: "text-emerald-500 bg-emerald-500/10", label: "Confirmed" },
+    FAILED: { icon: XCircle, color: "text-red-500 bg-red-500/10", label: "Failed" },
   };
   const { icon: Icon, color, label } = config[status];
   return (
@@ -47,7 +47,7 @@ function TransactionItem({ tx, onRemove }: { tx: Transaction; onRemove: () => vo
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium">{tx.fromToken}</span>
             <span className="text-muted-foreground">→</span>
-            <span className="text-xs font-medium text-neon-green">{tx.toToken}</span>
+            <span className="text-xs font-medium text-emerald-500">{tx.toToken}</span>
           </div>
           <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
             <span>{formatAmount(tx.fromAmount)} → {formatAmount(tx.toAmount)}</span>

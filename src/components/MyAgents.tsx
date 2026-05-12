@@ -29,11 +29,11 @@ export default function MyAgents() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="glass rounded-xl p-4 space-y-3"
+            className="rounded-xl p-4 space-y-3 bg-card border border-border"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className={`h-2 w-2 rounded-full ${agent.isRunning ? "bg-neon-green animate-pulse" : "bg-muted-foreground"}`} />
+                <span className={`h-2 w-2 rounded-full ${agent.isRunning ? "bg-primary" : "bg-muted-foreground"}`} />
                 <span className="text-sm font-semibold text-foreground">{agent.name}</span>
               </div>
               <span className="text-[10px] font-mono text-muted-foreground">{agent.id}</span>
@@ -50,12 +50,12 @@ export default function MyAgents() {
                 Risk: {agent.riskLevel}
               </span>
               {agent.autoBuy && (
-                <span className="rounded-md bg-neon-green/15 px-2 py-0.5 text-[10px] font-medium text-neon-green">
+                <span className="rounded-md bg-primary/15 px-2 py-0.5 text-[10px] font-medium text-primary">
                   Auto Buy
                 </span>
               )}
               {agent.autoSell && (
-                <span className="rounded-md bg-destructive/15 px-2 py-0.5 text-[10px] font-medium text-destructive">
+                <span className="rounded-md bg-red-500/15 px-2 py-0.5 text-[10px] font-medium text-red-500">
                   Auto Sell
                 </span>
               )}
@@ -73,8 +73,8 @@ export default function MyAgents() {
                 onClick={() => toggleAgent(agent.id)}
                 className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                   agent.isRunning
-                    ? "bg-destructive/10 text-destructive hover:bg-destructive/20"
-                    : "bg-neon-green/10 text-neon-green hover:bg-neon-green/20"
+                    ? "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                    : "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20"
                 }`}
               >
                 {agent.isRunning ? <Square className="h-3 w-3" /> : <Play className="h-3 w-3" />}

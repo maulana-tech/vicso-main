@@ -66,12 +66,12 @@ export default function SettingsPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div><p className="text-sm text-foreground font-medium">Auto Buy</p><p className="text-[10px] text-muted-foreground">Automatically buy when risk is below threshold</p></div>
-                <button onClick={() => setLocalSettings((s) => ({ ...s, autoBuyEnabled: !s.autoBuyEnabled }))} className={`relative h-6 w-11 rounded-full transition-colors ${localSettings.autoBuyEnabled ? "bg-neon-green" : "bg-secondary"}`}>
+                <button onClick={() => setLocalSettings((s) => ({ ...s, autoBuyEnabled: !s.autoBuyEnabled }))} className={`relative h-6 w-11 rounded-full transition-colors ${localSettings.autoBuyEnabled ? "bg-emerald-500" : "bg-secondary"}`}>
                   <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-foreground transition-transform ${localSettings.autoBuyEnabled ? "left-[22px]" : "left-0.5"}`} />
                 </button>
               </div>
               {localSettings.autoBuyEnabled && (
-                <div className="pl-4 border-l-2 border-neon-green/30 space-y-2">
+                <div className="pl-4 border-l-2 border-emerald-500/30 space-y-2">
                   <div className="flex items-center justify-between text-xs"><span className="text-muted-foreground">Risk threshold (buy below)</span><span className="font-mono text-foreground">{localSettings.autoBuyRiskThreshold}</span></div>
                   <input type="range" min={5} max={50} value={localSettings.autoBuyRiskThreshold} onChange={(e) => setLocalSettings((s) => ({ ...s, autoBuyRiskThreshold: Number(e.target.value) }))} className="w-full accent-primary" />
                 </div>
@@ -83,7 +83,7 @@ export default function SettingsPage() {
                 </button>
               </div>
               {localSettings.autoSellEnabled && (
-                <div className="pl-4 border-l-2 border-destructive/30 space-y-2">
+                <div className="pl-4 border-l-2 border-red-500/30 space-y-2">
                   <div className="flex items-center justify-between text-xs"><span className="text-muted-foreground">Risk threshold (sell above)</span><span className="font-mono text-foreground">{localSettings.autoSellRiskThreshold}</span></div>
                   <input type="range" min={50} max={100} value={localSettings.autoSellRiskThreshold} onChange={(e) => setLocalSettings((s) => ({ ...s, autoSellRiskThreshold: Number(e.target.value) }))} className="w-full accent-primary" />
                 </div>
@@ -115,8 +115,8 @@ export default function SettingsPage() {
               <div key={item.key} className="flex items-center justify-between">
                 <div><p className="text-sm text-foreground font-medium">{item.label}</p><p className="text-[10px] text-muted-foreground">{item.desc}</p></div>
                 <div className="flex items-center gap-1.5">
-                  <Bell className="h-3.5 w-3.5 text-neon-green" />
-                  <span className="text-[10px] text-neon-green font-medium">Active</span>
+                  <Bell className="h-3.5 w-3.5 text-emerald-500" />
+                  <span className="text-[10px] text-emerald-500 font-medium">Active</span>
                 </div>
               </div>
             ))}

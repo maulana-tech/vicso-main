@@ -7,15 +7,14 @@ interface StatCardProps {
   change?: string;
   changeType?: "positive" | "negative" | "neutral";
   icon: LucideIcon;
-  glowClass?: string;
 }
 
-export default function StatCard({ label, value, change, changeType = "neutral", icon: Icon, glowClass = "" }: StatCardProps) {
+export default function StatCard({ label, value, change, changeType = "neutral", icon: Icon }: StatCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`glass rounded-xl p-5 ${glowClass}`}
+      className="rounded-xl p-5 bg-card border border-border"
     >
       <div className="flex items-start justify-between">
         <div>
@@ -23,7 +22,7 @@ export default function StatCard({ label, value, change, changeType = "neutral",
           <p className="mt-2 font-heading text-2xl font-bold text-foreground">{value}</p>
           {change && (
             <p className={`mt-1 text-xs font-medium ${
-              changeType === "positive" ? "text-neon-green" : changeType === "negative" ? "text-destructive" : "text-muted-foreground"
+              changeType === "positive" ? "text-emerald-500" : changeType === "negative" ? "text-red-500" : "text-muted-foreground"
             }`}>
               {change}
             </p>

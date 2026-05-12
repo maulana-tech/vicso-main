@@ -143,9 +143,9 @@ export default function Profile() {
         </div>
         <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-4">
           {[
-            { label: "Analyzed", value: stats.totalAnalyses.toString(), color: "text-neon-blue" },
-            { label: "Wallets", value: stats.trackedWallets.toString(), color: "text-neon-green" },
-            { label: "Connected", value: isConnected ? "1" : "0", color: "text-neon-purple" },
+            { label: "Analyzed", value: stats.totalAnalyses.toString(), color: "text-cyan-500" },
+            { label: "Wallets", value: stats.trackedWallets.toString(), color: "text-emerald-500" },
+            { label: "Connected", value: isConnected ? "1" : "0", color: "text-purple-500" },
             { label: "Age", value: Math.ceil((Date.now() - new Date(user.created_at).getTime()) / 86400000) + "d", color: "text-foreground" },
           ].map((s) => (
             <div key={s.label} className="rounded-lg border border-border bg-secondary/50 p-3 text-center">
@@ -161,13 +161,13 @@ export default function Profile() {
         {isConnected && address ? (
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-lg border border-border bg-secondary/50 p-3 sm:p-4">
             <div className="flex items-center gap-3">
-              <span className="font-heading text-sm font-bold text-neon-green">Connected</span>
+              <span className="font-heading text-sm font-bold text-emerald-500">Connected</span>
               <span className="font-mono text-xs text-muted-foreground">{address.slice(0, 6)}...{address.slice(-4)}</span>
-              <div className="flex items-center gap-1 text-[10px] text-neon-green">
+              <div className="flex items-center gap-1 text-[10px] text-emerald-500">
                 <Shield className="h-3 w-3" /> Secure
               </div>
             </div>
-            <button onClick={() => disconnectWallet()} className="rounded-lg border border-destructive/30 px-3 py-1.5 text-xs text-destructive hover:bg-destructive/10 transition-colors">
+            <button onClick={() => disconnectWallet()} className="rounded-lg border border-red-500/30 px-3 py-1.5 text-xs text-red-500 hover:bg-red-500/10 transition-colors">
               Disconnect
             </button>
           </div>

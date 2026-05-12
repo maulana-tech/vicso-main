@@ -59,17 +59,17 @@ export default function TradeConfirmModal({
 
   const getRiskColor = (level: "LOW" | "MEDIUM" | "HIGH") => {
     switch (level) {
-      case "LOW": return "text-neon-green";
+      case "LOW": return "text-emerald-500";
       case "MEDIUM": return "text-yellow-500";
-      case "HIGH": return "text-destructive";
+      case "HIGH": return "text-red-500";
     }
   };
 
   const getRiskBg = (level: "LOW" | "MEDIUM" | "HIGH") => {
     switch (level) {
-      case "LOW": return "bg-neon-green/10 border-neon-green/30";
+      case "LOW": return "bg-emerald-500/10 border-emerald-500/30";
       case "MEDIUM": return "bg-yellow-500/10 border-yellow-500/30";
-      case "HIGH": return "bg-destructive/10 border-destructive/30";
+      case "HIGH": return "bg-red-500/10 border-red-500/30";
     }
   };
 
@@ -81,9 +81,9 @@ export default function TradeConfirmModal({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             {result?.success ? (
-              <CheckCircle className="h-5 w-5 text-neon-green" />
+              <CheckCircle className="h-5 w-5 text-emerald-500" />
             ) : result && !result.success ? (
-              <XCircle className="h-5 w-5 text-destructive" />
+              <XCircle className="h-5 w-5 text-red-500" />
             ) : (
               <Shield className="h-5 w-5 text-primary" />
             )}
@@ -116,7 +116,7 @@ export default function TradeConfirmModal({
 
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">You Receive</span>
-                <span className="font-medium text-neon-green">{quote.toAmount} {quote.toCoin}</span>
+                <span className="font-medium text-emerald-500">{quote.toAmount} {quote.toCoin}</span>
               </div>
             </div>
 
@@ -146,7 +146,7 @@ export default function TradeConfirmModal({
 
         {result?.success && (
           <div className="flex flex-col items-center justify-center py-6 space-y-3">
-            <CheckCircle className="h-12 w-12 text-neon-green animate-pulse" />
+            <CheckCircle className="h-12 w-12 text-emerald-500" />
             <p className="text-sm text-muted-foreground">Transaction submitted to SoDEX</p>
           </div>
         )}
@@ -164,7 +164,7 @@ export default function TradeConfirmModal({
               <Button variant="outline" onClick={handleClose} disabled={executing}>
                 Cancel
               </Button>
-              <Button onClick={handleConfirm} disabled={executing} className="bg-neon-green hover:bg-neon-green/90 text-black">
+              <Button onClick={handleConfirm} disabled={executing} className="bg-emerald-500 hover:bg-emerald-500/90 text-black">
                 {executing ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

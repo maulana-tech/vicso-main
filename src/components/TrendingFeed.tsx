@@ -23,18 +23,18 @@ interface FeedItem {
 
 const CATEGORY_CONFIG: Record<FeedCategory, { label: string; icon: any; color: string }> = {
   all: { label: "All", icon: Filter, color: "text-foreground" },
-  prices: { label: "Coin Prices", icon: DollarSign, color: "text-neon-green" },
-  whale: { label: "Whale Alerts", icon: Waves, color: "text-neon-blue" },
-  pump: { label: "Market Pump", icon: TrendingUp, color: "text-neon-green" },
-  dump: { label: "Market Dump", icon: TrendingDown, color: "text-destructive" },
-  smart: { label: "Smart Money", icon: Brain, color: "text-neon-purple" },
+  prices: { label: "Coin Prices", icon: DollarSign, color: "text-emerald-500" },
+  whale: { label: "Whale Alerts", icon: Waves, color: "text-cyan-500" },
+  pump: { label: "Market Pump", icon: TrendingUp, color: "text-emerald-500" },
+  dump: { label: "Market Dump", icon: TrendingDown, color: "text-red-500" },
+  smart: { label: "Smart Money", icon: Brain, color: "text-purple-500" },
 };
 
 const CATEGORY_BADGE: Record<string, string> = {
-  prices: "bg-neon-green/10 text-neon-green border-neon-green/20",
+  prices: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
   whale: "bg-accent/10 text-accent border-accent/20",
-  pump: "bg-neon-green/10 text-neon-green border-neon-green/20",
-  dump: "bg-destructive/10 text-destructive border-destructive/20",
+  pump: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+  dump: "bg-red-500/10 text-red-500 border-red-500/20",
   smart: "bg-primary/10 text-primary border-primary/20",
 };
 
@@ -191,10 +191,10 @@ export default function TrendingFeed() {
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2 sm:px-5">
         <div className="flex items-center gap-2">
-          <Flame className="h-4 w-4 text-neon-orange" />
+          <Flame className="h-4 w-4 text-amber-500" />
           <h3 className="font-heading text-sm font-semibold text-foreground">Trending Feed</h3>
-          <span className="flex items-center gap-1 text-[10px] text-neon-green">
-            <span className="h-1.5 w-1.5 rounded-full bg-neon-green animate-pulse" /> LIVE
+          <span className="flex items-center gap-1 text-primary">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" /> LIVE
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -241,8 +241,8 @@ export default function TrendingFeed() {
                 className="w-full flex items-center justify-between gap-3 rounded-lg border border-border bg-secondary/40 p-3 hover:bg-secondary/70 transition-colors text-left cursor-pointer"
               >
                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                  <div className={`flex items-center justify-center h-8 w-8 rounded-lg shrink-0 ${item.change24h >= 0 ? "bg-neon-green/10" : "bg-destructive/10"}`}>
-                    {item.change24h >= 0 ? <TrendingUp className="h-4 w-4 text-neon-green" /> : <TrendingDown className="h-4 w-4 text-destructive" />}
+                  <div className={`flex items-center justify-center h-8 w-8 rounded-lg shrink-0 ${item.change24h >= 0 ? "bg-emerald-500/10" : "bg-red-500/10"}`}>
+                    {item.change24h >= 0 ? <TrendingUp className="h-4 w-4 text-emerald-500" /> : <TrendingDown className="h-4 w-4 text-red-500" />}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
@@ -260,7 +260,7 @@ export default function TrendingFeed() {
                     <p className="text-[11px] font-mono text-foreground">
                       ${item.price < 0.01 ? item.price.toExponential(2) : item.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                     </p>
-                    <div className={`flex items-center gap-0.5 justify-end text-[10px] font-semibold ${item.change24h >= 0 ? "text-neon-green" : "text-destructive"}`}>
+                    <div className={`flex items-center gap-0.5 justify-end text-[10px] font-semibold ${item.change24h >= 0 ? "text-emerald-500" : "text-red-500"}`}>
                       {item.change24h >= 0 ? <ArrowUp className="h-2.5 w-2.5" /> : <ArrowDown className="h-2.5 w-2.5" />}
                       {Math.abs(item.change24h).toFixed(2)}%
                     </div>

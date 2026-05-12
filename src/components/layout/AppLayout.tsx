@@ -51,7 +51,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <div className="flex flex-col h-screen overflow-hidden bg-background">
 
       {/* ═══════ HEADER BAR ═══════ */}
-      <header className="sticky top-0 z-[9999] flex items-center h-14 border-b border-border bg-background/95 backdrop-blur-xl shrink-0 px-4 lg:px-6">
+      <header className="sticky top-0 z-[9999] flex items-center h-14 border-b border-border bg-background/95 shrink-0 px-4 lg:px-6">
 
         <button onClick={() => setDrawerOpen(true)} className="lg:hidden mr-2 text-foreground">
           <Menu className="h-5 w-5" />
@@ -94,12 +94,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         <div className="ml-auto flex items-center gap-2">
           {isConnected && address ? (
-            <button onClick={() => disconnectWallet()} className="flex items-center gap-1.5 rounded-full bg-neon-green/10 px-3 py-1.5 text-xs font-mono text-neon-green hover:bg-neon-green/20 transition-colors">
-              <span className="h-2 w-2 rounded-full bg-neon-green animate-pulse" />
+            <button onClick={() => disconnectWallet()} className="flex items-center gap-1.5 rounded-full border border-primary/30 px-3 py-1.5 text-xs font-mono text-primary hover:bg-primary/10 transition-colors">
+              <span className="h-2 w-2 rounded-full bg-primary" />
               {address.slice(0, 6)}...{address.slice(-4)}
             </button>
           ) : (
-            <button onClick={() => setWalletModalOpen(true)} className="flex items-center gap-1.5 rounded-full border border-neon-green/30 bg-neon-green/5 px-3 py-1.5 text-xs font-medium text-neon-green hover:bg-neon-green/10 transition-colors">
+            <button onClick={() => setWalletModalOpen(true)} className="flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/10 transition-colors">
               <Wallet className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Connect Wallet</span>
               <span className="sm:hidden">Connect</span>
@@ -131,7 +131,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* ═══════ MOBILE DRAWER ═══════ */}
       <AnimatePresence>
         {drawerOpen && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[10000] bg-background/60 backdrop-blur-sm lg:hidden" onClick={() => setDrawerOpen(false)} />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[10000] bg-background/60 lg:hidden" onClick={() => setDrawerOpen(false)} />
         )}
       </AnimatePresence>
 
@@ -166,13 +166,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
           <div className="border-t border-border px-4 py-4 space-y-3">
             {isConnected && address ? (
-              <div className="glass rounded-lg p-3 space-y-2">
+              <div className="rounded-lg p-3 space-y-2 border border-border">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Wallet className="h-3.5 w-3.5 text-neon-green" />
+                    <Wallet className="h-3.5 w-3.5 text-primary" />
                     <span className="text-xs text-foreground font-mono">{address.slice(0, 6)}...{address.slice(-4)}</span>
                   </div>
-                  <span className="h-2 w-2 rounded-full bg-neon-green animate-pulse" />
+                  <span className="h-2 w-2 rounded-full bg-primary" />
                 </div>
                 <div className="flex items-center justify-between text-[10px]">
                   <span className="text-muted-foreground">{balance.toFixed(4)} {balanceSymbol}</span>
@@ -180,7 +180,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
             ) : (
-              <button onClick={() => setWalletModalOpen(true)} className="flex w-full items-center justify-center gap-2 rounded-lg border border-neon-green/30 bg-neon-green/5 py-2 text-xs font-medium text-neon-green hover:bg-neon-green/10 transition-colors">
+              <button onClick={() => setWalletModalOpen(true)} className="flex w-full items-center justify-center gap-2 rounded-lg border border-primary/30 bg-primary/5 py-2 text-xs font-medium text-primary hover:bg-primary/10 transition-colors">
                 <Wallet className="h-3.5 w-3.5" />
                 Connect Wallet
               </button>
@@ -201,13 +201,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </button>
             )}
 
-            <div className="glass rounded-lg p-3">
+            <div className="rounded-lg p-3 border border-border">
               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
                 <Zap className="h-3.5 w-3.5" />
                 ChainNova Skills
               </div>
               <div className="mt-2 flex items-center gap-2">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-neon-green" />
+                <span className="h-2 w-2 rounded-full bg-primary" />
                 <span className="text-xs text-foreground">8 skills online</span>
               </div>
             </div>

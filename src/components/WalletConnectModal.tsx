@@ -222,7 +222,7 @@ export default function WalletConnectModal({ open, onClose }: Props) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-background/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-background/70"
           onClick={onClose}
         >
           <motion.div
@@ -243,14 +243,14 @@ export default function WalletConnectModal({ open, onClose }: Props) {
             {/* Already connected state */}
             {isConnected && address && connState === "idle" ? (
               <div className="p-5 space-y-4">
-                <div className="flex items-center gap-3 rounded-lg border border-neon-green/30 bg-neon-green/5 p-4">
-                  <CheckCircle2 className="h-5 w-5 text-neon-green shrink-0" />
+                <div className="flex items-center gap-3 rounded-lg border border-border bg-secondary/30 p-4">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-foreground">Connected</p>
                     <p className="font-mono text-xs text-muted-foreground mt-0.5">{address}</p>
                   </div>
                   <button onClick={copyAddress} className="p-1.5 rounded hover:bg-secondary transition-colors">
-                    {copied ? <Check className="h-4 w-4 text-neon-green" /> : <Copy className="h-4 w-4 text-muted-foreground" />}
+                    {copied ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4 text-muted-foreground" />}
                   </button>
                 </div>
                 <p className="text-[10px] text-muted-foreground text-center">
@@ -271,7 +271,7 @@ export default function WalletConnectModal({ open, onClose }: Props) {
                         disabled={connState !== "idle" && connState !== "error"}
                         className={`w-full flex items-center gap-3 rounded-lg border px-4 py-3 transition-all disabled:opacity-50 ${
                           isActive && connState === "success"
-                            ? "border-neon-green/50 bg-neon-green/5"
+                            ? "border-primary/50 bg-primary/5"
                             : isActive && connState === "error"
                             ? "border-destructive/50 bg-destructive/5"
                             : "border-border bg-secondary/30 hover:bg-secondary hover:border-primary/30"
@@ -282,7 +282,7 @@ export default function WalletConnectModal({ open, onClose }: Props) {
                           <div className="flex items-center gap-2">
                             <p className="text-sm font-medium text-foreground">{wallet.name}</p>
                             {wallet.id !== "walletconnect" && (
-                              <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${detected ? "bg-neon-green/10 text-neon-green" : "bg-secondary text-muted-foreground"}`}>
+                              <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${detected ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"}`}>
                                 {detected ? "Detected" : "Not found"}
                               </span>
                             )}
@@ -293,9 +293,9 @@ export default function WalletConnectModal({ open, onClose }: Props) {
                           connState === "connecting" ? (
                             <Loader2 className="h-4 w-4 animate-spin text-primary" />
                           ) : connState === "signing" ? (
-                            <Loader2 className="h-4 w-4 animate-spin text-neon-orange" />
+                            <Loader2 className="h-4 w-4 animate-spin text-amber-500" />
                           ) : connState === "success" ? (
-                            <CheckCircle2 className="h-4 w-4 text-neon-green" />
+                            <CheckCircle2 className="h-4 w-4 text-primary" />
                           ) : connState === "error" ? (
                             <AlertTriangle className="h-4 w-4 text-destructive" />
                           ) : null
@@ -312,10 +312,10 @@ export default function WalletConnectModal({ open, onClose }: Props) {
                       <p className="text-xs text-primary text-center">Opening wallet popup…</p>
                     )}
                     {connState === "signing" && (
-                      <p className="text-xs text-neon-orange text-center">Please approve the signature request in your wallet…</p>
+                      <p className="text-xs text-amber-500 text-center">Please approve the signature request in your wallet…</p>
                     )}
                     {connState === "success" && (
-                      <p className="text-xs text-neon-green text-center">✓ Connected successfully!</p>
+                      <p className="text-xs text-primary text-center">✓ Connected successfully!</p>
                     )}
                     {connState === "error" && (
                       <div className="text-center space-y-2">

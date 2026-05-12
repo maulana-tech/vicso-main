@@ -68,7 +68,7 @@ export default function PreloadedTokens({ onSelectToken }: Props) {
   }, []);
 
   const ChangeBox = ({ value }: { value: number }) => (
-    <span className={`inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-semibold font-mono ${value >= 0 ? "bg-neon-green/10 text-neon-green" : "bg-destructive/10 text-destructive"}`}>
+    <span className={`inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-semibold font-mono ${value >= 0 ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}>
       {value >= 0 ? <ArrowUp className="h-2.5 w-2.5" /> : <ArrowDown className="h-2.5 w-2.5" />}
       {Math.abs(value).toFixed(2)}%
     </span>

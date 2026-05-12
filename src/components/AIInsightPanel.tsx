@@ -4,9 +4,9 @@ import { Brain, CheckCircle, AlertTriangle, XCircle, TrendingUp, Target, ArrowUp
 import type { AIAnalysis } from "@/hooks/useTokenAPI";
 
 const verdictConfig = {
-  BUY: { color: "text-neon-green", bg: "bg-neon-green/10 border-neon-green/30", icon: CheckCircle },
-  HOLD: { color: "text-neon-orange", bg: "bg-neon-orange/10 border-neon-orange/30", icon: AlertTriangle },
-  AVOID: { color: "text-destructive", bg: "bg-destructive/10 border-destructive/30", icon: XCircle },
+  BUY: { color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/30", icon: CheckCircle },
+  HOLD: { color: "text-amber-500", bg: "bg-amber-500/10 border-amber-500/30", icon: AlertTriangle },
+  AVOID: { color: "text-red-500", bg: "bg-red-500/10 border-red-500/30", icon: XCircle },
 };
 
 function formatPrice(v: number): string {
@@ -83,7 +83,7 @@ export default function AIInsightPanel({ analysis, loading }: { analysis: AIAnal
               animate={{ width: `${analysis.confidence}%` }}
               transition={{ duration: 1, ease: "easeOut" }}
               className={`h-full rounded-full ${
-                analysis.verdict === "BUY" ? "bg-neon-green" : analysis.verdict === "HOLD" ? "bg-neon-orange" : "bg-destructive"
+                analysis.verdict === "BUY" ? "bg-emerald-500" : analysis.verdict === "HOLD" ? "bg-amber-500" : "bg-destructive"
               }`}
             />
           </div>
@@ -91,14 +91,14 @@ export default function AIInsightPanel({ analysis, loading }: { analysis: AIAnal
         {analysis.riskLevel && (
           <div className="flex items-center gap-2">
             <Shield className={`h-4 w-4 ${
-              analysis.riskLevel === "LOW" ? "text-neon-green" :
-              analysis.riskLevel === "MEDIUM" ? "text-neon-orange" : "text-destructive"
+              analysis.riskLevel === "LOW" ? "text-emerald-500" :
+              analysis.riskLevel === "MEDIUM" ? "text-amber-500" : "text-red-500"
             }`} />
             <div>
               <span className="text-[10px] text-muted-foreground block">Risk Level</span>
               <span className={`text-xs font-bold ${
-                analysis.riskLevel === "LOW" ? "text-neon-green" :
-                analysis.riskLevel === "MEDIUM" ? "text-neon-orange" : "text-destructive"
+                analysis.riskLevel === "LOW" ? "text-emerald-500" :
+                analysis.riskLevel === "MEDIUM" ? "text-amber-500" : "text-red-500"
               }`}>{analysis.riskLevel}</span>
             </div>
           </div>
@@ -116,30 +116,30 @@ export default function AIInsightPanel({ analysis, loading }: { analysis: AIAnal
           </div>
           <div className="grid grid-cols-2 gap-2 text-[10px]">
             <div className="flex items-center gap-1">
-              <ArrowDownRight className="h-3 w-3 text-neon-green" />
+              <ArrowDownRight className="h-3 w-3 text-emerald-500" />
               <span className="text-muted-foreground">Entry:</span>
               <span className="font-mono text-foreground">{formatPrice(analysis.entryExit.entryLow)} – {formatPrice(analysis.entryExit.entryHigh)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <ArrowUpRight className="h-3 w-3 text-neon-green" />
+              <ArrowUpRight className="h-3 w-3 text-emerald-500" />
               <span className="text-muted-foreground">TP 1:</span>
-              <span className="font-mono text-neon-green">{formatPrice(analysis.entryExit.takeProfit1)}</span>
+              <span className="font-mono text-emerald-500">{formatPrice(analysis.entryExit.takeProfit1)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <ArrowUpRight className="h-3 w-3 text-neon-green" />
+              <ArrowUpRight className="h-3 w-3 text-emerald-500" />
               <span className="text-muted-foreground">TP 2:</span>
-              <span className="font-mono text-neon-green">{formatPrice(analysis.entryExit.takeProfit2)}</span>
+              <span className="font-mono text-emerald-500">{formatPrice(analysis.entryExit.takeProfit2)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <ArrowDownRight className="h-3 w-3 text-destructive" />
+              <ArrowDownRight className="h-3 w-3 text-red-500" />
               <span className="text-muted-foreground">Stop Loss:</span>
-              <span className="font-mono text-destructive">{formatPrice(analysis.entryExit.stopLoss)}</span>
+              <span className="font-mono text-red-500">{formatPrice(analysis.entryExit.stopLoss)}</span>
             </div>
           </div>
           {/* Auto Trade Button */}
           <button
             onClick={handleAutoTrade}
-            className="w-full flex items-center justify-center gap-2 rounded-lg bg-neon-green/10 border border-neon-green/30 py-2.5 text-xs font-bold text-neon-green hover:bg-neon-green/20 transition-colors"
+            className="w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 py-2.5 text-xs font-bold text-emerald-500 hover:bg-emerald-500/10 transition-colors"
           >
             <Zap className="h-3.5 w-3.5" />
             Auto Trade This Setup

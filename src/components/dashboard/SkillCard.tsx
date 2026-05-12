@@ -35,17 +35,17 @@ export default function SkillCard({ skill, index = 0 }: { skill: SkillOutput; in
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="glass rounded-xl overflow-hidden"
+      className="rounded-xl overflow-hidden bg-card border border-border"
     >
       <div
         className="flex items-center gap-3 p-3 cursor-pointer hover:bg-secondary/30 transition-colors"
         onClick={() => setExpanded(e => !e)}
       >
-        <div className={`rounded-lg p-2 ${isRunning ? "bg-neon-orange/10" : isSuccess ? "bg-neon-green/10" : isError ? "bg-destructive/10" : "bg-primary/10"}`}>
+        <div className={`rounded-lg p-2 ${isRunning ? "bg-amber-500/10" : isSuccess ? "bg-emerald-500/10" : isError ? "bg-red-500/10" : "bg-primary/10"}`}>
           {isRunning ? (
-            <Loader2 className="h-4 w-4 text-neon-orange animate-spin" />
+            <Loader2 className="h-4 w-4 text-amber-500 animate-spin" />
           ) : (
-            <Zap className={`h-4 w-4 ${isSuccess ? "text-neon-green" : isError ? "text-destructive" : "text-primary"}`} />
+            <Zap className={`h-4 w-4 ${isSuccess ? "text-emerald-500" : isError ? "text-red-500" : "text-primary"}`} />
           )}
         </div>
         <div className="flex-1 min-w-0">
@@ -67,7 +67,7 @@ export default function SkillCard({ skill, index = 0 }: { skill: SkillOutput; in
             <span className="text-[9px] font-mono text-muted-foreground">{skill.confidence}%</span>
           )}
           <span className="text-[9px] text-muted-foreground">{timeAgo(skill.timestamp)}</span>
-          <span className={`h-2 w-2 rounded-full ${isRunning ? "bg-neon-orange animate-pulse" : isSuccess ? "bg-neon-green" : isError ? "bg-destructive" : "bg-muted-foreground"}`} />
+          <span className={`h-2 w-2 rounded-full ${isRunning ? "bg-amber-500" : isSuccess ? "bg-emerald-500" : isError ? "bg-red-500" : "bg-muted-foreground"}`} />
           {skill.output && (expanded ? <ChevronUp className="h-3 w-3 text-muted-foreground" /> : <ChevronDown className="h-3 w-3 text-muted-foreground" />)}
         </div>
       </div>

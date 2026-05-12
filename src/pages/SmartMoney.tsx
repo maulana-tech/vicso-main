@@ -164,11 +164,11 @@ export default function SmartMoney() {
           <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">Tracked</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-lg p-3 sm:p-4 text-center">
-          <p className="font-heading text-lg sm:text-xl font-bold text-neon-green">{tracked.filter((w) => w.notifications_on).length}</p>
+          <p className="font-heading text-lg sm:text-xl font-bold text-emerald-500">{tracked.filter((w) => w.notifications_on).length}</p>
           <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">Alerts On</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-lg p-3 sm:p-4 text-center">
-          <p className="font-heading text-lg sm:text-xl font-bold text-neon-blue">{new Set(tracked.map((w) => w.chain)).size}</p>
+          <p className="font-heading text-lg sm:text-xl font-bold text-cyan-500">{new Set(tracked.map((w) => w.chain)).size}</p>
           <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">Chains</p>
         </motion.div>
       </div>
@@ -195,7 +195,7 @@ export default function SmartMoney() {
       {filtered.length > 0 && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 sm:p-5">
           <h3 className="font-heading text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <Star className="h-4 w-4 text-neon-orange" /> Tracked Wallets
+            <Star className="h-4 w-4 text-amber-500" /> Tracked Wallets
           </h3>
           <div className="space-y-2">
             {filtered.map((w) => (
@@ -208,13 +208,13 @@ export default function SmartMoney() {
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-secondary text-muted-foreground">{w.chain}</span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
-                  <button onClick={() => handleToggleNotifications(w.id, !!w.notifications_on)} className={`p-1.5 rounded transition-colors ${w.notifications_on ? "text-neon-green" : "text-muted-foreground"}`}>
+                  <button onClick={() => handleToggleNotifications(w.id, !!w.notifications_on)} className={`p-1.5 rounded transition-colors ${w.notifications_on ? "text-emerald-500" : "text-muted-foreground"}`}>
                     {w.notifications_on ? <Bell className="h-3.5 w-3.5" /> : <BellOff className="h-3.5 w-3.5" />}
                   </button>
                   <button onClick={() => { navigator.clipboard.writeText(w.address); toast.success("Copied"); }} className="p-1.5 text-muted-foreground hover:text-foreground transition-colors">
                     <Copy className="h-3.5 w-3.5" />
                   </button>
-                  <button onClick={() => handleRemoveWallet(w.id)} className="p-1.5 text-destructive/60 hover:text-destructive transition-colors">
+                  <button onClick={() => handleRemoveWallet(w.id)} className="p-1.5 text-red-500/60 hover:text-red-500 transition-colors">
                     <X className="h-3.5 w-3.5" />
                   </button>
                 </div>

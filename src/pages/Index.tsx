@@ -39,7 +39,7 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-4">
         <div className="cursor-pointer" onClick={() => navigate("/smart-money")}>
-          <StatCard icon={Wallet} label="Tracked Wallets" value={stats.totalTrackedWallets.toLocaleString()} change="Live" changeType="positive" glowClass="neon-glow-purple" />
+          <StatCard icon={Wallet} label="Tracked Wallets" value={stats.totalTrackedWallets.toLocaleString()} change="Live" changeType="positive" />
         </div>
         <div className="cursor-pointer" onClick={() => navigate("/alerts")}>
           <StatCard icon={Bell} label="Active Alerts" value={stats.activeAlerts.toString()} change="—" changeType="neutral" />

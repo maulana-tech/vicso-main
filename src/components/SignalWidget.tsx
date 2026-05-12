@@ -12,10 +12,10 @@ interface SignalWidgetProps {
 
 function SignalBadge({ severity }: { severity: SignalAlert["severity"] }) {
   const config = {
-    LOW: { color: "bg-neon-green/10 text-neon-green border-neon-green/30", label: "Low" },
+    LOW: { color: "bg-emerald-500/10 text-emerald-500 border-emerald-500/30", label: "Low" },
     MEDIUM: { color: "bg-yellow-500/10 text-yellow-500 border-yellow-500/30", label: "Medium" },
     HIGH: { color: "bg-orange-500/10 text-orange-500 border-orange-500/30", label: "High" },
-    CRITICAL: { color: "bg-destructive/10 text-destructive border-destructive/30", label: "Critical" },
+    CRITICAL: { color: "bg-red-500/10 text-red-500 border-red-500/30", label: "Critical" },
   };
   const { color, label } = config[severity];
   return (
@@ -27,9 +27,9 @@ function SignalBadge({ severity }: { severity: SignalAlert["severity"] }) {
 
 function ScoreBar({ label, score, icon: Icon }: { label: string; score: number; icon?: React.ElementType }) {
   const getColor = (s: number) => {
-    if (s >= 70) return "bg-neon-green";
+    if (s >= 70) return "bg-emerald-500";
     if (s >= 50) return "bg-yellow-500";
-    return "bg-destructive";
+    return "bg-red-500";
   };
 
   return (
@@ -56,19 +56,19 @@ function RecommendationCard({ signal }: { signal: TokenSignal }) {
   const config = {
     BUY: {
       icon: TrendingUp,
-      bg: "bg-neon-green/5 border-neon-green/20",
-      text: "text-neon-green",
+      bg: "bg-emerald-500/5 border border-emerald-500/20",
+      text: "text-emerald-500",
       label: "BUY",
     },
     SELL: {
       icon: TrendingDown,
-      bg: "bg-destructive/5 border-destructive/20",
-      text: "text-destructive",
+      bg: "bg-red-500/5 border border-red-500/20",
+      text: "text-red-500",
       label: "SELL",
     },
     HOLD: {
       icon: Minus,
-      bg: "bg-yellow-500/5 border-yellow-500/20",
+      bg: "bg-yellow-500/5 border border-yellow-500/20",
       text: "text-yellow-500",
       label: "HOLD",
     },
@@ -109,13 +109,13 @@ function RecommendationCard({ signal }: { signal: TokenSignal }) {
             {rec.recommendation?.targetPrice && (
               <div>
                 <span className="text-muted-foreground">Target: </span>
-                <span className="font-mono text-neon-green">${rec.recommendation.targetPrice.toFixed(2)}</span>
+                <span className="font-mono text-emerald-500">${rec.recommendation.targetPrice.toFixed(2)}</span>
               </div>
             )}
             {rec.recommendation?.stopLoss && (
               <div>
                 <span className="text-muted-foreground">Stop: </span>
-                <span className="font-mono text-destructive">${rec.recommendation.stopLoss.toFixed(2)}</span>
+                <span className="font-mono text-red-500">${rec.recommendation.stopLoss.toFixed(2)}</span>
               </div>
             )}
           </div>
@@ -129,12 +129,12 @@ function SignalAlertItem({ alert }: { alert: SignalAlert }) {
   return (
     <div className="flex items-start gap-3 p-3 rounded-lg bg-card border border-border/50 hover:border-border transition-colors">
       <div className="flex-shrink-0 mt-0.5">
-        {alert.type === "WHALE_ACTIVITY" && <Zap className="h-4 w-4 text-neon-green" />}
+        {alert.type === "WHALE_ACTIVITY" && <Zap className="h-4 w-4 text-emerald-500" />}
         {alert.type === "VOLUME_SPIKE" && <TrendingUp className="h-4 w-4 text-yellow-500" />}
-        {alert.type === "MOMENTUM" && <TrendingUp className="h-4 w-4 text-neon-blue" />}
+        {alert.type === "MOMENTUM" && <TrendingUp className="h-4 w-4 text-cyan-500" />}
         {alert.type === "NEWS_HOT" && <Bell className="h-4 w-4 text-primary" />}
-        {alert.type === "OPPORTUNITY" && <AlertTriangle className="h-4 w-4 text-neon-purple" />}
-        {alert.type === "RISK_CHANGE" && <AlertTriangle className="h-4 w-4 text-destructive" />}
+        {alert.type === "OPPORTUNITY" && <AlertTriangle className="h-4 w-4 text-purple-500" />}
+        {alert.type === "RISK_CHANGE" && <AlertTriangle className="h-4 w-4 text-red-500" />}
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
@@ -189,7 +189,7 @@ export default function SignalWidget({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg flex items-center gap-2">
-            <Zap className="h-4 w-4 text-neon-green" />
+            <Zap className="h-4 w-4 text-primary" />
             AI Signal Center
           </CardTitle>
           <div className="flex items-center gap-2">

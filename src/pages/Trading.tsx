@@ -269,7 +269,7 @@ function TPSLModal({ open, onClose, onConfirm, currentPrice, orderSide }: {
   return (
     <AnimatePresence>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-background/70 backdrop-blur-sm" onClick={onClose}>
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-background/70" onClick={onClose}>
         <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }}
           onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-xl border border-border bg-card shadow-2xl overflow-hidden">
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
@@ -278,7 +278,7 @@ function TPSLModal({ open, onClose, onConfirm, currentPrice, orderSide }: {
           </div>
           <div className="p-5 space-y-4">
             <div className="text-xs text-muted-foreground">
-              Current Price: <span className="text-foreground font-mono">${fmtPrice(currentPrice)}</span> · Side: <span className={orderSide === "buy" ? "text-neon-green" : "text-destructive"}>{orderSide === "buy" ? "Long" : "Short"}</span>
+              Current Price: <span className="text-foreground font-mono">${fmtPrice(currentPrice)}</span> · Side: <span className={orderSide === "buy" ? "text-emerald-500" : "text-red-500"}>{orderSide === "buy" ? "Long" : "Short"}</span>
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">Take Profit Price</label>
@@ -295,7 +295,7 @@ function TPSLModal({ open, onClose, onConfirm, currentPrice, orderSide }: {
               </div>
             </div>
             {error && (
-              <div className="flex items-center gap-2 text-xs text-destructive bg-destructive/10 rounded-lg px-3 py-2">
+              <div className="flex items-center gap-2 text-xs text-red-500 bg-red-500/10 rounded-lg px-3 py-2">
                 <AlertTriangle className="h-3.5 w-3.5 shrink-0" /> {error}
               </div>
             )}
@@ -606,7 +606,7 @@ export default function Trading() {
             </div>
             <div>
               <div className="text-[10px] text-muted-foreground">24h Change</div>
-              <div className={`font-medium text-sm flex items-center gap-1 ${marketData.change24h >= 0 ? "text-neon-green" : "text-destructive"}`}>
+              <div className={`font-medium text-sm flex items-center gap-1 ${marketData.change24h >= 0 ? "text-emerald-500" : "text-red-500"}`}>
                 {marketData.change24h >= 0 ? "+" : ""}{marketData.change24h.toFixed(2)}%
                 {marketData.change24h >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
               </div>
@@ -625,7 +625,7 @@ export default function Trading() {
         )}
         <div className="ml-auto flex items-center gap-3">
           <button onClick={() => toggleFav(selected.symbol)} className="flex items-center gap-1.5 bg-secondary rounded-full px-3 py-1.5 text-[11px] hover:bg-secondary/80 transition-colors">
-            <Star className={`h-3 w-3 ${favorites.includes(selected.symbol) ? "text-neon-orange fill-neon-orange" : "text-muted-foreground"}`} />
+            <Star className={`h-3 w-3 ${favorites.includes(selected.symbol) ? "text-amber-500 fill-amber-500" : "text-muted-foreground"}`} />
             <span className="text-foreground">{selected.symbol} / USDT</span>
           </button>
         </div>
@@ -636,8 +636,8 @@ export default function Trading() {
         <span className="font-semibold text-foreground text-sm shrink-0">{selected.symbol}</span>
         {marketData && (
           <>
-            <span className={`font-mono font-bold shrink-0 ${marketData.change24h >= 0 ? "text-neon-green" : "text-destructive"}`}>${fmtPrice(marketData.price)}</span>
-            <span className={`font-mono text-[10px] shrink-0 ${marketData.change24h >= 0 ? "text-neon-green" : "text-destructive"}`}>{marketData.change24h >= 0 ? "+" : ""}{marketData.change24h.toFixed(2)}%</span>
+            <span className={`font-mono font-bold shrink-0 ${marketData.change24h >= 0 ? "text-emerald-500" : "text-red-500"}`}>${fmtPrice(marketData.price)}</span>
+            <span className={`font-mono text-[10px] shrink-0 ${marketData.change24h >= 0 ? "text-emerald-500" : "text-red-500"}`}>{marketData.change24h >= 0 ? "+" : ""}{marketData.change24h.toFixed(2)}%</span>
           </>
         )}
         {isConnected && <span className="ml-auto font-mono text-[10px] text-foreground shrink-0">${usdtBalance.toFixed(2)} USDT</span>}
@@ -740,8 +740,8 @@ export default function Trading() {
             <div className="flex items-center gap-3">
               <span className="font-semibold text-lg text-foreground">{selected.symbol} · {selectedTf} · ChainNova</span>
               {marketData && (
-                <span className="text-neon-green text-xs flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-neon-green rounded-full animate-pulse" /> LIVE
+                <span className="text-emerald-500 text-xs flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-primary rounded-full" /> LIVE
                 </span>
               )}
             </div>
@@ -843,8 +843,8 @@ function PairDropdown({ selected, pairs, pairSearch, setPairSearch, onSelect, ma
         <span className="text-xl font-semibold text-foreground">{selected.symbol}</span>
         <span className="text-xs text-muted-foreground">/ USDT</span>
         <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
-        <span className="flex items-center gap-1 ml-1 text-[10px] text-neon-green">
-          <span className="h-1.5 w-1.5 rounded-full bg-neon-green animate-pulse" /> LIVE
+        <span className="flex items-center gap-1 ml-1 text-[10px] text-primary">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" /> LIVE
         </span>
       </button>
       <AnimatePresence>
@@ -882,7 +882,7 @@ function PairDropdown({ selected, pairs, pairSearch, setPairSearch, onSelect, ma
                     <span className="text-muted-foreground text-xs ml-1">/ USDT</span>
                   </button>
                   <button onClick={() => { onSelect(p); setOpen(false); setPairSearch(""); }} className="text-right font-mono text-foreground">{p.price ? fmtPrice(p.price) : "…"}</button>
-                  <button onClick={() => { onSelect(p); setOpen(false); setPairSearch(""); }} className={`text-right font-mono text-xs ${p.change24h >= 0 ? "text-neon-green" : "text-destructive"}`}>
+                  <button onClick={() => { onSelect(p); setOpen(false); setPairSearch(""); }} className={`text-right font-mono text-xs ${p.change24h >= 0 ? "text-emerald-500" : "text-red-500"}`}>
                     {p.change24h ? `${p.change24h >= 0 ? "+" : ""}${p.change24h.toFixed(2)}%` : "—"}
                   </button>
                   <button onClick={() => { onSelect(p); setOpen(false); setPairSearch(""); }} className="text-right font-mono text-muted-foreground text-xs">{p.volume24h ? fmtVol(p.volume24h) : "—"}</button>
@@ -919,11 +919,11 @@ function MarketListPanel({ pairs, selected, setSelected, favorites, toggleFav, p
         {pairs.map((p: any) => (
           <button key={p.symbol + p.tokenId} onClick={() => setSelected(p)} className={`w-full grid grid-cols-4 gap-1 items-center px-3 py-1.5 text-[11px] hover:bg-secondary/70 transition-colors ${selected.symbol === p.symbol ? "bg-secondary" : ""}`}>
             <div className="flex items-center gap-1.5 text-left">
-              <Star className={`h-3 w-3 shrink-0 cursor-pointer ${favorites.includes(p.symbol) ? "text-neon-orange fill-neon-orange" : "text-muted-foreground"}`} onClick={(e: any) => { e.stopPropagation(); toggleFav(p.symbol); }} />
+              <Star className={`h-3 w-3 shrink-0 cursor-pointer ${favorites.includes(p.symbol) ? "text-amber-500 fill-amber-500" : "text-muted-foreground"}`} onClick={(e: any) => { e.stopPropagation(); toggleFav(p.symbol); }} />
               <div><span className="font-medium text-foreground">{p.symbol}</span><span className="text-muted-foreground text-[9px] ml-0.5">{p.leverage}</span></div>
             </div>
             <span className="text-right font-mono text-foreground text-[10px]">{p.price ? fmtPrice(p.price) : "..."}</span>
-            <span className={`text-right font-mono text-[10px] ${p.change24h >= 0 ? "text-neon-green" : "text-destructive"}`}>{p.change24h ? `${p.change24h >= 0 ? "+" : ""}${p.change24h.toFixed(2)}%` : "—"}</span>
+            <span className={`text-right font-mono text-[10px] ${p.change24h >= 0 ? "text-emerald-500" : "text-red-500"}`}>{p.change24h ? `${p.change24h >= 0 ? "+" : ""}${p.change24h.toFixed(2)}%` : "—"}</span>
             <span className="text-right font-mono text-muted-foreground text-[10px]">{p.volume24h ? fmtVol(p.volume24h) : "—"}</span>
           </button>
         ))}
@@ -938,7 +938,7 @@ function OrderBookPanel({ asks, bids, maxTotal, spread, spreadPct, marketData, b
       <div className="flex items-center justify-between mb-3">
         <span className="text-sm font-medium border-b-2 border-foreground pb-1 text-foreground">Order Book</span>
         <div className="flex items-center gap-1 bg-secondary rounded-full px-3 py-1 text-[11px]">
-          <span className="text-neon-green">0.01</span>
+          <span className="text-emerald-500">0.01</span>
           <ChevronDown className="h-3 w-3 text-muted-foreground" />
         </div>
       </div>
@@ -949,7 +949,7 @@ function OrderBookPanel({ asks, bids, maxTotal, spread, spreadPct, marketData, b
         {asks.map((a: any, i: number) => (
           <div key={`a${i}`} className="relative grid grid-cols-3 gap-1 px-2 py-[2px] text-[11px] font-mono">
             <div className="absolute inset-0 bg-destructive/8" style={{ width: `${(a.total / maxTotal) * 100}%`, right: 0, left: 'auto' }} />
-            <span className="text-destructive relative z-10">{fmtPrice(a.price)}</span>
+            <span className="text-red-500 relative z-10">{fmtPrice(a.price)}</span>
             <span className="text-right text-foreground relative z-10">{a.size.toFixed(4)}</span>
             <span className="text-right text-muted-foreground relative z-10">{a.total.toFixed(4)}</span>
           </div>
@@ -959,14 +959,14 @@ function OrderBookPanel({ asks, bids, maxTotal, spread, spreadPct, marketData, b
       <div className="flex justify-between text-[11px] py-2 px-1">
         <span className="text-muted-foreground">{spread.toFixed(2)}</span>
         <span className="text-muted-foreground">Spread</span>
-        <span className="text-neon-green">{spreadPct}%</span>
+        <span className="text-emerald-500">{spreadPct}%</span>
       </div>
       <div className="h-px bg-border" />
       <div className="space-y-px mt-3">
         {bids.map((b: any, i: number) => (
           <div key={`b${i}`} className="relative grid grid-cols-3 gap-1 px-2 py-[2px] text-[11px] font-mono">
-            <div className="absolute inset-0 bg-neon-green/8" style={{ width: `${(b.total / maxTotal) * 100}%`, right: 0, left: 'auto' }} />
-            <span className="text-neon-green relative z-10">{fmtPrice(b.price)}</span>
+            <div className="absolute inset-0 bg-emerald-500/8" style={{ width: `${(b.total / maxTotal) * 100}%`, right: 0, left: 'auto' }} />
+            <span className="text-emerald-500 relative z-10">{fmtPrice(b.price)}</span>
             <span className="text-right text-foreground relative z-10">{b.size.toFixed(4)}</span>
             <span className="text-right text-muted-foreground relative z-10">{b.total.toFixed(4)}</span>
           </div>
@@ -995,18 +995,18 @@ function TradeFormPanel({ orderType, setOrderType, orderSide, setOrderSide, pric
         ))}
       </div>
       <div className="flex gap-2 mb-4">
-        <button onClick={() => setOrderSide("buy")} className={`flex-1 py-3 rounded-full text-base font-bold transition-all ${orderSide === "buy" ? "bg-neon-green text-background" : "bg-secondary text-muted-foreground"}`}>Buy / Long</button>
-        <button onClick={() => setOrderSide("sell")} className={`flex-1 py-3 rounded-full text-base font-bold transition-all ${orderSide === "sell" ? "bg-destructive text-white" : "bg-secondary text-muted-foreground"}`}>Sell / Short</button>
+        <button onClick={() => setOrderSide("buy")} className={`flex-1 py-3 rounded-full text-base font-bold transition-all ${orderSide === "buy" ? "bg-emerald-500 text-background" : "bg-secondary text-muted-foreground"}`}>Buy / Long</button>
+        <button onClick={() => setOrderSide("sell")} className={`flex-1 py-3 rounded-full text-base font-bold transition-all ${orderSide === "sell" ? "bg-red-500 text-white" : "bg-secondary text-muted-foreground"}`}>Sell / Short</button>
       </div>
 
       {/* Leverage Slider */}
       <div className="mb-4">
         <div className="flex items-center justify-between text-[10px] mb-2">
           <span className="text-muted-foreground">Leverage</span>
-          <span className="font-mono text-sm font-bold text-neon-green">{effectiveLeverage}x</span>
+          <span className="font-mono text-sm font-bold text-emerald-500">{effectiveLeverage}x</span>
         </div>
         <div className="flex items-center gap-3">
-          <input type="range" min="1" max={maxLeverage} value={effectiveLeverage} onChange={e => setLeverage(parseInt(e.target.value))} className="flex-1 accent-neon-green" />
+          <input type="range" min="1" max={maxLeverage} value={effectiveLeverage} onChange={e => setLeverage(parseInt(e.target.value))} className="flex-1 accent-emerald-500" />
           <span className="font-mono text-[10px] text-muted-foreground w-10 text-right">{maxLeverage}x max</span>
         </div>
         <div className="flex justify-between text-[9px] text-muted-foreground mt-1">
@@ -1017,18 +1017,18 @@ function TradeFormPanel({ orderType, setOrderType, orderSide, setOrderSide, pric
       {/* TP/SL Checkbox + Inline Inputs */}
       <div className="mb-3">
         <label className="flex items-center gap-2 cursor-pointer text-[11px] text-muted-foreground mb-2">
-          <input type="checkbox" checked={tpslEnabled} onChange={e => setTpslEnabled(e.target.checked)} className="accent-neon-green" />
+          <input type="checkbox" checked={tpslEnabled} onChange={e => setTpslEnabled(e.target.checked)} className="accent-emerald-500" />
           <span className="text-foreground font-medium">Take Profit / Stop Loss</span>
         </label>
         {tpslEnabled && (
           <div className="space-y-2 pl-5">
             <div className="flex border border-border rounded-lg px-3 py-2 items-center">
-              <span className="text-[10px] text-neon-green mr-2 shrink-0">TP</span>
+              <span className="text-[10px] text-emerald-500 mr-2 shrink-0">TP</span>
               <input value={tpPrice || ""} onChange={e => { const v = parseFloat(e.target.value) || 0; onConfirmTpsl?.(v, slPrice); }} placeholder={orderSide === "buy" ? `Above ${marketData ? fmtPrice(marketData.price) : "0"}` : `Below ${marketData ? fmtPrice(marketData.price) : "0"}`} type="number" className="bg-transparent flex-1 text-xs font-mono outline-none text-foreground" />
               <span className="text-muted-foreground text-[10px]">USDT</span>
             </div>
             <div className="flex border border-border rounded-lg px-3 py-2 items-center">
-              <span className="text-[10px] text-destructive mr-2 shrink-0">SL</span>
+              <span className="text-[10px] text-red-500 mr-2 shrink-0">SL</span>
               <input value={slPrice || ""} onChange={e => { const v = parseFloat(e.target.value) || 0; onConfirmTpsl?.(tpPrice, v); }} placeholder={orderSide === "buy" ? `Below ${marketData ? fmtPrice(marketData.price) : "0"}` : `Above ${marketData ? fmtPrice(marketData.price) : "0"}`} type="number" className="bg-transparent flex-1 text-xs font-mono outline-none text-foreground" />
               <span className="text-muted-foreground text-[10px]">USDT</span>
             </div>
@@ -1070,25 +1070,25 @@ function TradeFormPanel({ orderType, setOrderType, orderSide, setOrderSide, pric
               const maxAmount = (usdtBalance * pct / 100) / marketData.price;
               setAmount(maxAmount.toFixed(4));
             }
-          }} className="flex-1 accent-neon-green" />
+          }} className="flex-1 accent-emerald-500" />
           <span className="font-mono text-sm w-12 text-right text-foreground">{sliderPct}%</span>
         </div>
       </div>
 
       <div className="flex items-center justify-between text-[11px] mb-4">
-        <label className="flex items-center gap-1.5 cursor-pointer text-muted-foreground"><input type="checkbox" className="accent-neon-green" /> Reduce Only</label>
+        <label className="flex items-center gap-1.5 cursor-pointer text-muted-foreground"><input type="checkbox" className="accent-emerald-500" /> Reduce Only</label>
       </div>
 
       <button onClick={handleTrade} disabled={submitting || !amount || parseFloat(amount) <= 0}
-        className={`w-full py-4 rounded-full text-base font-bold disabled:opacity-50 ${orderSide === "buy" ? "bg-neon-green text-background" : "bg-destructive text-white"}`}>
+        className={`w-full py-4 rounded-full text-base font-bold disabled:opacity-50 ${orderSide === "buy" ? "bg-emerald-500 text-background" : "bg-red-500 text-white"}`}>
         {submitting ? <Loader2 className="h-5 w-5 animate-spin mx-auto" /> : isConnected ? `${orderSide === "buy" ? "Buy" : "Sell"} ${selected.symbol}` : "Connect Wallet to Trade"}
       </button>
 
       <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[11px]">
         <div className="flex justify-between"><span className="text-muted-foreground">Order Value</span><span className="font-mono text-foreground">{orderValue > 0 ? `$${orderValue.toFixed(2)}` : "—"}</span></div>
         <div className="flex justify-between"><span className="text-muted-foreground">Position Size</span><span className="font-mono text-foreground">{positionSize > 0 ? `$${positionSize.toFixed(2)}` : "—"}</span></div>
-        <div className="flex justify-between"><span className="text-muted-foreground">Est. Liq.</span><span className="font-mono text-destructive">{liqPrice > 0 ? `$${fmtPrice(liqPrice)}` : "—"}</span></div>
-        <div className="flex justify-between"><span className="text-muted-foreground">Fees</span><span className="font-mono text-neon-green">0% / 0%</span></div>
+        <div className="flex justify-between"><span className="text-muted-foreground">Est. Liq.</span><span className="font-mono text-red-500">{liqPrice > 0 ? `$${fmtPrice(liqPrice)}` : "—"}</span></div>
+        <div className="flex justify-between"><span className="text-muted-foreground">Fees</span><span className="font-mono text-emerald-500">0% / 0%</span></div>
       </div>
     </div>
   );
@@ -1117,8 +1117,8 @@ function PositionsPanel({ positions, bottomTab, setBottomTab, removePosition }: 
                     <span className="font-mono text-muted-foreground">${fmtPrice(p.entryPrice)}</span>
                     <span className="font-mono text-foreground">${fmtPrice(p.currentPrice)}</span>
                     <span className="font-mono text-foreground">{p.amount}</span>
-                    <span className={`font-mono ${pnlVal >= 0 ? "text-neon-green" : "text-destructive"}`}>{pnlVal >= 0 ? "+" : ""}${pnlVal.toFixed(2)} ({pnlPct.toFixed(1)}%)</span>
-                    <button onClick={() => removePosition(p.id)} className="text-destructive text-[10px] hover:underline">Close</button>
+                    <span className={`font-mono ${pnlVal >= 0 ? "text-emerald-500" : "text-red-500"}`}>{pnlVal >= 0 ? "+" : ""}${pnlVal.toFixed(2)} ({pnlPct.toFixed(1)}%)</span>
+                    <button onClick={() => removePosition(p.id)} className="text-red-500 text-[10px] hover:underline">Close</button>
                   </div>
                 );
               })}
@@ -1134,9 +1134,9 @@ function PositionsPanel({ positions, bottomTab, setBottomTab, removePosition }: 
 function AutoTradingPanel({ enabled, setEnabled, status, riskThreshold, setRiskThreshold, confidenceThreshold, setConfidenceThreshold, maxTrades, setMaxTrades, tradesExecuted, isConnected }: any) {
   const statusColor: Record<string, string> = {
     idle: "text-muted-foreground",
-    monitoring: "text-neon-blue",
-    executing: "text-neon-green",
-    completed: "text-neon-orange",
+    monitoring: "text-cyan-500",
+    executing: "text-emerald-500",
+    completed: "text-amber-500",
   };
   const statusLabel: Record<string, string> = {
     idle: "Idle",
@@ -1149,7 +1149,7 @@ function AutoTradingPanel({ enabled, setEnabled, status, riskThreshold, setRiskT
     <div className="flex flex-col bg-card p-4 space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Zap className="h-4 w-4 text-neon-green" />
+          <Zap className="h-4 w-4 text-emerald-500" />
           <span className="text-sm font-semibold text-foreground">Auto Trading</span>
         </div>
         <button
@@ -1157,7 +1157,7 @@ function AutoTradingPanel({ enabled, setEnabled, status, riskThreshold, setRiskT
             if (!isConnected) { toast.error("Connect wallet first"); return; }
             setEnabled(!enabled);
           }}
-          className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all ${enabled ? "bg-neon-green/20 text-neon-green border border-neon-green/30" : "bg-secondary text-muted-foreground border border-border"}`}
+          className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all ${enabled ? "bg-primary/10 text-primary border border-primary/30" : "bg-secondary text-muted-foreground border border-border"}`}
         >
           <Power className="h-3 w-3" />
           {enabled ? "ON" : "OFF"}
@@ -1178,7 +1178,7 @@ function AutoTradingPanel({ enabled, setEnabled, status, riskThreshold, setRiskT
             <span className="text-muted-foreground">Confidence Threshold</span>
             <span className="font-mono text-foreground">{confidenceThreshold}%</span>
           </div>
-          <input type="range" min="30" max="95" value={confidenceThreshold} onChange={e => setConfidenceThreshold(parseInt(e.target.value))} className="w-full accent-neon-green" />
+          <input type="range" min="30" max="95" value={confidenceThreshold} onChange={e => setConfidenceThreshold(parseInt(e.target.value))} className="w-full accent-emerald-500" />
         </div>
         <div>
           <div className="flex items-center justify-between text-[10px] mb-1">
@@ -1237,8 +1237,8 @@ function CopyTradingPanel({ walletAddress, setWalletAddress, autoCopyEnabled, se
           <span className="text-sm font-semibold text-foreground">Copy Trading</span>
         </div>
         {copyMonitoring && (
-          <span className="flex items-center gap-1 text-[9px] text-neon-green">
-            <span className="h-1.5 w-1.5 rounded-full bg-neon-green animate-pulse" /> MONITORING
+          <span className="flex items-center gap-1 text-[9px] text-primary">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" /> MONITORING
           </span>
         )}
       </div>
@@ -1263,7 +1263,7 @@ function CopyTradingPanel({ walletAddress, setWalletAddress, autoCopyEnabled, se
           {swapTrades.slice(0, 10).map((tx: any, i: number) => (
             <div key={i} className="flex items-center justify-between rounded-lg bg-secondary/50 border border-border px-3 py-2">
               <div className="flex items-center gap-2">
-                <span className={`text-[9px] px-1.5 py-0.5 rounded font-medium ${tx.type === "buy" || tx.type === "swap" ? "bg-neon-green/20 text-neon-green" : "bg-destructive/20 text-destructive"}`}>
+                <span className={`text-[9px] px-1.5 py-0.5 rounded font-medium ${tx.type === "buy" || tx.type === "swap" ? "bg-emerald-500/10 text-primary" : "bg-red-500/10 text-red-500"}`}>
                   {tx.type}
                 </span>
                 <span className="text-xs text-foreground">{tx.tokenIn || "?"} → {tx.tokenOut || "?"}</span>
@@ -1287,7 +1287,7 @@ function CopyTradingPanel({ walletAddress, setWalletAddress, autoCopyEnabled, se
       ) : (
         <button
           onClick={stopCopyMonitoring}
-          className="w-full flex items-center justify-center gap-2 rounded-lg bg-destructive/10 border border-destructive/30 py-3 text-xs font-bold text-destructive hover:bg-destructive/20 transition-colors"
+          className="w-full flex items-center justify-center gap-2 rounded-lg bg-red-500/10 border border-red-500/30 py-3 text-xs font-bold text-red-500 hover:bg-red-500/10 transition-colors"
         >
           <Power className="h-3.5 w-3.5" />
           Stop Monitoring
@@ -1315,10 +1315,10 @@ function SignalsPanel({ signals, loading, onRefresh, onTrade }: { signals: Signa
     <div className="flex flex-col bg-card p-4 space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Zap className="h-4 w-4 text-neon-orange" />
+          <Zap className="h-4 w-4 text-amber-500" />
           <span className="text-sm font-semibold text-foreground">Live Signals</span>
-          <span className="flex items-center gap-1 text-[9px] text-neon-green">
-            <span className="h-1.5 w-1.5 rounded-full bg-neon-green animate-pulse" /> LIVE
+          <span className="flex items-center gap-1 text-[9px] text-emerald-500">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" /> LIVE
           </span>
         </div>
         <button onClick={onRefresh} className="text-muted-foreground hover:text-foreground">
@@ -1343,15 +1343,15 @@ function SignalsPanel({ signals, loading, onRefresh, onTrade }: { signals: Signa
               >
                 <div className="flex items-center gap-2 min-w-0">
                   <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold ${
-                    s.signal === "BUY" ? "bg-neon-green/20 text-neon-green" :
-                    s.signal === "SELL" ? "bg-destructive/20 text-destructive" :
+                    s.signal === "BUY" ? "bg-emerald-500/10 text-emerald-500" :
+                    s.signal === "SELL" ? "bg-red-500/10 text-red-500" :
                     "bg-secondary text-muted-foreground"
                   }`}>{s.signal}</span>
                   <span className="text-xs font-medium text-foreground">{s.token}</span>
                   <span className="text-[10px] font-mono text-muted-foreground">${s.entry < 0.01 ? s.entry.toExponential(2) : s.entry.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className={`text-[9px] font-mono font-bold ${s.confidence >= 70 ? "text-neon-green" : s.confidence >= 50 ? "text-neon-orange" : "text-muted-foreground"}`}>
+                  <span className={`text-[9px] font-mono font-bold ${s.confidence >= 70 ? "text-emerald-500" : s.confidence >= 50 ? "text-amber-500" : "text-muted-foreground"}`}>
                     {s.confidence}%
                   </span>
                   <ChevronDown className={`h-3 w-3 text-muted-foreground transition-transform ${expandedIdx === i ? "rotate-180" : ""}`} />
@@ -1368,15 +1368,15 @@ function SignalsPanel({ signals, loading, onRefresh, onTrade }: { signals: Signa
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Confidence</span>
-                      <span className={`font-mono font-bold ${s.confidence >= 70 ? "text-neon-green" : "text-neon-orange"}`}>{s.confidence}%</span>
+                      <span className={`font-mono font-bold ${s.confidence >= 70 ? "text-emerald-500" : "text-amber-500"}`}>{s.confidence}%</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Target</span>
-                      <span className="font-mono text-neon-green">${s.target < 0.01 ? s.target.toExponential(2) : s.target.toFixed(4)}</span>
+                      <span className="font-mono text-emerald-500">${s.target < 0.01 ? s.target.toExponential(2) : s.target.toFixed(4)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Stop Loss</span>
-                      <span className="font-mono text-destructive">${s.stopLoss < 0.01 ? s.stopLoss.toExponential(2) : s.stopLoss.toFixed(4)}</span>
+                      <span className="font-mono text-red-500">${s.stopLoss < 0.01 ? s.stopLoss.toExponential(2) : s.stopLoss.toFixed(4)}</span>
                     </div>
                   </div>
                   {s.reason && (
@@ -1384,7 +1384,7 @@ function SignalsPanel({ signals, loading, onRefresh, onTrade }: { signals: Signa
                   )}
                   <button
                     onClick={() => handleTrade(s)}
-                    className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-neon-green/10 border border-neon-green/30 py-2 text-[10px] font-bold text-neon-green hover:bg-neon-green/20 transition-colors"
+                    className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 py-2 text-[10px] font-bold text-emerald-500 hover:bg-emerald-500/10 transition-colors"
                   >
                     <Zap className="h-3 w-3" /> Trade
                   </button>

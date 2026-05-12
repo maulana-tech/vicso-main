@@ -6,9 +6,9 @@ export default function PlatformStats() {
   const { stats } = useDashboardStats();
 
   const items = [
-    { icon: Users, label: "Tracked Wallets", value: stats.totalTrackedWallets.toLocaleString(), color: "text-neon-blue" },
-    { icon: Activity, label: "Analyses", value: stats.tokensAnalyzed.toLocaleString(), color: "text-neon-green" },
-    { icon: Globe, label: "Alerts", value: stats.activeAlerts.toLocaleString(), color: "text-neon-purple" },
+    { icon: Users, label: "Tracked Wallets", value: stats.totalTrackedWallets.toLocaleString(), color: "text-cyan-500" },
+    { icon: Activity, label: "Analyses", value: stats.tokensAnalyzed.toLocaleString(), color: "text-emerald-500" },
+    { icon: Globe, label: "Alerts", value: stats.activeAlerts.toLocaleString(), color: "text-purple-500" },
   ];
 
   return (

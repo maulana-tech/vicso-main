@@ -30,9 +30,9 @@ function ShareModal({ position, onClose }: { position: Position; onClose: () => 
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-sm"
       >
-        <div ref={cardRef} className={`rounded-2xl p-6 ${isProfit ? "bg-gradient-to-br from-neon-green/20 via-background to-background border border-neon-green/30" : "bg-gradient-to-br from-destructive/20 via-background to-background border border-destructive/30"}`}>
+        <div ref={cardRef} className={`rounded-2xl p-6 ${isProfit ? "bg-card border border-emerald-500/30" : "bg-card border border-red-500/30"}`}>
           <div className="flex items-center justify-between mb-6">
-            <span className={`text-xs font-bold tracking-widest px-3 py-1 rounded-full ${isProfit ? "bg-neon-green/20 text-neon-green" : "bg-destructive/20 text-destructive"}`}>
+            <span className={`text-xs font-bold tracking-widest px-3 py-1 rounded-full ${isProfit ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}>
               LONG
             </span>
             <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
@@ -42,7 +42,7 @@ function ShareModal({ position, onClose }: { position: Position; onClose: () => 
 
           <div className="text-center space-y-2 mb-6">
             <p className="text-sm text-muted-foreground font-medium">{position.symbol}</p>
-            <div className={`text-5xl font-heading font-black ${isProfit ? "text-neon-green" : "text-destructive"}`}>
+            <div className={`text-5xl font-heading font-black ${isProfit ? "text-emerald-500" : "text-red-500"}`}>
               {isProfit ? "+" : ""}{pnlPercent.toFixed(2)}%
             </div>
           </div>
@@ -83,13 +83,13 @@ export default function PnLCard({ position }: { position: Position }) {
   return (
     <>
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <div className={`glass rounded-xl p-4 border ${isProfit ? "border-neon-green/20" : "border-destructive/20"}`}>
+        <div className={`bg-card border border-border rounded-xl p-4 ${isProfit ? "border-emerald-500/20" : "border-red-500/20"}`}>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="text-lg font-heading font-bold text-foreground">{position.symbol}</span>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-secondary text-muted-foreground">{position.chain}</span>
             </div>
-            <div className={`flex items-center gap-1 text-sm font-bold ${isProfit ? "text-neon-green" : "text-destructive"}`}>
+            <div className={`flex items-center gap-1 text-sm font-bold ${isProfit ? "text-emerald-500" : "text-red-500"}`}>
               {isProfit ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
               {isProfit ? "+" : ""}{pnlPercent.toFixed(2)}%
             </div>
@@ -110,7 +110,7 @@ export default function PnLCard({ position }: { position: Position }) {
             </div>
             <div>
               <p className="text-muted-foreground">P&L</p>
-              <p className={`font-mono font-bold ${isProfit ? "text-neon-green" : "text-destructive"}`}>
+              <p className={`font-mono font-bold ${isProfit ? "text-emerald-500" : "text-red-500"}`}>
                 {isProfit ? "+" : ""}${Math.abs(pnlUsd) < 1 ? pnlUsd.toFixed(6) : pnlUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </p>
             </div>

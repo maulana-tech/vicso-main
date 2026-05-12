@@ -14,8 +14,8 @@ function timeAgo(ts: number): string {
 
 const statusConfig = {
   idle: { color: "bg-muted-foreground", icon: Bot, pulse: false },
-  running: { color: "bg-neon-orange", icon: Loader2, pulse: true },
-  success: { color: "bg-neon-green", icon: CheckCircle2, pulse: false },
+  running: { color: "bg-amber-500", icon: Loader2, pulse: true },
+  success: { color: "bg-emerald-500", icon: CheckCircle2, pulse: false },
   error: { color: "bg-destructive", icon: XCircle, pulse: false },
 };
 
@@ -34,11 +34,11 @@ export default function ClawAgentCard({ agent, index = 0 }: { agent: ClawAgentSt
         className="flex items-center gap-3 p-3 cursor-pointer hover:bg-secondary/30 transition-colors"
         onClick={() => setExpanded(e => !e)}
       >
-        <div className={`rounded-lg p-2 ${agent.status === "running" ? "bg-neon-orange/10" : agent.status === "success" ? "bg-neon-green/10" : agent.status === "error" ? "bg-destructive/10" : "bg-primary/10"}`}>
+        <div className={`rounded-lg p-2 ${agent.status === "running" ? "bg-amber-500/10" : agent.status === "success" ? "bg-emerald-500/10" : agent.status === "error" ? "bg-red-500/10" : "bg-primary/10"}`}>
           {agent.status === "running" ? (
-            <Loader2 className="h-4 w-4 text-neon-orange animate-spin" />
+            <Loader2 className="h-4 w-4 text-amber-500 animate-spin" />
           ) : (
-            <Bot className={`h-4 w-4 ${agent.status === "success" ? "text-neon-green" : agent.status === "error" ? "text-destructive" : "text-primary"}`} />
+            <Bot className={`h-4 w-4 ${agent.status === "success" ? "text-emerald-500" : agent.status === "error" ? "text-red-500" : "text-primary"}`} />
           )}
         </div>
         <div className="flex-1 min-w-0">

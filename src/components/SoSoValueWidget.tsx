@@ -67,7 +67,7 @@ export default function SoSoValueWidget({ compact = false }: SoSoValueWidgetProp
 
   if (loading) {
     return (
-      <Card className="border-primary/20 bg-primary/5">
+      <Card className="border-border bg-card">
         <CardContent className="flex items-center justify-center py-6">
           <Activity className="h-4 w-4 animate-spin text-primary" />
         </CardContent>
@@ -76,11 +76,11 @@ export default function SoSoValueWidget({ compact = false }: SoSoValueWidgetProp
   }
 
   return (
-    <Card className="border-primary/20 bg-primary/5">
+    <Card className="border-t-2 border-t-primary bg-card">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10">
               <BarChart3 className="h-3.5 w-3.5 text-primary" />
             </div>
             <div>
@@ -92,7 +92,7 @@ export default function SoSoValueWidget({ compact = false }: SoSoValueWidgetProp
             href="https://sosovalue.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[10px] text-primary hover:underline"
+            className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
           >
             <ExternalLink className="h-3 w-3" />
             SoSoValue

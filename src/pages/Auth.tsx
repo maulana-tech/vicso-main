@@ -54,7 +54,7 @@ export default function Auth() {
       >
         {/* Logo */}
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/20 neon-glow-purple">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/20">
             <Zap className="h-7 w-7 text-primary" />
           </div>
           <h1 className="font-heading text-2xl font-bold text-foreground">Visco AI</h1>
@@ -62,7 +62,7 @@ export default function Auth() {
         </div>
 
         {/* Form */}
-        <div className="glass rounded-xl p-6">
+        <div className="bg-card border border-border rounded-xl p-6">
           <div className="mb-5 flex rounded-lg border border-border bg-secondary text-xs">
             {(["login", "signup"] as const).map((m) => (
               <button

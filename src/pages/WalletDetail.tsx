@@ -128,7 +128,7 @@ export default function WalletDetail() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => setShowTrackModal(true)} className="flex items-center gap-1.5 rounded-lg bg-neon-green/10 border border-neon-green/30 px-3 py-2 text-xs font-medium text-neon-green hover:bg-neon-green/20 transition-colors">
+          <button onClick={() => setShowTrackModal(true)} className="flex items-center gap-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-3 py-2 text-xs font-medium text-emerald-500 hover:bg-emerald-500/10 transition-colors">
             <Plus className="h-3.5 w-3.5" /> Track Wallet
           </button>
           <button onClick={() => navigate(`/trading?copyWallet=${decodedAddress}`)} className="flex items-center gap-1.5 rounded-lg bg-primary/10 border border-primary/30 px-3 py-2 text-xs font-medium text-primary hover:bg-primary/20 transition-colors">
@@ -150,7 +150,7 @@ export default function WalletDetail() {
       </div>
 
       {loading && !data && <div className="space-y-3">{[1, 2, 3].map((i) => <div key={i} className="h-20 rounded-xl bg-secondary/50 animate-pulse" />)}</div>}
-      {error && <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-4 text-center"><p className="text-sm text-destructive">{error}</p><button onClick={() => scan(decodedAddress, selectedChain)} className="mt-2 text-xs text-primary hover:underline">Retry</button></div>}
+      {error && <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-center"><p className="text-sm text-red-500">{error}</p><button onClick={() => scan(decodedAddress, selectedChain)} className="mt-2 text-xs text-primary hover:underline">Retry</button></div>}
 
       {data && !data.error && (
         <>
@@ -167,23 +167,23 @@ export default function WalletDetail() {
               <p className="text-[9px] uppercase text-muted-foreground">Total Txs</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }} className="glass rounded-xl p-3 sm:p-4 text-center">
-              <Search className="h-4 w-4 text-neon-blue mx-auto mb-1" />
+              <Search className="h-4 w-4 text-cyan-500 mx-auto mb-1" />
               <p className="font-heading text-base sm:text-lg font-bold text-foreground">{data.tokenCount}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Tokens</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.09 }} className="glass rounded-xl p-3 sm:p-4 text-center">
-              {data.pnl30d.net >= 0 ? <TrendingUp className="h-4 w-4 text-neon-green mx-auto mb-1" /> : <TrendingDown className="h-4 w-4 text-destructive mx-auto mb-1" />}
-              <p className={`font-heading text-base sm:text-lg font-bold ${data.pnl30d.net >= 0 ? "text-neon-green" : "text-destructive"}`}>{data.pnl30d.net >= 0 ? "+" : ""}{formatValue(data.pnl30d.net)} {data.nativeSymbol}</p>
+              {data.pnl30d.net >= 0 ? <TrendingUp className="h-4 w-4 text-emerald-500 mx-auto mb-1" /> : <TrendingDown className="h-4 w-4 text-red-500 mx-auto mb-1" />}
+              <p className={`font-heading text-base sm:text-lg font-bold ${data.pnl30d.net >= 0 ? "text-emerald-500" : "text-red-500"}`}>{data.pnl30d.net >= 0 ? "+" : ""}{formatValue(data.pnl30d.net)} {data.nativeSymbol}</p>
               <p className="text-[9px] uppercase text-muted-foreground">30d PnL</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }} className="glass rounded-xl p-3 sm:p-4 text-center">
-              <ArrowDownRight className="h-4 w-4 text-neon-green mx-auto mb-1" />
-              <p className="font-heading text-base sm:text-lg font-bold text-neon-green">{buys.length}</p>
+              <ArrowDownRight className="h-4 w-4 text-emerald-500 mx-auto mb-1" />
+              <p className="font-heading text-base sm:text-lg font-bold text-emerald-500">{buys.length}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Buys ({formatValue(buyVolume)} {data.nativeSymbol})</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass rounded-xl p-3 sm:p-4 text-center">
-              <ArrowUpRight className="h-4 w-4 text-destructive mx-auto mb-1" />
-              <p className="font-heading text-base sm:text-lg font-bold text-destructive">{sells.length}</p>
+              <ArrowUpRight className="h-4 w-4 text-red-500 mx-auto mb-1" />
+              <p className="font-heading text-base sm:text-lg font-bold text-red-500">{sells.length}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Sells ({formatValue(sellVolume)} {data.nativeSymbol})</p>
             </motion.div>
           </div>
@@ -201,21 +201,21 @@ export default function WalletDetail() {
           {activeTab === "overview" && (
             <div className="space-y-4">
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
-                <h3 className="font-heading text-sm font-semibold text-foreground mb-3 flex items-center gap-2"><TrendingUp className="h-4 w-4 text-neon-green" /> 30-Day Performance</h3>
+                <h3 className="font-heading text-sm font-semibold text-foreground mb-3 flex items-center gap-2"><TrendingUp className="h-4 w-4 text-emerald-500" /> 30-Day Performance</h3>
                 <div className="grid grid-cols-3 gap-3">
                   <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
-                    <ArrowDownRight className="h-3.5 w-3.5 text-neon-green mx-auto mb-1" />
-                    <p className="font-heading text-base font-bold text-neon-green">{formatValue(data.pnl30d.totalIn)} {data.nativeSymbol}</p>
+                    <ArrowDownRight className="h-3.5 w-3.5 text-emerald-500 mx-auto mb-1" />
+                    <p className="font-heading text-base font-bold text-emerald-500">{formatValue(data.pnl30d.totalIn)} {data.nativeSymbol}</p>
                     <p className="text-[9px] uppercase text-muted-foreground">Total In</p>
                   </div>
                   <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
-                    <ArrowUpRight className="h-3.5 w-3.5 text-destructive mx-auto mb-1" />
-                    <p className="font-heading text-base font-bold text-destructive">{formatValue(data.pnl30d.totalOut)} {data.nativeSymbol}</p>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-red-500 mx-auto mb-1" />
+                    <p className="font-heading text-base font-bold text-red-500">{formatValue(data.pnl30d.totalOut)} {data.nativeSymbol}</p>
                     <p className="text-[9px] uppercase text-muted-foreground">Total Out</p>
                   </div>
                   <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
                     <Activity className="h-3.5 w-3.5 text-primary mx-auto mb-1" />
-                    <p className={`font-heading text-base font-bold ${data.pnl30d.percentChange >= 0 ? "text-neon-green" : "text-destructive"}`}>
+                    <p className={`font-heading text-base font-bold ${data.pnl30d.percentChange >= 0 ? "text-emerald-500" : "text-red-500"}`}>
                       {data.pnl30d.percentChange >= 0 ? "+" : ""}{data.pnl30d.percentChange.toFixed(1)}%
                     </p>
                     <p className="text-[9px] uppercase text-muted-foreground">Net Change</p>
@@ -249,9 +249,9 @@ export default function WalletDetail() {
                     <tr key={i} className="border-b border-border/50 hover:bg-secondary/30">
                       <td className="py-2 px-2"><a href={getExplorerUrl(selectedChain, tx.hash, "tx")} target="_blank" rel="noreferrer" className="font-mono text-primary hover:underline">{tx.hash.slice(0, 10)}...</a></td>
                       <td className="py-2 px-2 text-muted-foreground whitespace-nowrap">{new Date(tx.timestamp).toLocaleDateString()}</td>
-                      <td className="py-2 px-2"><span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${tx.type === "Receive" ? "bg-neon-green/20 text-neon-green" : "bg-destructive/20 text-destructive"}`}>{tx.type}</span></td>
+                      <td className="py-2 px-2"><span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${tx.type === "Receive" ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}>{tx.type}</span></td>
                       <td className="py-2 px-2 text-right font-mono text-foreground">{formatValue(tx.value)} {data.nativeSymbol}</td>
-                      <td className="py-2 px-2 text-center"><span className={`text-[9px] ${tx.status === "Success" ? "text-neon-green" : "text-destructive"}`}>{tx.status}</span></td>
+                      <td className="py-2 px-2 text-center"><span className={`text-[9px] ${tx.status === "Success" ? "text-emerald-500" : "text-red-500"}`}>{tx.status}</span></td>
                     </tr>
                   ))}</tbody>
                 </table>
@@ -282,7 +282,7 @@ export default function WalletDetail() {
                     </tr></thead>
                     <tbody>{txsHook.transactions.map((tx, i) => (
                       <tr key={i} className="border-b border-border/50 hover:bg-secondary/30">
-                        <td className="py-2 px-2"><span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${tx.type === "buy" || tx.type === "swap" ? "bg-neon-green/20 text-neon-green" : "bg-destructive/20 text-destructive"}`}>{tx.type}</span></td>
+                        <td className="py-2 px-2"><span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${tx.type === "buy" || tx.type === "swap" ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}>{tx.type}</span></td>
                         <td className="py-2 px-2 text-foreground">{tx.tokenIn || "—"} <span className="text-muted-foreground">({tx.amountIn.toFixed(4)})</span></td>
                         <td className="py-2 px-2 text-foreground">{tx.tokenOut || "—"} <span className="text-muted-foreground">({tx.amountOut.toFixed(4)})</span></td>
                         <td className="py-2 px-2 text-right font-mono text-foreground">${tx.valueUsd.toFixed(2)}</td>
@@ -312,19 +312,19 @@ export default function WalletDetail() {
                 <>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                     <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
-                      <p className={`font-heading text-base font-bold ${pnlHook.data.totals.realizedPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>${Math.abs(pnlHook.data.totals.realizedPnl).toFixed(2)}</p>
+                      <p className={`font-heading text-base font-bold ${pnlHook.data.totals.realizedPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>${Math.abs(pnlHook.data.totals.realizedPnl).toFixed(2)}</p>
                       <p className="text-[9px] uppercase text-muted-foreground">Realized PnL</p>
                     </div>
                     <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
-                      <p className={`font-heading text-base font-bold ${pnlHook.data.totals.unrealizedPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>${Math.abs(pnlHook.data.totals.unrealizedPnl).toFixed(2)}</p>
+                      <p className={`font-heading text-base font-bold ${pnlHook.data.totals.unrealizedPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>${Math.abs(pnlHook.data.totals.unrealizedPnl).toFixed(2)}</p>
                       <p className="text-[9px] uppercase text-muted-foreground">Unrealized PnL</p>
                     </div>
                     <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
-                      <p className="font-heading text-base font-bold text-neon-green">${pnlHook.data.totals.buyVolume.toFixed(2)}</p>
+                      <p className="font-heading text-base font-bold text-emerald-500">${pnlHook.data.totals.buyVolume.toFixed(2)}</p>
                       <p className="text-[9px] uppercase text-muted-foreground">Buy Volume</p>
                     </div>
                     <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
-                      <p className="font-heading text-base font-bold text-destructive">${pnlHook.data.totals.sellVolume.toFixed(2)}</p>
+                      <p className="font-heading text-base font-bold text-red-500">${pnlHook.data.totals.sellVolume.toFixed(2)}</p>
                       <p className="text-[9px] uppercase text-muted-foreground">Sell Volume</p>
                     </div>
                   </div>
@@ -336,9 +336,9 @@ export default function WalletDetail() {
                       <tbody>{pnlHook.data.items.map((p, i) => (
                         <tr key={i} className="border-b border-border/50 hover:bg-secondary/30">
                           <td className="py-2 px-2 text-foreground font-medium">{p.token}</td>
-                          <td className={`py-2 px-2 text-right font-mono ${p.realizedPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>{p.realizedPnl >= 0 ? "+" : ""}${Math.abs(p.realizedPnl).toFixed(2)}</td>
-                          <td className={`py-2 px-2 text-right font-mono ${p.unrealizedPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>{p.unrealizedPnl >= 0 ? "+" : ""}${Math.abs(p.unrealizedPnl).toFixed(2)}</td>
-                          <td className={`py-2 px-2 text-right font-mono ${p.totalPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>{p.totalPnl >= 0 ? "+" : ""}${Math.abs(p.totalPnl).toFixed(2)}</td>
+                          <td className={`py-2 px-2 text-right font-mono ${p.realizedPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{p.realizedPnl >= 0 ? "+" : ""}${Math.abs(p.realizedPnl).toFixed(2)}</td>
+                          <td className={`py-2 px-2 text-right font-mono ${p.unrealizedPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{p.unrealizedPnl >= 0 ? "+" : ""}${Math.abs(p.unrealizedPnl).toFixed(2)}</td>
+                          <td className={`py-2 px-2 text-right font-mono ${p.totalPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{p.totalPnl >= 0 ? "+" : ""}${Math.abs(p.totalPnl).toFixed(2)}</td>
                           <td className="py-2 px-2 text-right font-mono text-muted-foreground">{p.trades}</td>
                         </tr>
                       ))}</tbody>
@@ -393,7 +393,7 @@ export default function WalletDetail() {
                 <p className="mt-1 font-mono text-xs text-foreground bg-secondary rounded-lg px-3 py-2 truncate">{decodedAddress}</p>
               </div>
               <div>
-                <label className="text-xs text-muted-foreground">Wallet Name <span className="text-destructive">*</span></label>
+                <label className="text-xs text-muted-foreground">Wallet Name <span className="text-red-500">*</span></label>
                 <input value={trackLabel} onChange={(e) => setTrackLabel(e.target.value)} placeholder="e.g. Whale 1, Smart Money Alpha" className="mt-1 w-full rounded-lg border border-border bg-secondary px-3 py-2 text-sm text-foreground outline-none focus:border-primary" autoFocus />
               </div>
               <div>
@@ -402,7 +402,7 @@ export default function WalletDetail() {
                   {CHAINS.map((c) => (<option key={c.value} value={c.value.toUpperCase()}>{c.label}</option>))}
                 </select>
               </div>
-              <button onClick={handleTrackWallet} disabled={tracking || !trackLabel.trim()} className="w-full rounded-lg bg-neon-green/20 border border-neon-green/30 py-2.5 text-sm font-medium text-neon-green hover:bg-neon-green/30 transition-colors disabled:opacity-50">
+              <button onClick={handleTrackWallet} disabled={tracking || !trackLabel.trim()} className="w-full rounded-lg bg-emerald-500/10 border border-emerald-500/30 py-2.5 text-sm font-medium text-emerald-500 hover:bg-emerald-500/20 transition-colors disabled:opacity-50">
                 {tracking ? "Saving..." : "Track This Wallet"}
               </button>
             </div>

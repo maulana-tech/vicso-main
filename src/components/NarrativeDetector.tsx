@@ -10,9 +10,9 @@ export default function NarrativeDetector() {
   const { data, loading } = useTokenData(selectedSymbol);
 
   return (
-    <div className="glass rounded-xl p-5">
+    <div className="rounded-xl p-5 bg-card border border-border">
       <div className="flex items-center gap-2 mb-4">
-        <Flame className="h-4 w-4 text-neon-orange" />
+        <Flame className="h-4 w-4 text-amber-500" />
         <h3 className="font-heading text-sm font-semibold text-foreground">Quick Token Check</h3>
       </div>
       <div className="flex flex-wrap gap-2 mb-4">
@@ -39,14 +39,14 @@ export default function NarrativeDetector() {
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm font-semibold text-foreground">{data.name} ({data.symbol})</span>
-            <span className={`text-xs font-mono font-bold ${data.priceChange24h >= 0 ? "text-neon-green" : "text-destructive"}`}>
+            <span className={`text-xs font-mono font-bold ${data.priceChange24h >= 0 ? "text-emerald-500" : "text-red-500"}`}>
               {data.priceChange24h >= 0 ? "+" : ""}{data.priceChange24h.toFixed(2)}%
             </span>
           </div>
           <div className="grid grid-cols-2 gap-2 text-[10px]">
             <div className="flex justify-between"><span className="text-muted-foreground">Price</span><span className="font-mono text-foreground">${data.price.toLocaleString(undefined, { maximumFractionDigits: 6 })}</span></div>
             <div className="flex justify-between"><span className="text-muted-foreground">MCap</span><span className="font-mono text-foreground">${(data.marketCap / 1e6).toFixed(1)}M</span></div>
-            <div className="flex justify-between"><span className="text-muted-foreground">Risk</span><span className={`font-mono font-bold ${data.riskScore <= 35 ? "text-neon-green" : data.riskScore <= 65 ? "text-neon-orange" : "text-destructive"}`}>{data.riskScore}/100</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Risk</span><span className={`font-mono font-bold ${data.riskScore <= 35 ? "text-emerald-500" : data.riskScore <= 65 ? "text-amber-500" : "text-red-500"}`}>{data.riskScore}/100</span></div>
             <div className="flex justify-between"><span className="text-muted-foreground">Source</span><span className="font-mono text-foreground">{data.source}</span></div>
           </div>
         </motion.div>

@@ -148,7 +148,7 @@ export default function CreateAgentModal({
               {/* Toggles */}
               <div className="flex items-center gap-6">
                 {[
-                  { label: "Auto Buy", value: autoBuy, set: setAutoBuy, color: "bg-neon-green" },
+                  { label: "Auto Buy", value: autoBuy, set: setAutoBuy, color: "bg-emerald-500" },
                   { label: "Auto Sell", value: autoSell, set: setAutoSell, color: "bg-destructive" },
                 ].map((t) => (
                   <div key={t.label} className="flex items-center gap-2">

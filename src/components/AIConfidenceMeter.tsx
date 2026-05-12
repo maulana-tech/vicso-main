@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 
 export default function AIConfidenceMeter({ confidence, label = "AI Confidence" }: { confidence: number; label?: string }) {
-  const color = confidence >= 75 ? "text-neon-green" : confidence >= 50 ? "text-neon-orange" : "text-destructive";
-  const bgColor = confidence >= 75 ? "bg-neon-green" : confidence >= 50 ? "bg-neon-orange" : "bg-destructive";
+  const color = confidence >= 75 ? "text-emerald-500" : confidence >= 50 ? "text-amber-500" : "text-red-500";
+  const bgColor = confidence >= 75 ? "bg-emerald-500" : confidence >= 50 ? "bg-amber-500" : "bg-destructive";
 
   return (
     <div className="flex items-center gap-3">

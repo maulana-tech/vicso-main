@@ -19,7 +19,7 @@ function formatPrice(v: number) {
 export default function LiveTokenDashboard({ data, loading }: { data: TokenData | null; loading: boolean }) {
   if (loading) {
     return (
-      <div className="glass rounded-xl p-4 sm:p-5">
+      <div className="rounded-xl p-4 sm:p-5 bg-card border border-border">
         <div className="flex items-center gap-2 mb-4">
           <div className="h-4 w-24 animate-pulse rounded bg-secondary" />
         </div>
@@ -38,12 +38,12 @@ export default function LiveTokenDashboard({ data, loading }: { data: TokenData 
   if (!data) return null;
 
   const metrics = [
-    { label: "Price", value: formatPrice(data.price), icon: data.priceChange24h >= 0 ? TrendingUp : TrendingDown, color: data.priceChange24h >= 0 ? "text-neon-green" : "text-destructive" },
+    { label: "Price", value: formatPrice(data.price), icon: data.priceChange24h >= 0 ? TrendingUp : TrendingDown, color: data.priceChange24h >= 0 ? "text-emerald-500" : "text-red-500" },
     { label: "Market Cap", value: formatUsd(data.marketCap), icon: BarChart3, color: "text-foreground" },
-    { label: "Liquidity", value: formatUsd(data.liquidity), icon: Droplets, color: data.liquidity > 1e6 ? "text-neon-green" : "text-neon-orange" },
-    { label: "Volume 24h", value: formatUsd(data.volume24h), icon: BarChart3, color: "text-neon-blue" },
-    { label: "24h Change", value: (data.priceChange24h >= 0 ? "+" : "") + data.priceChange24h.toFixed(1) + "%", icon: data.priceChange24h >= 0 ? TrendingUp : TrendingDown, color: data.priceChange24h >= 0 ? "text-neon-green" : "text-destructive" },
-    { label: "Risk Score", value: data.riskScore + "/100", icon: Shield, color: data.riskScore > 60 ? "text-destructive" : data.riskScore > 35 ? "text-neon-orange" : "text-neon-green" },
+    { label: "Liquidity", value: formatUsd(data.liquidity), icon: Droplets, color: data.liquidity > 1e6 ? "text-emerald-500" : "text-amber-500" },
+    { label: "Volume 24h", value: formatUsd(data.volume24h), icon: BarChart3, color: "text-cyan-500" },
+    { label: "24h Change", value: (data.priceChange24h >= 0 ? "+" : "") + data.priceChange24h.toFixed(1) + "%", icon: data.priceChange24h >= 0 ? TrendingUp : TrendingDown, color: data.priceChange24h >= 0 ? "text-emerald-500" : "text-red-500" },
+    { label: "Risk Score", value: data.riskScore + "/100", icon: Shield, color: data.riskScore > 60 ? "text-red-500" : data.riskScore > 35 ? "text-amber-500" : "text-emerald-500" },
   ];
 
   return (
@@ -54,12 +54,12 @@ export default function LiveTokenDashboard({ data, loading }: { data: TokenData 
           <span className="rounded bg-secondary px-2 py-0.5 text-xs font-mono text-muted-foreground">{data.symbol}</span>
           <span className="rounded bg-secondary px-2 py-0.5 text-[10px] text-muted-foreground">{data.chain}</span>
           {data.source === "ave" && (
-            <span className="rounded-full bg-neon-green/10 px-2 py-0.5 text-[10px] font-medium text-neon-green">LIVE</span>
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">LIVE</span>
           )}
         </div>
         <div className="flex items-center gap-1.5 text-[10px]">
           {data.liquidityLocked ? (
-            <span className="flex items-center gap-1 text-neon-green"><Lock className="h-3 w-3" /> Locked</span>
+            <span className="flex items-center gap-1 text-primary"><Lock className="h-3 w-3" /> Locked</span>
           ) : (
             <span className="flex items-center gap-1 text-destructive"><Unlock className="h-3 w-3" /> Unlocked</span>
           )}

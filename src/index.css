@@ -6,54 +6,55 @@
 
 @layer base {
   :root {
-    --background: 230 25% 7%;
-    --foreground: 220 20% 90%;
+    --background: 220 15% 5%;
+    --foreground: 220 15% 90%;
 
-    --card: 230 25% 10%;
-    --card-foreground: 220 20% 90%;
+    --card: 220 12% 8%;
+    --card-foreground: 220 15% 90%;
 
-    --popover: 230 25% 10%;
-    --popover-foreground: 220 20% 90%;
+    --popover: 220 12% 8%;
+    --popover-foreground: 220 15% 90%;
 
-    --primary: 280 100% 65%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 90% 55%;
+    --primary-hover: 38 90% 48%;
+    --primary-foreground: 220 15% 5%;
 
-    --secondary: 230 25% 14%;
-    --secondary-foreground: 220 20% 85%;
+    --secondary: 220 12% 12%;
+    --secondary-foreground: 220 15% 85%;
 
-    --muted: 230 20% 15%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 220 10% 12%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 190 100% 50%;
-    --accent-foreground: 230 25% 7%;
+    --accent: 145 65% 45%;
+    --accent-foreground: 220 15% 5%;
 
-    --destructive: 0 80% 55%;
+    --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 230 20% 18%;
-    --input: 230 20% 18%;
-    --ring: 280 100% 65%;
+    --border: 220 10% 15%;
+    --input: 220 10% 15%;
+    --ring: 38 90% 55%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
+    --radius-sm: 0.25rem;
+    --radius-lg: 0.75rem;
 
-    /* Custom tokens */
-    --neon-pink: 330 100% 65%;
-    --neon-green: 145 100% 55%;
-    --neon-blue: 210 100% 60%;
-    --neon-purple: 280 100% 65%;
-    --neon-orange: 25 100% 55%;
-    --surface-glass: 230 25% 12%;
-    --glow-pink: 0 0% 0% / 0;
-    --glow-purple: 0 0% 0% / 0;
+    --signal-buy: 145 55% 45%;
+    --signal-sell: 0 65% 50%;
+    --signal-hold: 38 70% 50%;
+    --signal-warning: 30 80% 55%;
 
-    --sidebar-background: 230 25% 8%;
-    --sidebar-foreground: 220 20% 80%;
-    --sidebar-primary: 280 100% 65%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 230 25% 14%;
-    --sidebar-accent-foreground: 220 20% 90%;
-    --sidebar-border: 230 20% 16%;
-    --sidebar-ring: 280 100% 65%;
+    --accent-cyan: 195 75% 50%;
+    --accent-purple: 265 55% 55%;
+
+    --sidebar-background: 220 15% 4%;
+    --sidebar-foreground: 220 15% 80%;
+    --sidebar-primary: 38 90% 55%;
+    --sidebar-primary-foreground: 220 15% 5%;
+    --sidebar-accent: 220 12% 12%;
+    --sidebar-accent-foreground: 220 15% 85%;
+    --sidebar-border: 220 10% 12%;
+    --sidebar-ring: 38 90% 55%;
   }
 }
 
@@ -68,45 +69,9 @@
 }
 
 @layer utilities {
-  .glass {
-    @apply bg-card/60 backdrop-blur-xl border border-border/50;
-  }
-
-  .glass-strong {
-    @apply bg-card/80 backdrop-blur-2xl border border-border/60;
-  }
-
-  .neon-glow-pink {
-    box-shadow: 0 0 20px hsl(330 100% 65% / 0.15), 0 0 60px hsl(330 100% 65% / 0.05);
-  }
-
-  .neon-glow-purple {
-    box-shadow: 0 0 20px hsl(280 100% 65% / 0.15), 0 0 60px hsl(280 100% 65% / 0.05);
-  }
-
-  .neon-glow-green {
-    box-shadow: 0 0 20px hsl(145 100% 55% / 0.15), 0 0 60px hsl(145 100% 55% / 0.05);
-  }
-
-  .neon-glow-blue {
-    box-shadow: 0 0 20px hsl(210 100% 60% / 0.15), 0 0 60px hsl(210 100% 60% / 0.05);
-  }
-
-  .text-gradient-primary {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(280,100%,65%)] to-[hsl(330,100%,65%)];
-  }
-
-  .text-gradient-accent {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(190,100%,50%)] to-[hsl(210,100%,60%)];
-  }
-
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: hsl(230 20% 18%) transparent;
+    scrollbar-color: hsl(220 10% 20%) transparent;
   }
 
   .scrollbar-thin::-webkit-scrollbar {
@@ -118,7 +83,23 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: hsl(230 20% 25%);
+    background: hsl(220 10% 22%);
     border-radius: 3px;
+  }
+
+  .signal-buy {
+    @apply bg-emerald-500/10 text-emerald-500 border border-emerald-500/30;
+  }
+
+  .signal-sell {
+    @apply bg-red-500/10 text-red-500 border border-red-500/30;
+  }
+
+  .signal-hold {
+    @apply bg-amber-500/10 text-amber-500 border border-amber-500/30;
+  }
+
+  .signal-warning {
+    @apply bg-orange-500/10 text-orange-500 border border-orange-500/30;
   }
 }

@@ -20,7 +20,7 @@ export default function WhaleActivityTable({ data }: { data: WhaleActivity[] }) 
 
   if (data.length === 0) {
     return (
-      <div className="glass rounded-xl p-8 text-center">
+      <div className="rounded-xl p-8 text-center bg-card border border-border">
         <Users className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
         <p className="text-sm text-muted-foreground">No whale activity data available</p>
         <p className="text-xs text-muted-foreground mt-1">Whale tracking requires an on-chain data feed integration</p>
@@ -29,7 +29,7 @@ export default function WhaleActivityTable({ data }: { data: WhaleActivity[] }) 
   }
 
   return (
-    <div className="glass rounded-xl">
+    <div className="rounded-xl bg-card border border-border">
       <div className="border-b border-border px-5 py-4">
         <h3 className="font-heading text-sm font-semibold text-foreground">Live Whale Activity</h3>
       </div>
@@ -50,12 +50,12 @@ export default function WhaleActivityTable({ data }: { data: WhaleActivity[] }) 
                 <td className="px-5 py-3.5">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs text-foreground">{item.wallet}</span>
-                    {item.isUnusual && <AlertTriangle className="h-3.5 w-3.5 text-neon-orange" />}
+                    {item.isUnusual && <AlertTriangle className="h-3.5 w-3.5 text-amber-500" />}
                   </div>
                 </td>
                 <td className="px-5 py-3.5"><span className="font-medium text-foreground">{item.tokenSymbol}</span></td>
                 <td className="px-5 py-3.5">
-                  <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${item.action === "buy" ? "bg-neon-green/10 text-neon-green" : "bg-destructive/10 text-destructive"}`}>
+                  <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${item.action === "buy" ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}>
                     {item.action === "buy" ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
                     {item.action.toUpperCase()}
                   </span>

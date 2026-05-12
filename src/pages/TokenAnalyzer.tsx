@@ -65,9 +65,9 @@ export default function TokenAnalyzer() {
   };
 
   const statusColor = (score: number) => {
-    if (score <= 35) return "text-neon-green border-neon-green/30 bg-neon-green/5";
-    if (score <= 65) return "text-neon-orange border-neon-orange/30 bg-neon-orange/5";
-    return "text-destructive border-destructive/30 bg-destructive/5";
+    if (score <= 35) return "text-emerald-500 border-emerald-500/30 bg-emerald-500/5";
+    if (score <= 65) return "text-amber-500 border-amber-500/30 bg-amber-500/5";
+    return "text-red-500 border-red-500/30 bg-red-500/5";
   };
 
   const statusLabel = (score: number) => {
@@ -77,9 +77,9 @@ export default function TokenAnalyzer() {
   };
 
   const statusIcon = (score: number) => {
-    if (score <= 35) return <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-neon-green" />;
-    if (score <= 65) return <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-neon-orange" />;
-    return <XCircle className="h-4 w-4 sm:h-5 sm:w-5 text-destructive" />;
+    if (score <= 35) return <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />;
+    if (score <= 65) return <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-amber-500" />;
+    return <XCircle className="h-4 w-4 sm:h-5 sm:w-5 text-red-500" />;
   };
 
   const inputHint = (() => {
@@ -129,7 +129,7 @@ export default function TokenAnalyzer() {
           </motion.div>
 
           {error && (
-            <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 sm:p-4 text-xs sm:text-sm text-destructive">{error}</div>
+            <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-3 sm:p-4 text-xs sm:text-sm text-red-500">{error}</div>
           )}
 
           {(analysis || loading) && (
@@ -155,7 +155,7 @@ export default function TokenAnalyzer() {
                               }
                               toast.success(tokenAlertEnabled ? "Alert disabled" : "Alert enabled");
                             }}
-                            className={`p-1.5 rounded transition-colors ${tokenAlertEnabled ? "text-neon-green" : "text-muted-foreground"}`}
+                            className={`p-1.5 rounded transition-colors ${tokenAlertEnabled ? "text-emerald-500" : "text-muted-foreground"}`}
                             title={tokenAlertEnabled ? "Alerts ON — click to disable" : "Alerts OFF — click to enable"}
                           >
                             {tokenAlertEnabled ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
@@ -196,7 +196,7 @@ export default function TokenAnalyzer() {
                         const addr = analysis.tokenData!.address || analysis.tokenData!.symbol;
                         const chain = analysis.tokenData!.chain || "bsc";
                         window.open(`https://ave.ai/token/${addr}-${chain}?from=Home`, "_blank");
-                      }} className="flex items-center gap-1.5 text-xs text-neon-green hover:underline">
+                      }} className="flex items-center gap-1.5 text-xs text-emerald-500 hover:underline">
                         <LineChart className="h-3 w-3" /> Chart
                       </button>
                     </div>
@@ -213,7 +213,7 @@ export default function TokenAnalyzer() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 sm:p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-heading text-sm font-semibold text-foreground">Analysis History</h3>
-            {history.length > 0 && <button onClick={clearHistory} className="flex items-center gap-1.5 text-xs text-destructive hover:underline"><Trash2 className="h-3 w-3" /> Clear All</button>}
+            {history.length > 0 && <button onClick={clearHistory} className="flex items-center gap-1.5 text-xs text-red-500 hover:underline"><Trash2 className="h-3 w-3" /> Clear All</button>}
           </div>
           {history.length === 0 ? (
             <p className="text-sm text-muted-foreground py-8 text-center">No tokens analyzed yet.</p>
@@ -231,7 +231,7 @@ export default function TokenAnalyzer() {
                   <div className="flex items-center gap-3 text-xs shrink-0">
                     <span className="font-mono text-muted-foreground">Risk: {entry.riskScore}</span>
                     <div className="hidden sm:flex items-center gap-1 text-muted-foreground"><Clock className="h-3 w-3" />{new Date(entry.analyzedAt).toLocaleDateString()}</div>
-                    <button onClick={() => removeFromHistory(entry.id)} className="p-1 text-muted-foreground hover:text-destructive transition-colors" title="Remove">
+                    <button onClick={() => removeFromHistory(entry.id)} className="p-1 text-muted-foreground hover:text-red-500 transition-colors" title="Remove">
                       <X className="h-3.5 w-3.5" />
                     </button>
                   </div>

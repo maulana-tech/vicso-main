@@ -32,7 +32,7 @@ export default function SmartMoneyWallets() {
   return (
     <div className="glass rounded-xl p-4 sm:p-5">
       <div className="flex items-center gap-2 mb-3 sm:mb-4">
-        <Users className="h-4 w-4 text-neon-blue" />
+        <Users className="h-4 w-4 text-cyan-500" />
         <h3 className="font-heading text-sm font-semibold text-foreground">Smart Money Wallets</h3>
       </div>
       <div className="space-y-2 max-h-[300px] sm:max-h-[350px] overflow-y-auto scrollbar-thin">
@@ -46,8 +46,8 @@ export default function SmartMoneyWallets() {
             className="w-full flex items-center justify-between rounded-lg border border-border bg-secondary/50 p-2.5 sm:p-3 hover:bg-secondary transition-colors text-left"
           >
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <div className={`h-7 w-7 sm:h-8 sm:w-8 rounded-lg flex items-center justify-center shrink-0 ${w.pnl30d >= 0 ? "bg-neon-green/10" : "bg-destructive/10"}`}>
-                {w.pnl30d >= 0 ? <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-neon-green" /> : <TrendingDown className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-destructive" />}
+              <div className={`h-7 w-7 sm:h-8 sm:w-8 rounded-lg flex items-center justify-center shrink-0 ${w.pnl30d >= 0 ? "bg-emerald-500/10" : "bg-red-500/10"}`}>
+                {w.pnl30d >= 0 ? <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500" /> : <TrendingDown className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-red-500" />}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
@@ -58,7 +58,7 @@ export default function SmartMoneyWallets() {
               </div>
             </div>
             <div className="text-right shrink-0 ml-2">
-              <p className={`text-[11px] sm:text-xs font-mono font-bold ${w.pnl30d >= 0 ? "text-neon-green" : "text-destructive"}`}>
+              <p className={`text-[11px] sm:text-xs font-mono font-bold ${w.pnl30d >= 0 ? "text-emerald-500" : "text-red-500"}`}>
                 {formatPnl(w.pnl30d)}
               </p>
               <p className="text-[9px] sm:text-[10px] text-muted-foreground">30d PnL</p>

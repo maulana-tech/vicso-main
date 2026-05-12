@@ -18,7 +18,7 @@ export default function QuickActionBar() {
       {/* Floating button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg neon-glow-purple hover:bg-primary/90 transition-all duration-200"
+        className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all duration-200"
       >
         {open ? <X className="h-5 w-5" /> : <Zap className="h-5 w-5" />}
       </button>
@@ -39,7 +39,7 @@ export default function QuickActionBar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
                 onClick={action.onClick}
-                className="flex items-center gap-3 rounded-xl border border-border bg-card/90 backdrop-blur-xl px-4 py-3 text-sm font-medium text-foreground shadow-lg hover:bg-secondary transition-colors"
+                className="flex items-center gap-3 rounded-xl border border-border bg-card/90 px-4 py-3 text-sm font-medium text-foreground shadow-lg hover:bg-secondary transition-colors"
               >
                 <action.icon className="h-4 w-4 text-primary" />
                 {action.label}

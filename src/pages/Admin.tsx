@@ -93,7 +93,7 @@ export default function Admin() {
             </p>
           </div>
           {!user && (
-            <div className="glass rounded-xl p-5 sm:p-6">
+            <div className="bg-card border border-border rounded-xl p-5 sm:p-6">
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
                   <label className="text-xs text-muted-foreground">Email</label>
@@ -148,11 +148,11 @@ export default function Admin() {
       <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-4">
         {[
           { label: "Users", value: users.length.toString(), color: "text-primary" },
-          { label: "Visitors", value: totalVisitors.toString(), color: "text-neon-green" },
-          { label: "Analyses", value: totalAnalyses.toString(), color: "text-neon-blue" },
-          { label: "Wallets", value: totalWallets.toString(), color: "text-neon-orange" },
+          { label: "Visitors", value: totalVisitors.toString(), color: "text-emerald-500" },
+          { label: "Analyses", value: totalAnalyses.toString(), color: "text-cyan-500" },
+          { label: "Wallets", value: totalWallets.toString(), color: "text-amber-500" },
         ].map((s) => (
-          <div key={s.label} className="glass rounded-lg p-3 sm:p-4 text-center">
+          <div key={s.label} className="bg-card border border-border rounded-lg p-3 sm:p-4 text-center">
             <p className={`font-heading text-lg sm:text-xl font-bold ${s.color}`}>{s.value}</p>
             <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">{s.label}</p>
           </div>
@@ -176,7 +176,7 @@ export default function Admin() {
               <p className="py-8 text-center text-muted-foreground text-sm">No users found</p>
             ) : (
               filteredUsers.map((u) => (
-                <button key={u.user_id} onClick={() => openUserDetail(u)} className="w-full glass rounded-lg p-3 text-left hover:bg-secondary/70 transition-colors">
+                <button key={u.user_id} onClick={() => openUserDetail(u)} className="w-full bg-card border border-border rounded-lg p-3 text-left hover:bg-secondary/70 transition-colors">
                   <p className="text-sm font-semibold text-foreground">{u.username || "—"}</p>
                   <p className="text-[10px] text-muted-foreground truncate">{u.email || "—"}</p>
                   <p className="text-[10px] text-muted-foreground mt-1">Joined: {new Date(u.created_at).toLocaleDateString()}</p>
@@ -185,7 +185,7 @@ export default function Admin() {
             )}
           </div>
           {/* Desktop table */}
-          <div className="hidden sm:block glass rounded-xl overflow-hidden">
+          <div className="hidden sm:block bg-card border border-border rounded-xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
@@ -228,7 +228,7 @@ export default function Admin() {
               <p className="py-8 text-center text-muted-foreground text-sm">No visitor sessions</p>
             ) : (
               visitors.map((v) => (
-                <div key={v.id} className="glass rounded-lg p-3">
+                <div key={v.id} className="bg-card border border-border rounded-lg p-3">
                   <p className="font-mono text-xs text-foreground">{v.session_id.slice(0, 12)}...</p>
                   <div className="flex justify-between mt-1 text-[10px] text-muted-foreground">
                     <span>Views: {v.page_views}</span>
@@ -240,7 +240,7 @@ export default function Admin() {
             )}
           </div>
           {/* Desktop table */}
-          <div className="hidden sm:block glass rounded-xl overflow-hidden">
+          <div className="hidden sm:block bg-card border border-border rounded-xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
@@ -278,7 +278,7 @@ export default function Admin() {
       {tab === "analytics" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="glass rounded-xl p-4 sm:p-5">
+            <div className="bg-card border border-border rounded-xl p-4 sm:p-5">
               <h3 className="font-heading text-sm font-semibold text-foreground mb-3">Platform Summary</h3>
               <div className="space-y-3">
                 {[
@@ -294,19 +294,19 @@ export default function Admin() {
                 ))}
               </div>
             </div>
-            <div className="glass rounded-xl p-4 sm:p-5">
+            <div className="bg-card border border-border rounded-xl p-4 sm:p-5">
               <h3 className="font-heading text-sm font-semibold text-foreground mb-3">System Status</h3>
               <div className="space-y-3">
                 {[
-                  { label: "Database", status: "Online", color: "text-neon-green" },
-                  { label: "Auth Service", status: "Online", color: "text-neon-green" },
-                  { label: "Edge Functions", status: "Ready", color: "text-neon-blue" },
-                  { label: "API Gateway", status: "Active", color: "text-neon-green" },
+                  { label: "Database", status: "Online", color: "text-emerald-500" },
+                  { label: "Auth Service", status: "Online", color: "text-emerald-500" },
+                  { label: "Edge Functions", status: "Ready", color: "text-cyan-500" },
+                  { label: "API Gateway", status: "Active", color: "text-emerald-500" },
                 ].map((s) => (
                   <div key={s.label} className="flex items-center justify-between">
                     <span className="text-xs text-muted-foreground">{s.label}</span>
                     <div className="flex items-center gap-1.5">
-                      <span className={`h-1.5 w-1.5 rounded-full ${s.color === "text-neon-green" ? "bg-neon-green" : "bg-neon-blue"}`} />
+                      <span className={`h-1.5 w-1.5 rounded-full ${s.color === "text-emerald-500" ? "bg-emerald-500" : "bg-cyan-500"}`} />
                       <span className={`text-xs font-medium ${s.color}`}>{s.status}</span>
                     </div>
                   </div>
@@ -326,7 +326,7 @@ export default function Admin() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
-              className="glass-strong rounded-xl p-5 sm:p-6 w-full max-w-lg shadow-2xl max-h-[80vh] overflow-y-auto scrollbar-thin"
+              className="bg-card border border-border rounded-xl p-5 sm:p-6 w-full max-w-lg shadow-2xl max-h-[80vh] overflow-y-auto scrollbar-thin"
             >
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-heading text-sm font-semibold text-foreground">User Details</h3>
@@ -377,7 +377,7 @@ export default function Admin() {
                       <div key={i} className="flex items-center justify-between rounded-lg border border-border bg-secondary/50 p-2">
                         <span className="text-xs font-semibold text-foreground">{a.token_symbol}</span>
                         <div className="flex items-center gap-2 text-[10px]">
-                          <span className={`font-mono ${(a.risk_score || 0) <= 35 ? "text-neon-green" : (a.risk_score || 0) <= 65 ? "text-neon-orange" : "text-destructive"}`}>
+                          <span className={`font-mono ${(a.risk_score || 0) <= 35 ? "text-emerald-500" : (a.risk_score || 0) <= 65 ? "text-amber-500" : "text-red-500"}`}>
                             Risk: {a.risk_score}
                           </span>
                           <span className="text-muted-foreground">{new Date(a.created_at).toLocaleDateString()}</span>

@@ -13,15 +13,15 @@ const tabs = [
 ] as const;
 
 const typeColor = (type: string) => {
-  if (type === "risk") return "border-destructive/30 bg-destructive/5";
-  if (type === "wallet") return "border-neon-blue/30 bg-neon-blue/5";
-  return "border-neon-green/30 bg-neon-green/5";
+  if (type === "risk") return "border-red-500/30 bg-red-500/5";
+  if (type === "wallet") return "border-cyan-500/30 bg-cyan-500/5";
+  return "border-emerald-500/30 bg-emerald-500/5";
 };
 
 const typeBadge = (type: string) => {
-  if (type === "risk") return "bg-destructive/20 text-destructive";
-  if (type === "wallet") return "bg-neon-blue/20 text-neon-blue";
-  return "bg-neon-green/20 text-neon-green";
+  if (type === "risk") return "bg-red-500/10 text-red-500";
+  if (type === "wallet") return "bg-cyan-500/10 text-cyan-500";
+  return "bg-emerald-500/10 text-emerald-500";
 };
 
 export default function Alerts() {
@@ -85,9 +85,9 @@ export default function Alerts() {
 
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {[
-          { label: "Active", count: activeCount, color: "text-neon-green" },
-          { label: "Token", count: alerts.filter((a) => a.alert_type === "token").length, color: "text-neon-blue" },
-          { label: "Wallet", count: alerts.filter((a) => a.alert_type === "wallet").length, color: "text-neon-orange" },
+          { label: "Active", count: activeCount, color: "text-emerald-500" },
+          { label: "Token", count: alerts.filter((a) => a.alert_type === "token").length, color: "text-cyan-500" },
+          { label: "Wallet", count: alerts.filter((a) => a.alert_type === "wallet").length, color: "text-amber-500" },
         ].map((s) => (
           <motion.div key={s.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-lg p-3 text-center">
             <p className={"font-heading text-lg sm:text-2xl font-bold " + s.color}>{s.count}</p>
@@ -131,11 +131,11 @@ export default function Alerts() {
                   <div className="flex items-center gap-1.5 shrink-0">
                     <button
                       onClick={(e) => { e.stopPropagation(); toggleAlert(alert.id, alert.enabled); }}
-                      className={`p-1.5 rounded transition-colors ${alert.enabled ? "text-neon-green" : "text-muted-foreground"}`}
+                      className={`p-1.5 rounded transition-colors ${alert.enabled ? "text-emerald-500" : "text-muted-foreground"}`}
                     >
                       {alert.enabled ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
                     </button>
-                    <button onClick={(e) => { e.stopPropagation(); removeAlert(alert.id); }} className="p-1.5 text-destructive/60 hover:text-destructive transition-colors">
+                    <button onClick={(e) => { e.stopPropagation(); removeAlert(alert.id); }} className="p-1.5 text-red-500/60 hover:text-red-500 transition-colors">
                       <X className="h-3.5 w-3.5" />
                     </button>
                   </div>

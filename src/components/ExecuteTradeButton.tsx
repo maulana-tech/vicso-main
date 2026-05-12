@@ -80,7 +80,7 @@ export default function ExecuteTradeButton({
       <Button
         onClick={handleClick}
         disabled={disabled || !amount || parseFloat(amount) <= 0}
-        className={`${sizeConfig[size]} ${fullWidth ? "w-full" : ""} bg-neon-green hover:bg-neon-green/90 text-black font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all`}
+        className={`${sizeConfig[size]} ${fullWidth ? "w-full" : ""} bg-emerald-500 hover:bg-emerald-500/90 text-black font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all`}
       >
         {loading ? (
           <>

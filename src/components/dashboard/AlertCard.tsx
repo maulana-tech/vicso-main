@@ -10,15 +10,15 @@ const iconMap = {
 };
 
 const severityStyles = {
-  info: "border-neon-blue/30 bg-neon-blue/5",
-  warning: "border-neon-orange/30 bg-neon-orange/5",
-  critical: "border-destructive/30 bg-destructive/5",
+  info: "border-cyan-500/30 bg-cyan-500/5",
+  warning: "border-amber-500/30 bg-amber-500/5",
+  critical: "border-red-500/30 bg-red-500/5",
 };
 
 const severityIconColor = {
-  info: "text-neon-blue",
-  warning: "text-neon-orange",
-  critical: "text-destructive",
+  info: "text-cyan-500",
+  warning: "text-amber-500",
+  critical: "text-red-500",
 };
 
 export default function AlertCard({ alert, index = 0 }: { alert: Alert; index?: number }) {

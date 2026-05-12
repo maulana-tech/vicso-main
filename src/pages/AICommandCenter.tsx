@@ -118,9 +118,9 @@ export default function AICommandCenter() {
   };
 
   const verdictColor = (v?: string) => {
-    if (v === "BUY") return "bg-neon-green/10 text-neon-green border-neon-green/30";
-    if (v === "AVOID") return "bg-destructive/10 text-destructive border-destructive/30";
-    return "bg-neon-orange/10 text-neon-orange border-neon-orange/30";
+    if (v === "BUY") return "bg-emerald-500/10 text-emerald-500 border-emerald-500/30";
+    if (v === "AVOID") return "bg-red-500/10 text-red-500 border-red-500/30";
+    return "bg-amber-500/10 text-amber-500 border-amber-500/30";
   };
 
   return (
@@ -250,7 +250,7 @@ export default function AICommandCenter() {
                       </button>
                       <button
                         onClick={() => navigate(`/trading?token=${msg.tokenSymbol}`)}
-                        className="flex items-center gap-1 text-xs text-neon-green hover:underline"
+                        className="flex items-center gap-1 text-xs text-emerald-500 hover:underline"
                       >
                         <TrendingUp className="h-3 w-3" /> Trade →
                       </button>

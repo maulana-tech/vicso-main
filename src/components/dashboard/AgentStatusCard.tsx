@@ -8,7 +8,7 @@ export default function AgentStatusCard({ agent, index = 0 }: { agent: AgentStat
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.06 }}
-      className="glass flex items-center gap-3 rounded-lg p-3"
+      className="flex items-center gap-3 rounded-lg p-3 bg-card border border-border"
     >
       <div className="rounded-lg bg-primary/10 p-2">
         <Bot className="h-4 w-4 text-primary" />
@@ -18,7 +18,7 @@ export default function AgentStatusCard({ agent, index = 0 }: { agent: AgentStat
         <p className="text-[10px] text-muted-foreground">{agent.tasksCompleted} tasks • {agent.lastRun}</p>
       </div>
       <span className={`h-2 w-2 rounded-full ${
-        agent.status === "active" ? "bg-neon-green animate-pulse" : agent.status === "idle" ? "bg-neon-orange" : "bg-destructive"
+        agent.status === "active" ? "bg-primary" : agent.status === "idle" ? "bg-amber-500" : "bg-red-500"
       }`} />
     </motion.div>
   );

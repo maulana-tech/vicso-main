@@ -68,17 +68,17 @@ export default function Portfolio() {
           <p className="text-[9px] uppercase text-muted-foreground">Total Value</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="glass rounded-xl p-4 text-center">
-          <PieChart className="h-4 w-4 text-neon-blue mx-auto mb-1" />
+          <PieChart className="h-4 w-4 text-cyan-500 mx-auto mb-1" />
           <p className="font-heading text-lg font-bold text-foreground">{tokens.length}</p>
           <p className="text-[9px] uppercase text-muted-foreground">Assets</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass rounded-xl p-4 text-center">
-          {pnlTotals.totalPnl >= 0 ? <TrendingUp className="h-4 w-4 text-neon-green mx-auto mb-1" /> : <TrendingDown className="h-4 w-4 text-destructive mx-auto mb-1" />}
-          <p className={`font-heading text-lg font-bold ${pnlTotals.totalPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>{formatVal(Math.abs(pnlTotals.totalPnl))}</p>
+          {pnlTotals.totalPnl >= 0 ? <TrendingUp className="h-4 w-4 text-emerald-500 mx-auto mb-1" /> : <TrendingDown className="h-4 w-4 text-red-500 mx-auto mb-1" />}
+          <p className={`font-heading text-lg font-bold ${pnlTotals.totalPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{formatVal(Math.abs(pnlTotals.totalPnl))}</p>
           <p className="text-[9px] uppercase text-muted-foreground">Total PnL</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass rounded-xl p-4 text-center">
-          <TrendingUp className="h-4 w-4 text-neon-green mx-auto mb-1" />
+          <TrendingUp className="h-4 w-4 text-emerald-500 mx-auto mb-1" />
           <p className="font-heading text-lg font-bold text-foreground">{formatVal(pnlTotals.buyVolume)}</p>
           <p className="text-[9px] uppercase text-muted-foreground">Buy Volume</p>
         </motion.div>
@@ -148,9 +148,9 @@ export default function Portfolio() {
               {pnlItems.map((p, i) => (
                 <div key={i} className="flex items-center rounded-lg bg-secondary/50 border border-border px-3 py-2.5">
                   <span className="flex-1 text-xs font-medium text-foreground">{p.token}</span>
-                  <span className={`w-24 text-right text-xs font-mono ${p.realizedPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>{p.realizedPnl >= 0 ? "+" : ""}{formatVal(Math.abs(p.realizedPnl))}</span>
-                  <span className={`w-24 text-right text-xs font-mono hidden sm:block ${p.unrealizedPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>{p.unrealizedPnl >= 0 ? "+" : ""}{formatVal(Math.abs(p.unrealizedPnl))}</span>
-                  <span className={`w-24 text-right text-xs font-mono ${p.totalPnl >= 0 ? "text-neon-green" : "text-destructive"}`}>{p.totalPnl >= 0 ? "+" : ""}{formatVal(Math.abs(p.totalPnl))}</span>
+                  <span className={`w-24 text-right text-xs font-mono ${p.realizedPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{p.realizedPnl >= 0 ? "+" : ""}{formatVal(Math.abs(p.realizedPnl))}</span>
+                  <span className={`w-24 text-right text-xs font-mono hidden sm:block ${p.unrealizedPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{p.unrealizedPnl >= 0 ? "+" : ""}{formatVal(Math.abs(p.unrealizedPnl))}</span>
+                  <span className={`w-24 text-right text-xs font-mono ${p.totalPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{p.totalPnl >= 0 ? "+" : ""}{formatVal(Math.abs(p.totalPnl))}</span>
                   <span className="w-16 text-right text-xs font-mono text-muted-foreground hidden sm:block">{p.trades}</span>
                 </div>
               ))}

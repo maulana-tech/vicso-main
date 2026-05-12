@@ -182,15 +182,15 @@ export default function AIChatPanel() {
   };
 
   const verdictColor = (v?: string) => {
-    if (v === "BUY") return "bg-neon-green/10 text-neon-green";
-    if (v === "AVOID") return "bg-destructive/10 text-destructive";
-    return "bg-neon-orange/10 text-neon-orange";
+    if (v === "BUY") return "bg-emerald-500/10 text-emerald-500";
+    if (v === "AVOID") return "bg-red-500/10 text-red-500";
+    return "bg-amber-500/10 text-amber-500";
   };
 
   const statusIndicator = () => {
-    if (connectionStatus === "connected") return "bg-neon-green";
-    if (connectionStatus === "disconnected") return "bg-neon-orange";
-    if (connectionStatus === "error") return "bg-destructive";
+    if (connectionStatus === "connected") return "bg-emerald-500";
+    if (connectionStatus === "disconnected") return "bg-amber-500";
+    if (connectionStatus === "error") return "bg-red-500";
     return "bg-muted-foreground";
   };
 
@@ -205,7 +205,7 @@ export default function AIChatPanel() {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl neon-glow-purple hover:scale-105 transition-all duration-200"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl hover:scale-105 transition-all duration-200"
         aria-label="AI Chat"
       >
         {open ? <X className="h-5 w-5" /> : <Bot className="h-5 w-5 sm:h-6 sm:w-6" />}
