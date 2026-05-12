@@ -212,7 +212,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
 
-            <p className="text-[9px] text-center text-muted-foreground">Powered by AVE Skills</p>
+            <p className="text-[9px] text-center text-muted-foreground">Powered by VicSO Skills</p>
           </div>
         </div>
       </aside>
