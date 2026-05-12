@@ -37,24 +37,28 @@ export interface SoDEXSpotCoin {
 
 export interface SoDEXSpotTicker {
   symbol: string;
-  lastPrice: string;
-  priceChange: string;
-  priceChangePercent: string;
-  high24h: string;
-  low24h: string;
-  volume24h: string;
-  quoteVolume24h: string;
-  openPrice: string;
-  openInterest: string;
+  lastPx: string;
+  openPx: string;
+  highPx: string;
+  lowPx: string;
+  volume: string;
+  quoteVolume: string;
+  change: string;
+  changePct: number;
+  askPx: string;
+  askSz: string;
+  bidPx: string;
+  bidSz: string;
+  openTime: number;
   closeTime: number;
 }
 
 export interface SoDEXBookTicker {
   symbol: string;
-  bidPrice: string;
-  bidQty: string;
-  askPrice: string;
-  askQty: string;
+  askPx: string;
+  askSz: string;
+  bidPx: string;
+  bidSz: string;
 }
 
 export interface SoDEXOrderBook {
@@ -216,7 +220,7 @@ export async function findSymbolByCoins(baseCoin: string, quoteCoin: string): Pr
 export async function getSpotPrice(symbol: string): Promise<number> {
   const tickers = await getTickers(symbol);
   const ticker = tickers.find(t => t.symbol === symbol);
-  return ticker ? parseFloat(ticker.lastPrice) : 0;
+  return ticker ? parseFloat(ticker.lastPx) : 0;
 }
 
 export async function getQuoteAsset(): Promise<SoDEXSpotCoin[]> {

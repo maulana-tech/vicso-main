@@ -32,3 +32,6 @@ dist-ssr
 # OS files
 Thumbs.db
 .vercel
+
+# Vite build artifacts
+*.timestamp-*.mjs

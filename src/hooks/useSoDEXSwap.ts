@@ -115,11 +115,13 @@ export function useSoDEXSwap() {
       }
 
       const fromAmountNum = parseFloat(state.fromAmount);
-      const price = ticker.side === "BUY" ? parseFloat(ticker.askPrice) : parseFloat(ticker.bidPrice);
+      const askPrice = parseFloat(ticker.askPx || "0");
+      const bidPrice = parseFloat(ticker.bidPx || "0");
 
-      const toAmountNum = state.fromCoin === state.toCoin.replace("v", "")
-        ? fromAmountNum / price
-        : fromAmountNum * price;
+      const isBuy = true; // default to buying (from base to quote)
+      const price = isBuy ? askPrice : bidPrice;
+
+      const toAmountNum = fromAmountNum / price;
 
       const slippageMultiplier = 1 - slippage / 100;
       const estimatedPrice = price * slippageMultiplier;
@@ -134,8 +136,8 @@ export function useSoDEXSwap() {
         slippage,
         fee: "0.1",
         estimatedPrice: estimatedPrice.toString(),
-        bestBid: ticker.bidPrice,
-        bestAsk: ticker.askPrice,
+        bestBid: ticker.bidPx,
+        bestAsk: ticker.askPx,
       };
 
       setState(prev => ({

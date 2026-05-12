@@ -49,12 +49,6 @@ export default function SoSoValueWidget({ compact = false }: SoSoValueWidgetProp
 
   useEffect(() => {
     async function fetchData() {
-      const apiKey = import.meta.env.VITE_SOSOVALUE_API_KEY;
-      if (!apiKey) {
-        setLoading(false);
-        return;
-      }
-      
       try {
         const [indicesData, newsData] = await Promise.all([
           getIndices().catch(() => []),
@@ -76,33 +70,6 @@ export default function SoSoValueWidget({ compact = false }: SoSoValueWidgetProp
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="flex items-center justify-center py-6">
           <Activity className="h-4 w-4 animate-spin text-primary" />
-        </CardContent>
-      </Card>
-    );
-  }
-
-  const apiKey = import.meta.env.VITE_SOSOVALUE_API_KEY;
-  if (!apiKey) {
-    return (
-      <Card className="border-primary/20 bg-primary/5">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15">
-                <BarChart3 className="h-3.5 w-3.5 text-primary" />
-              </div>
-              <div>
-                <CardTitle className="text-sm font-semibold">SoSoValue Index</CardTitle>
-                <p className="text-[10px] text-muted-foreground">Powered by SoSoValue API</p>
-              </div>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center py-4 text-sm text-muted-foreground">
-            <p>SoSoValue API key not configured.</p>
-            <p className="text-xs mt-1">Add VITE_SOSOVALUE_API_KEY to .env to enable data.</p>
-          </div>
         </CardContent>
       </Card>
     );

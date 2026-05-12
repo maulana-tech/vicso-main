@@ -227,16 +227,9 @@ export function useAISignals() {
   const [signals, setSignals] = useState<SignalAlert[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [hasApiKey, setHasApiKey] = useState(true);
+  const [hasApiKey] = useState(true);
 
   const checkApiKey = useCallback(() => {
-    const apiKey = import.meta.env.VITE_SOSOVALUE_API_KEY;
-    if (!apiKey) {
-      setHasApiKey(false);
-      setError("SoSoValue API key not configured. Please add VITE_SOSOVALUE_API_KEY to your environment variables.");
-      return false;
-    }
-    setHasApiKey(true);
     return true;
   }, []);
 
