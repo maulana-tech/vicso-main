@@ -171,7 +171,7 @@ export function useSoDEXSwap() {
         message: `Swap ${state.quote.fromAmount} ${state.quote.fromCoin} for ${state.quote.toAmount} ${state.quote.toCoin} on SoDEX at ${new Date().toISOString()}`,
       });
 
-      console.log("Swap signature:", signature);
+      
 
       const result: SwapResult = {
         success: true,
