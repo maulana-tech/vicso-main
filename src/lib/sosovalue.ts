@@ -1,6 +1,19 @@
 const BASE_URL = "https://openapi.sosovalue.com/openapi/v1";
 const API_KEY = 'SOSO-b788a96885df4898b7f8e760f13bf57b';
 
+const CURRENCY_IDS: Record<string, string> = {
+  BTC: "1673723677362319866", ETH: "1673723677362319868", BNB: "1673723677362319874",
+  SOL: "1730846864525430787", XRP: "1673723677362319936", DOGE: "1673723677362319890",
+  ADA: "1673723677362319869", AVAX: "1673723677362319875", LINK: "1673723677362319897",
+  MATIC: "1730847291434274818", DOT: "1673723677362319898", LTC: "1673723677362319889",
+  UNI: "1673723677362319908", ATOM: "1673723677362319895", XLM: "1673723677362319904",
+  PEPE: "1845506759320096770", TRUMP: "1751660503379623939",
+};
+
+let currencyCache: { currency_id: string; symbol: string; name: string }[] | null = null;
+let currencyCacheTime = 0;
+const CACHE_TTL = 10 * 60 * 1000;
+
 export interface SoSoCurrency {
   currency_id: string;
   symbol: string;
@@ -29,21 +42,9 @@ export interface SoSoMarketSnapshot {
 }
 
 export interface SoSoTokenEconomics {
-  token_allocation: {
-    holder: string;
-    percentage: number;
-  }[];
-  token_unlock: {
-    unlocked: string;
-    total_locked: string;
-  };
-  unlock_timeline: {
-    vestings: {
-      label: string;
-      amount: number;
-    }[];
-    timestamp: string;
-  }[];
+  token_allocation: { holder: string; percentage: number }[];
+  token_unlock: { unlocked: string; total_locked: string };
+  unlock_timeline: { vestings: { label: string; amount: number }[]; timestamp: string }[];
 }
 
 export interface SoSoNews {
@@ -61,42 +62,39 @@ export interface SoSoNewsList {
   list: SoSoNews[];
 }
 
+interface SoSoResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+  details: unknown;
+}
+
 async function fetchSoSo<T>(endpoint: string): Promise<T> {
   const url = `${BASE_URL}${endpoint}`;
-  console.log('Fetching SoSoValue:', url, 'with key:', API_KEY.substring(0, 20) + '...');
-
   const response = await fetch(url, {
-    headers: {
-      "x-soso-api-key": API_KEY,
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    },
+    headers: { "x-soso-api-key": API_KEY, "Content-Type": "application/json", "Accept": "application/json" },
   });
-
-  console.log('Response status:', response.status, response.statusText);
-
-  if (!response.ok) {
-    const text = await response.text();
-    console.error('SoSoValue API error response:', text);
-    throw new Error(`SoSoValue API error: ${response.status} ${response.statusText}`);
-  }
-
-  const json = await response.json();
-
-  if (json.code !== 0) {
-    throw new Error(json.message || `SoSoValue API error: ${json.code}`);
-  }
-
+  if (!response.ok) throw new Error(`SoSoValue API error: ${response.status}`);
+  const json = await response.json() as SoSoResponse<T>;
+  if (json.code !== 0) throw new Error(json.message || `SoSoValue error: ${json.code}`);
   return json.data;
 }
 
-export async function getCurrencies(): Promise<SoSoCurrency[]> {
-  return fetchSoSo<SoSoCurrency[]>("/currencies");
+async function getCurrencies(): Promise<SoSoCurrency[]> {
+  if (currencyCache && Date.now() - currencyCacheTime < CACHE_TTL) return currencyCache;
+  try {
+    const data = await fetchSoSo<SoSoCurrency[]>("/currencies");
+    currencyCache = data;
+    currencyCacheTime = Date.now();
+    return data;
+  } catch { return currencyCache || []; }
 }
 
 export async function getCurrencyBySymbol(symbol: string): Promise<SoSoCurrency | null> {
+  const upper = symbol.toUpperCase();
+  if (CURRENCY_IDS[upper]) return { currency_id: CURRENCY_IDS[upper], symbol: upper, name: upper };
   const currencies = await getCurrencies();
-  return currencies.find((c) => c.symbol.toUpperCase() === symbol.toUpperCase()) || null;
+  return currencies.find((c) => c.symbol.toUpperCase() === upper) || null;
 }
 
 export async function getMarketSnapshot(currencyId: string): Promise<SoSoMarketSnapshot> {
@@ -138,7 +136,7 @@ export async function getSectorSpotlight() {
   return fetchSoSo("/currencies/sector-spotlight");
 }
 
-export async function getCurrencyKlines(currencyId: string, interval = "1d", limit = 30): Promise<unknown[]> {
+export async function getCurrencyKlines(currencyId: string, interval = "1d", limit = 300): Promise<unknown[]> {
   return fetchSoSo(`/currencies/${currencyId}/klines?interval=${interval}&limit=${limit}`);
 }
 
@@ -151,12 +149,26 @@ export interface SoSoKline {
   volume: number;
 }
 
-export async function getCurrencyKlinesData(symbol: string, interval = "1d"): Promise<SoSoKline[]> {
-  const currency = await getCurrencyBySymbol(symbol);
-  if (!currency) return [];
-  const data = await getCurrencyKlines(currency.currency_id, interval, 300);
-  if (!data || !Array.isArray(data) || data.length === 0) return [];
-  return data.map((k: any) => ({
+export async function getCurrencyKlinesData(symbol: string): Promise<SoSoKline[]> {
+  const upper = symbol.toUpperCase();
+  const currencyId = CURRENCY_IDS[upper];
+  if (!currencyId) {
+    const currency = await getCurrencyBySymbol(symbol);
+    if (!currency) return [];
+    const data = await getCurrencyKlines(currency.currency_id, "1d", 300);
+    if (!Array.isArray(data) || data.length === 0) return [];
+    return (data as any[]).map((k) => ({
+      time: Math.floor(parseInt(k.timestamp || k.time || 0) / 1000),
+      open: parseFloat(k.open || 0),
+      high: parseFloat(k.high || 0),
+      low: parseFloat(k.low || 0),
+      close: parseFloat(k.close || 0),
+      volume: parseFloat(k.volume || 0),
+    }));
+  }
+  const data = await getCurrencyKlines(currencyId, "1d", 300);
+  if (!Array.isArray(data) || data.length === 0) return [];
+  return (data as any[]).map((k) => ({
     time: Math.floor(parseInt(k.timestamp || k.time || 0) / 1000),
     open: parseFloat(k.open || 0),
     high: parseFloat(k.high || 0),
@@ -165,3 +177,5 @@ export async function getCurrencyKlinesData(symbol: string, interval = "1d"): Pr
     volume: parseFloat(k.volume || 0),
   }));
 }
+
+export { CURRENCY_IDS };
