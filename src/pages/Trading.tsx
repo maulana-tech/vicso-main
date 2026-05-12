@@ -12,8 +12,8 @@ import { useWalletConnection } from "@/hooks/useWalletConnection";
 import { usePositions } from "@/hooks/usePositions";
 import { useSignals, useWalletTxs, type SignalItem } from "@/hooks/useAVEWallet";
 
-import { getCurrencyKlinesData, getMarketSnapshot, CURRENCY_IDS } from "@/lib/sosovalue";
-import { getCoinGeckoPrice } from "@/lib/coingecko";
+import { getCurrencyKlinesData } from "@/lib/sosovalue";
+import { getCCKlines, getCCTickers } from "@/lib/cryptocompare";
 import { getOrderBook, toSoDEXSymbol } from "@/lib/sodex";
 import WalletConnectModal from "@/components/WalletConnectModal";
 import { toast } from "sonner";
@@ -74,13 +74,15 @@ function generateOrderBook(midPrice: number): { asks: OrderBookEntry[]; bids: Or
   return { asks: asks.reverse(), bids };
 }
 
-function fmtPrice(p: number): string {
+function fmtPrice(p: number | undefined): string {
+  if (p === undefined || p === null || isNaN(p)) return "0.00";
   if (p >= 1000) return p.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   if (p >= 1) return p.toFixed(4);
   if (p >= 0.0001) return p.toFixed(6);
   return p.toFixed(10);
 }
-function fmtVol(v: number): string {
+function fmtVol(v: number | undefined): string {
+  if (v === undefined || v === null || isNaN(v)) return "$0";
   if (v >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
   if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
   if (v >= 1e3) return `$${v.toFixed(0)}K`;
@@ -126,6 +128,10 @@ function TradingChart({ tokenId, interval, currentPrice }: { tokenId: string; in
         link: "LINK", doge: "DOGE", xrp: "XRP", avax: "AVAX", trump: "TRUMP",
       };
       const symbol = symbolMap[tokenId.split("-")[1]?.toLowerCase()] || tokenId.split("-")[0]?.toUpperCase() || "ETH";
+      // Try CryptoCompare first (no rate limit)
+      const cc = await getCCKlines(symbol, 300);
+      if (cc && cc.length > 0) return cc;
+      // Fallback to SoSoValue
       return await getCurrencyKlinesData(symbol);
     } catch {
       return [];
@@ -437,38 +443,22 @@ export default function Trading() {
 
   useEffect(() => {
     const syms = ["BTC", "ETH", "BNB", "SOL", "XRP", "DOGE", "ADA", "AVAX", "LINK", "DOT", "LTC", "UNI", "XLM", "PEPE", "TRUMP", "HYPE"];
-    Promise.all(syms.map(async (sym) => {
-      try {
-        const cid = CURRENCY_IDS[sym];
-        if (cid) {
-          const snap = await getMarketSnapshot(cid);
-          return { symbol: sym, name: sym, tokenId: `hot-${sym}`, leverage: "10x", price: snap.price || 0, change24h: (snap.change_pct_24h || 0) * 100, volume24h: snap.turnover_24h || 0 };
-        }
-      } catch { /* skip */ }
-      return null;
-    })).then(results => setHotTokens(results.filter(Boolean) as TokenMarket[])).catch(() => {});
+    getCCTickers(syms).then(data => {
+      const tokens: TokenMarket[] = Object.entries(data).map(([sym, d]) => ({
+        symbol: sym, name: sym, tokenId: `hot-${sym}`, leverage: "10x",
+        price: d.price, change24h: d.change24h, volume24h: d.volume,
+      }));
+      setHotTokens(tokens);
+    }).catch(() => {});
   }, []);
 
   // Fetch prices for known tokens
-  // Fetch prices: SoSoValue primary, CoinGecko fallback
+  // Fetch prices: CryptoCompare (no CORS, no rate limit)
   const fetchAllPrices = useCallback(async () => {
     const syms = KNOWN_TOKENS.map(t => t.symbol);
+    const data = await getCCTickers(syms);
     const results: Record<string, { price: number; change24h: number; volume24h: number }> = {};
-    for (const sym of syms) {
-      try {
-        const cid = CURRENCY_IDS[sym.toUpperCase()];
-        if (cid) {
-          const snap = await getMarketSnapshot(cid);
-          results[sym] = { price: snap.price || 0, change24h: (snap.change_pct_24h || 0) * 100, volume24h: snap.turnover_24h || 0 };
-        }
-      } catch {
-        try {
-          const cg = await getCoinGeckoPrice(sym);
-          if (cg) results[sym] = { price: cg.price, change24h: cg.change24h, volume24h: cg.volume };
-        } catch { /* skip */ }
-      }
-      await new Promise(r => setTimeout(r, 300));
-    }
+    for (const sym of syms) if (data[sym]) results[sym] = data[sym];
     setPairPrices(results);
   }, []);
 
@@ -480,17 +470,13 @@ export default function Trading() {
 
   // Fetch selected token data
   const fetchSelected = useCallback(async () => {
-    const cid = CURRENCY_IDS[selected.symbol.toUpperCase()];
-    if (cid) {
-      try {
-        const snap = await getMarketSnapshot(cid);
-        setMarketData({ price: snap.price || 0, change24h: (snap.change_pct_24h || 0) * 100, volume24h: snap.turnover_24h || 0 });
-        setLoading(false);
-        return;
-      } catch { /* fall through */ }
+    const data = await getCCTickers([selected.symbol]);
+    const ticker = data[selected.symbol];
+    if (ticker && ticker.price > 0) {
+      setMarketData(ticker);
+    } else if (!marketData) {
+      setMarketData({ price: 0, change24h: 0, volume24h: 0 });
     }
-    const cg = await getCoinGeckoPrice(selected.symbol);
-    if (cg) setMarketData({ price: cg.price, change24h: cg.change24h, volume24h: cg.volume });
     setLoading(false);
   }, [selected]);
 
