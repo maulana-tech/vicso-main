@@ -1211,7 +1211,7 @@ function AutoTradingPanel({ enabled, setEnabled, status, riskThreshold, setRiskT
         </div>
       </div>
 
-      <p className="text-[9px] text-muted-foreground">Auto Trading uses real-time signals from AVE Skills. Trades execute when confidence exceeds threshold.</p>
+      <p className="text-[9px] text-muted-foreground">Auto Trading uses real-time signals from VicSO Skills. Trades execute when confidence exceeds threshold.</p>
     </div>
   );
 }
