@@ -25,7 +25,7 @@ export default function Dashboard() {
     <div className="space-y-4 sm:space-y-6">
       <div>
         <h1 className="font-heading text-xl sm:text-2xl font-bold text-foreground">Feed</h1>
-        <p className="mt-1 text-xs sm:text-sm text-muted-foreground">Real-time smart money tracking & AI analysis — Powered by AVE Skills</p>
+        <p className="mt-1 text-xs sm:text-sm text-muted-foreground">Real-time smart money tracking & AI analysis — Powered by VicSO Skills</p>
       </div>
 
       <AIQueryBox />
