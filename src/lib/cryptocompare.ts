@@ -52,13 +52,13 @@ export async function getCCTickers(symbols: string[]): Promise<Record<string, Cc
     const result: Record<string, CcTicker> = {};
     for (const [sym, raw] of Object.entries(d.RAW || {})) {
       const r = raw as any;
-      const change = r.USD?.OPENDAY ? ((r.USD.PRICE - r.USD.OPENDAY) / r.USD.OPENDAY * 100) : 0;
+      const usd = r.USD || {};
       result[sym] = {
-        price: r.USD?.PRICE || 0,
-        change24h: change,
-        volume: r.USD?.VOLUME24HOURTO || 0,
-        high: r.USD?.HIGHDAY || 0,
-        low: r.USD?.LOWDAY || 0,
+        price: usd.PRICE || 0,
+        change24h: usd.CHANGEPCT24HOUR || 0,
+        volume: usd.VOLUME24HOURTO || 0,
+        high: usd.HIGHDAY || usd.PRICE || 0,
+        low: usd.LOWDAY || usd.PRICE || 0,
       };
     }
     return result;
