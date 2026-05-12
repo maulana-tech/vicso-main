@@ -43,8 +43,7 @@ export function useDashboardStats() {
         activeAlerts: alertCount,
         riskEventsToday: 0,
       });
-    } catch (err) {
-      console.warn("Stats fetch error:", err);
+    } catch {
     } finally {
       setLoading(false);
     }
