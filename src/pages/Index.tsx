@@ -10,6 +10,8 @@ import CreateAgentModal from "@/components/CreateAgentModal";
 import AIQueryBox from "@/components/AIQueryBox";
 import TrendingFeed from "@/components/TrendingFeed";
 import PreloadedTokens from "@/components/PreloadedTokens";
+import SoSoValueWidget from "@/components/SoSoValueWidget";
+import SignalWidget from "@/components/SignalWidget";
 import { useDashboardStats } from "@/hooks/useDashboardStats";
 import { useSkillOrchestrator } from "@/hooks/useSkillOrchestrator";
 
@@ -27,6 +29,13 @@ export default function Dashboard() {
       </div>
 
       <AIQueryBox />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <SoSoValueWidget compact={true} />
+        <div className="cursor-pointer" onClick={() => navigate("/ai?tab=signals")}>
+          <SignalWidget defaultSymbol="BTC" />
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-4">
         <div className="cursor-pointer" onClick={() => navigate("/smart-money")}>

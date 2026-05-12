@@ -21,37 +21,56 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        setTimeout(() => checkAdmin(session.user.id), 0);
-      } else {
-        setIsAdmin(false);
-      }
-      setLoading(false);
-    });
+    let mounted = true;
+    let sub: ReturnType<typeof supabase.auth.onAuthStateChange>[0] | null = null;
+    
+    const setup = async () => {
+      try {
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+          if (!mounted) return;
+          setSession(session);
+          setUser(session?.user ?? null);
+          if (session?.user) {
+            setTimeout(() => checkAdmin(session.user.id), 0);
+          } else {
+            setIsAdmin(false);
+          }
+          setLoading(false);
+        });
+        sub = data.subscription;
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        checkAdmin(session.user.id);
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (mounted) {
+          setSession(sessionData.session);
+          setUser(sessionData.session?.user ?? null);
+          if (sessionData.session?.user) {
+            checkAdmin(sessionData.session.user.id);
+          }
+          setLoading(false);
+        }
+      } catch (err) {
+        console.warn("Auth init error:", err);
+        if (mounted) setLoading(false);
       }
-      setLoading(false);
-    });
+    };
 
-    return () => subscription.unsubscribe();
+    setup();
+    return () => { mounted = false; sub?.unsubscribe(); };
   }, []);
 
   const checkAdmin = async (userId: string) => {
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    setIsAdmin(!!data);
+    try {
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle();
+      setIsAdmin(!!data);
+    } catch (err) {
+      console.warn("Admin check error:", err);
+      setIsAdmin(false);
+    }
   };
 
   const signUp = async (email: string, password: string, username?: string) => {

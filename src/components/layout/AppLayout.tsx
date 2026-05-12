@@ -58,8 +58,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </button>
 
         <button onClick={() => navigate("/")} className="flex items-center gap-2 mr-6 hover:opacity-80 transition-opacity shrink-0">
-          <img src={logoImg} alt="ChainNova AI" className="h-7 w-7 rounded-lg object-contain" />
-          <span className="font-heading text-base font-bold text-foreground hidden sm:inline">ChainNova AI</span>
+          <img src={logoImg} alt="Visco AI" className="h-7 w-7 rounded-lg object-contain" />
+          <span className="font-heading text-base font-bold text-foreground hidden sm:inline">Visco AI</span>
         </button>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -139,8 +139,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
             <button onClick={() => { navigate("/"); setDrawerOpen(false); }} className="flex items-center gap-2">
-              <img src={logoImg} alt="ChainNova AI" className="h-8 w-8 rounded-lg object-contain" />
-              <span className="font-heading text-lg font-bold text-foreground">ChainNova AI</span>
+              <img src={logoImg} alt="Visco AI" className="h-8 w-8 rounded-lg object-contain" />
+              <span className="font-heading text-lg font-bold text-foreground">Visco AI</span>
             </button>
             <button onClick={() => setDrawerOpen(false)} className="text-muted-foreground"><X className="h-5 w-5" /></button>
           </div>

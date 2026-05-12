@@ -57,7 +57,7 @@ export default function Auth() {
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/20 neon-glow-purple">
             <Zap className="h-7 w-7 text-primary" />
           </div>
-          <h1 className="font-heading text-2xl font-bold text-foreground">ChainNova AI</h1>
+          <h1 className="font-heading text-2xl font-bold text-foreground">Visco AI</h1>
           <p className="mt-1 text-sm text-muted-foreground">Smart Trader Platform</p>
         </div>
 

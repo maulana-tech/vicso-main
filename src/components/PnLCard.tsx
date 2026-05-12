@@ -11,7 +11,7 @@ function ShareModal({ position, onClose }: { position: Position; onClose: () => 
   const isProfit = pnlPercent >= 0;
 
   const copyToClipboard = () => {
-    const text = `${isProfit ? "🟢" : "🔴"} ${position.symbol} ${isProfit ? "+" : ""}${pnlPercent.toFixed(2)}%\nEntry: $${position.entryPrice}\nCurrent: $${position.currentPrice}\n— ChainNova AI`;
+    const text = `${isProfit ? "🟢" : "🔴"} ${position.symbol} ${isProfit ? "+" : ""}${pnlPercent.toFixed(2)}%\nEntry: $${position.entryPrice}\nCurrent: $${position.currentPrice}\n— Visco AI`;
     navigator.clipboard.writeText(text);
   };
 
@@ -60,7 +60,7 @@ function ShareModal({ position, onClose }: { position: Position; onClose: () => 
 
           <div className="border-t border-border pt-4 flex items-center justify-between">
             <span className="text-xs text-muted-foreground">{user?.user_metadata?.username || user?.email?.split("@")[0] || "Trader"}</span>
-            <span className="text-[10px] text-muted-foreground font-mono">ChainNova AI</span>
+            <span className="text-[10px] text-muted-foreground font-mono">Visco AI</span>
           </div>
         </div>
 

@@ -1,5 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  getCurrencyBySymbol,
+  getMarketSnapshot,
+  getTokenEconomics,
+  type SoSoMarketSnapshot,
+  type SoSoTokenEconomics,
+} from "@/lib/sosovalue";
 
 interface TokenData {
   name: string;
@@ -46,6 +53,57 @@ function isContractAddress(input: string): boolean {
   return false;
 }
 
+function transformSoSoToTokenData(symbol: string, snapshot: SoSoMarketSnapshot, economics?: SoSoTokenEconomics): TokenData {
+  const topHolderPercent = economics?.token_allocation?.[0]?.percentage || 0;
+  const riskScore = calculateRiskScore(snapshot, economics);
+
+  return {
+    name: symbol,
+    symbol: symbol.toUpperCase(),
+    address: "",
+    price: snapshot.price,
+    marketCap: snapshot.marketcap,
+    liquidity: snapshot.turnover_24h,
+    volume24h: snapshot.turnover_24h,
+    priceChange24h: snapshot.change_pct_24h,
+    priceHigh24h: snapshot.high_24h,
+    priceLow24h: snapshot.low_24h,
+    holders: 0,
+    topHolderPercent,
+    liquidityLocked: true,
+    chain: "ethereum",
+    riskScore,
+    source: "sosovalue",
+    inputType: "symbol",
+  };
+}
+
+function calculateRiskScore(snapshot: SoSoMarketSnapshot, economics?: SoSoTokenEconomics): number {
+  let score = 50;
+
+  if (snapshot.turnover_rate < 0.05) score += 20;
+  if (snapshot.down_from_ath && parseFloat(snapshot.down_from_ath) > 50) score -= 10;
+  if (economics?.token_unlock?.total_locked) {
+    const locked = parseFloat(economics.token_unlock.total_locked);
+    if (locked < 1000000) score += 15;
+  }
+
+  return Math.max(0, Math.min(100, score));
+}
+
+async function fetchTokenFromSoSoValue(symbol: string): Promise<TokenData | null> {
+  const currency = await getCurrencyBySymbol(symbol);
+  if (!currency) return null;
+
+  const [snapshot, economics] = await Promise.all([
+    getMarketSnapshot(currency.currency_id).catch(() => null),
+    getTokenEconomics(currency.currency_id).catch(() => null),
+  ]);
+
+  if (!snapshot) return null;
+  return transformSoSoToTokenData(symbol, snapshot, economics || undefined);
+}
+
 export function useTokenData(symbol: string, autoRefresh = false) {
   const [data, setData] = useState<TokenData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -59,18 +117,39 @@ export function useTokenData(symbol: string, autoRefresh = false) {
     setError(null);
     try {
       const isContract = isContractAddress(target);
-      const param = isContract ? "address" : "symbol";
-      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ave-token?${param}=${encodeURIComponent(target)}`;
-      const response = await fetch(url, {
+
+      if (isContract) {
+        const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ave-token?address=${encodeURIComponent(target)}`;
+        const response = await fetch(url, {
+          headers: {
+            "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        });
+        if (!response.ok) throw new Error("Failed to fetch token data");
+        const tokenData = await response.json();
+        if (tokenData.error) throw new Error(tokenData.error);
+        setData(tokenData);
+        return;
+      }
+
+      const tokenData = await fetchTokenFromSoSoValue(target);
+      if (tokenData) {
+        setData(tokenData);
+        return;
+      }
+
+      const fallbackUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ave-token?symbol=${encodeURIComponent(target)}`;
+      const fallbackRes = await fetch(fallbackUrl, {
         headers: {
           "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
         },
       });
-      if (!response.ok) throw new Error("Failed to fetch token data");
-      const tokenData = await response.json();
-      if (tokenData.error) throw new Error(tokenData.error);
-      setData(tokenData);
+      if (!fallbackRes.ok) throw new Error("Failed to fetch token data");
+      const fallbackData = await fallbackRes.json();
+      if (fallbackData.error) throw new Error(fallbackData.error);
+      setData(fallbackData);
     } catch (e) {
       setError((e as Error).message);
     } finally {

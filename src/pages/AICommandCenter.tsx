@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Bot, Send, Loader2, Sparkles, Search, Wallet, TrendingUp, Shield, Zap, BarChart3, History, Trash2, Clock } from "lucide-react";
+import { Bot, Send, Loader2, Sparkles, Search, Wallet, TrendingUp, Shield, Zap, BarChart3, History, Trash2, Clock, LayoutGrid } from "lucide-react";
 import { useAIAnalysis } from "@/hooks/useTokenAPI";
 import { useNavigate } from "react-router-dom";
+import SignalWidget from "@/components/SignalWidget";
 
 interface ChatMessage {
   id: string;
@@ -41,7 +42,7 @@ const quickActions = [
 export default function AICommandCenter() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [activeTab, setActiveTab] = useState<"chat" | "history">("chat");
+  const [activeTab, setActiveTab] = useState<"chat" | "signals" | "history">("chat");
   const [chatHistory, setChatHistory] = useState<ChatSession[]>(loadHistory);
   const { analysis, loading, error, analyze } = useAIAnalysis();
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -132,13 +133,16 @@ export default function AICommandCenter() {
               <Sparkles className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h1 className="font-heading text-lg sm:text-xl font-bold text-foreground">ChainNova AI Command Center</h1>
+              <h1 className="font-heading text-lg sm:text-xl font-bold text-foreground">Visco AI Command Center</h1>
               <p className="text-[10px] sm:text-xs text-muted-foreground">Powered by AVE Skills — Ask anything about crypto trading</p>
             </div>
           </div>
           <div className="flex rounded-lg border border-border bg-secondary text-xs">
             <button onClick={() => setActiveTab("chat")} className={`px-3 py-1.5 font-medium transition-colors ${activeTab === "chat" ? "bg-primary text-primary-foreground rounded-lg" : "text-muted-foreground"}`}>
               Chat
+            </button>
+            <button onClick={() => setActiveTab("signals")} className={`flex items-center gap-1 px-3 py-1.5 font-medium transition-colors ${activeTab === "signals" ? "bg-primary text-primary-foreground rounded-lg" : "text-muted-foreground"}`}>
+              <Zap className="h-3 w-3" /> Signals
             </button>
             <button onClick={() => setActiveTab("history")} className={`flex items-center gap-1 px-3 py-1.5 font-medium transition-colors ${activeTab === "history" ? "bg-primary text-primary-foreground rounded-lg" : "text-muted-foreground"}`}>
               <History className="h-3 w-3" /> History ({chatHistory.length})
@@ -147,7 +151,13 @@ export default function AICommandCenter() {
         </div>
       </div>
 
-      {activeTab === "history" ? (
+      {activeTab === "signals" ? (
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
+          <div className="max-w-2xl mx-auto">
+            <SignalWidget defaultSymbol="BTC" autoRefresh={true} refreshInterval={60000} />
+          </div>
+        </div>
+      ) : activeTab === "history" ? (
         <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-2">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-heading text-sm font-semibold text-foreground">Chat History</h3>
@@ -193,7 +203,7 @@ export default function AICommandCenter() {
                   <Bot className="h-8 w-8 text-primary" />
                 </div>
                 <div className="text-center space-y-2 max-w-lg">
-                  <h2 className="font-heading text-lg font-bold text-foreground">Welcome to ChainNova AI</h2>
+                  <h2 className="font-heading text-lg font-bold text-foreground">Welcome to Visco AI</h2>
                   <p className="text-sm text-muted-foreground">Your intelligent trading assistant. Ask about any token, strategy, or market trend.</p>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 w-full max-w-xl">
@@ -268,7 +278,7 @@ export default function AICommandCenter() {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && handleSend()}
-                placeholder="Ask ChainNova AI anything... (e.g. 'Should I buy ETH?', 'Analyze 0x...')"
+                placeholder="Ask Visco AI anything... (e.g. 'Should I buy ETH?', 'Analyze 0x...')"
                 className="flex-1 rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none focus:border-primary placeholder:text-muted-foreground"
               />
               <button

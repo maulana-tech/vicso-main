@@ -87,7 +87,7 @@ export default function AIChatPanel() {
         setConnectionStatus("error");
         setMessages((prev) => [
           ...prev,
-          { id: crypto.randomUUID(), role: "assistant", content: "ChainNova AI is currently unavailable. Please try again." },
+          { id: crypto.randomUUID(), role: "assistant", content: "Visco AI is currently unavailable. Please try again." },
         ]);
         return;
       }
@@ -143,7 +143,7 @@ export default function AIChatPanel() {
           setConnectionStatus("error");
           setMessages((prev) => [
             ...prev,
-            { id: crypto.randomUUID(), role: "assistant", content: "ChainNova AI is currently unavailable. Please try again." },
+            { id: crypto.randomUUID(), role: "assistant", content: "Visco AI is currently unavailable. Please try again." },
           ]);
           return;
         }
@@ -167,7 +167,7 @@ export default function AIChatPanel() {
       setConnectionStatus("error");
       setMessages((prev) => [
         ...prev,
-        { id: crypto.randomUUID(), role: "assistant", content: "ChainNova AI is currently unavailable. Please try again." },
+        { id: crypto.randomUUID(), role: "assistant", content: "Visco AI is currently unavailable. Please try again." },
       ]);
     } finally {
       setLoading(false);

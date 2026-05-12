@@ -20,26 +20,34 @@ export function useDashboardStats() {
   const [loading, setLoading] = useState(true);
 
   const fetchStats = useCallback(async () => {
-    const walletsRes = await supabase.from("tracked_wallets").select("*", { count: "exact", head: true });
-    const analysesRes = await supabase.from("token_analyses").select("*", { count: "exact", head: true });
+    try {
+      const [walletsRes, analysesRes] = await Promise.allSettled([
+        supabase.from("tracked_wallets").select("*", { count: "exact", head: true }),
+        supabase.from("token_analyses").select("*", { count: "exact", head: true }),
+      ]);
 
-    let alertCount = 0;
-    if (user) {
-      const alertsRes = await supabase
-        .from("alerts")
-        .select("*", { count: "exact", head: true })
-        .eq("user_id", user.id)
-        .eq("enabled", true);
-      alertCount = alertsRes.count || 0;
+      let alertCount = 0;
+      if (user) {
+        const alertsRes = await supabase
+          .from("alerts")
+          .select("*", { count: "exact", head: true })
+          .eq("user_id", user.id)
+          .eq("enabled", true)
+          .maybeSingle();
+        alertCount = alertsRes?.count || 0;
+      }
+
+      setStats({
+        totalTrackedWallets: walletsRes.status === "fulfilled" ? (walletsRes.value.count || 0) : 0,
+        tokensAnalyzed: analysesRes.status === "fulfilled" ? (analysesRes.value.count || 0) : 0,
+        activeAlerts: alertCount,
+        riskEventsToday: 0,
+      });
+    } catch (err) {
+      console.warn("Stats fetch error:", err);
+    } finally {
+      setLoading(false);
     }
-
-    setStats({
-      totalTrackedWallets: walletsRes.count || 0,
-      tokensAnalyzed: analysesRes.count || 0,
-      activeAlerts: alertCount,
-      riskEventsToday: 0,
-    });
-    setLoading(false);
   }, [user]);
 
   useEffect(() => {
