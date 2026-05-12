@@ -366,8 +366,7 @@ export function useAISignals() {
 
       setSignals(prev => [...prev, ...alerts]);
       return alerts;
-    } catch (e) {
-      console.error("Failed to fetch market signals:", e);
+    } catch {
       return [];
     }
   }, [checkApiKey]);
