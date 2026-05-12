@@ -162,8 +162,7 @@ export default function AIChatPanel() {
           },
         ]);
       }
-    } catch (err: unknown) {
-      console.error("OpenClaw chat error:", err);
+    } catch {
       setConnectionStatus("error");
       setMessages((prev) => [
         ...prev,
