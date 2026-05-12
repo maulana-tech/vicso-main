@@ -42,8 +42,7 @@ function loadHistory(): Transaction[] {
 function saveHistory(transactions: Transaction[]) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions.slice(0, MAX_HISTORY)));
-  } catch {
-    console.error("Failed to save transaction history");
+} catch {
   }
 }
 
