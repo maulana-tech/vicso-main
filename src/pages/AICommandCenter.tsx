@@ -134,7 +134,7 @@ export default function AICommandCenter() {
             </div>
             <div>
               <h1 className="font-heading text-lg sm:text-xl font-bold text-foreground">Visco AI Command Center</h1>
-              <p className="text-[10px] sm:text-xs text-muted-foreground">Powered by AVE Skills — Ask anything about crypto trading</p>
+              <p className="text-[10px] sm:text-xs text-muted-foreground">Powered by VicSO Skills — Ask anything about crypto trading</p>
             </div>
           </div>
           <div className="flex rounded-lg border border-border bg-secondary text-xs">
@@ -263,7 +263,7 @@ export default function AICommandCenter() {
             {loading && (
               <div className="flex justify-start">
                 <div className="flex items-center gap-2 rounded-2xl bg-card border border-border px-4 py-3 text-sm text-muted-foreground">
-                  <Loader2 className="h-4 w-4 animate-spin text-primary" /> Analyzing with AVE Skills...
+                  <Loader2 className="h-4 w-4 animate-spin text-primary" /> Analyzing with VicSO Skills...
                 </div>
               </div>
             )}
