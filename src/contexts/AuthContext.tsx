@@ -48,8 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
           setLoading(false);
         }
-      } catch (err) {
-        console.warn("Auth init error:", err);
+      } catch {
         if (mounted) setLoading(false);
       }
     };
@@ -67,8 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .eq("role", "admin")
         .maybeSingle();
       setIsAdmin(!!data);
-    } catch (err) {
-      console.warn("Admin check error:", err);
+    } catch {
       setIsAdmin(false);
     }
   };
