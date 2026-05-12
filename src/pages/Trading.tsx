@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import { useSearchParams, useNavigate as useNavHook } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
-  Search, Loader2, Star, Wallet, ChevronDown,
+  Search, Loader2, Star, ChevronDown,
   TrendingUp, TrendingDown, List, BarChart3, BookOpen, ArrowLeftRight,
   Maximize2, Camera, X, AlertTriangle, Zap, Copy, Power, Activity
 } from "lucide-react";
@@ -11,7 +11,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useWalletConnection } from "@/hooks/useWalletConnection";
 import { usePositions } from "@/hooks/usePositions";
 import { useSignals, useWalletTxs, type SignalItem } from "@/hooks/useAVEWallet";
-import { getCurrencyKlinesData, type SoSoKline } from "@/lib/sosovalue";
+
+import { getCurrencyKlinesData, getMarketSnapshot, CURRENCY_IDS } from "@/lib/sosovalue";
+import { getCoinGeckoPrice } from "@/lib/coingecko";
+import { getOrderBook, toSoDEXSymbol } from "@/lib/sodex";
 import WalletConnectModal from "@/components/WalletConnectModal";
 import { toast } from "sonner";
 
@@ -84,38 +87,7 @@ function fmtVol(v: number): string {
   return `$${v.toFixed(0)}`;
 }
 
-function fmtPrice(p: number): string {
-  if (p >= 1000) return p.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  if (p >= 1) return p.toFixed(4);
-  if (p >= 0.0001) return p.toFixed(6);
-  return p.toFixed(10);
-}
-function fmtVol(v: number): string {
-  if (v >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
-  if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
-  if (v >= 1e3) return `$${(v / 1e3).toFixed(0)}K`;
-  return `$${v.toFixed(0)}`;
-}
-
-async function apiFetch(params: string) {
-  return null;
-}
-
 function hotFeed() { return []; }
-
-async function fetchTokenPrice(symbol: string) {
-  try {
-    const { getCurrencyBySymbol, getMarketSnapshot } = await import("@/lib/sosovalue");
-    const currency = await getCurrencyBySymbol(symbol);
-    if (!currency) return null;
-    const snapshot = await getMarketSnapshot(currency.currency_id);
-    return {
-      price: snapshot.price || 0,
-      change24h: snapshot.change_pct_24h || 0,
-      volume24h: snapshot.turnover_24h || 0,
-    };
-  } catch { return null; }
-}
 
 // Fetch real USDT balance on BNB Chain
 async function fetchUSDTBalance(address: string): Promise<number> {
@@ -147,7 +119,7 @@ function TradingChart({ tokenId, interval, currentPrice }: { tokenId: string; in
   const volumeSeriesRef = useRef<any>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchCandles = useCallback(async (): Promise<SoSoKline[]> => {
+  const fetchCandles = useCallback(async () => {
     try {
       const symbolMap: Record<string, string> = {
         eth: "ETH", btc: "BTC", bnb: "BNB", sol: "SOL", pepe: "PEPE",
@@ -155,8 +127,7 @@ function TradingChart({ tokenId, interval, currentPrice }: { tokenId: string; in
       };
       const symbol = symbolMap[tokenId.split("-")[1]?.toLowerCase()] || tokenId.split("-")[0]?.toUpperCase() || "ETH";
       return await getCurrencyKlinesData(symbol);
-    } catch (e) {
-      console.error("Failed to fetch candles:", e);
+    } catch {
       return [];
     }
   }, [tokenId]);
@@ -464,63 +435,97 @@ export default function Trading() {
     }
   }, [isConnected, address]);
 
-  // Fetch hot tokens from SoSoValue
   useEffect(() => {
-    import("@/lib/sosovalue").then(({ getHotNews }) => {
-      getHotNews(20).then(news => {
-        const tokens = news.filter(n => n.title).map((n, i) => ({
-          symbol: `HOT${i + 1}`,
-          name: n.title.slice(0, 30),
-          tokenId: `hot-${i}`,
-          leverage: "5x",
-          price: 0,
-          change24h: 0,
-          volume24h: 0,
-        }));
-        setHotTokens(tokens);
-      }).catch(() => {});
-    });
+    const syms = ["BTC", "ETH", "BNB", "SOL", "XRP", "DOGE", "ADA", "AVAX", "LINK", "DOT", "LTC", "UNI", "XLM", "PEPE", "TRUMP", "HYPE"];
+    Promise.all(syms.map(async (sym) => {
+      try {
+        const cid = CURRENCY_IDS[sym];
+        if (cid) {
+          const snap = await getMarketSnapshot(cid);
+          return { symbol: sym, name: sym, tokenId: `hot-${sym}`, leverage: "10x", price: snap.price || 0, change24h: (snap.change_pct_24h || 0) * 100, volume24h: snap.turnover_24h || 0 };
+        }
+      } catch { /* skip */ }
+      return null;
+    })).then(results => setHotTokens(results.filter(Boolean) as TokenMarket[])).catch(() => {});
   }, []);
 
   // Fetch prices for known tokens
-  // Fetch prices sequentially with delay to avoid 429
+  // Fetch prices: SoSoValue primary, CoinGecko fallback
   const fetchAllPrices = useCallback(async () => {
+    const syms = KNOWN_TOKENS.map(t => t.symbol);
     const results: Record<string, { price: number; change24h: number; volume24h: number }> = {};
-    for (const t of KNOWN_TOKENS) {
-      const data = await fetchTokenPrice(t.symbol);
-      if (data) results[t.symbol] = data;
-      await new Promise(r => setTimeout(r, 300)); // rate limit buffer
+    for (const sym of syms) {
+      try {
+        const cid = CURRENCY_IDS[sym.toUpperCase()];
+        if (cid) {
+          const snap = await getMarketSnapshot(cid);
+          results[sym] = { price: snap.price || 0, change24h: (snap.change_pct_24h || 0) * 100, volume24h: snap.turnover_24h || 0 };
+        }
+      } catch {
+        try {
+          const cg = await getCoinGeckoPrice(sym);
+          if (cg) results[sym] = { price: cg.price, change24h: cg.change24h, volume24h: cg.volume };
+        } catch { /* skip */ }
+      }
+      await new Promise(r => setTimeout(r, 300));
     }
     setPairPrices(results);
   }, []);
 
   useEffect(() => {
     fetchAllPrices();
-    const iv = setInterval(fetchAllPrices, 30000); // 30s to avoid 429
+    const iv = setInterval(fetchAllPrices, 30000);
     return () => clearInterval(iv);
   }, [fetchAllPrices]);
 
   // Fetch selected token data
   const fetchSelected = useCallback(async () => {
-    const data = await fetchTokenPrice(selected.symbol);
-    if (data) setMarketData(data);
+    const cid = CURRENCY_IDS[selected.symbol.toUpperCase()];
+    if (cid) {
+      try {
+        const snap = await getMarketSnapshot(cid);
+        setMarketData({ price: snap.price || 0, change24h: (snap.change_pct_24h || 0) * 100, volume24h: snap.turnover_24h || 0 });
+        setLoading(false);
+        return;
+      } catch { /* fall through */ }
+    }
+    const cg = await getCoinGeckoPrice(selected.symbol);
+    if (cg) setMarketData({ price: cg.price, change24h: cg.change24h, volume24h: cg.volume });
     setLoading(false);
   }, [selected]);
 
   useEffect(() => {
     setLoading(true);
     fetchSelected();
-    const iv = setInterval(fetchSelected, 15000); // 15s to avoid 429
+    const iv = setInterval(fetchSelected, 15000);
     return () => clearInterval(iv);
   }, [fetchSelected]);
 
-  // Order book
+  // Order book: SoDEX real data
   useEffect(() => {
     if (!marketData) return;
-    setOrderBook(generateOrderBook(marketData.price));
-    const iv = setInterval(() => setOrderBook(generateOrderBook(marketData.price)), 3000);
+    const sodexSymbol = toSoDEXSymbol(selected.symbol);
+    const fetchOrderBook = async () => {
+      try {
+        const ob = await getOrderBook(sodexSymbol, 20);
+        const maxAsk = parseFloat(ob.asks[0]?.[0] || marketData.price * 1.02);
+        const maxBid = parseFloat(ob.bids[0]?.[0] || marketData.price * 0.98);
+        let aTot = 0, bTot = 0;
+        const asks = ob.asks.slice(0, 11).map((a) => {
+          aTot += parseFloat(a[1]);
+          return { price: parseFloat(a[0]), size: parseFloat(a[1]), total: +aTot.toFixed(4) };
+        });
+        const bids = ob.bids.slice(0, 11).map((b) => {
+          bTot += parseFloat(b[1]);
+          return { price: parseFloat(b[0]), size: parseFloat(b[1]), total: +bTot.toFixed(4) };
+        });
+        setOrderBook({ asks: asks.reverse(), bids });
+      } catch { setOrderBook(generateOrderBook(marketData.price)); }
+    };
+    fetchOrderBook();
+    const iv = setInterval(fetchOrderBook, 5000);
     return () => clearInterval(iv);
-  }, [marketData]);
+  }, [marketData, selected]);
 
   const allMarkets = useMemo(() => {
     const known = KNOWN_TOKENS.map(t => ({
