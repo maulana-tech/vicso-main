@@ -56,9 +56,7 @@ export default function SoSoValueWidget({ compact = false }: SoSoValueWidgetProp
         ]);
         setIndices(indicesData.slice(0, 6));
         setHotNews(newsData.slice(0, compact ? 3 : 5));
-      } catch (e) {
-        console.error("SoSoValue API error:", e);
-      } finally {
+      } catch (_) { } finally {
         setLoading(false);
       }
     }
