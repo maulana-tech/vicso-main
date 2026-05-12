@@ -11,14 +11,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useWalletConnection } from "@/hooks/useWalletConnection";
 import { usePositions } from "@/hooks/usePositions";
 import { useSignals, useWalletTxs, type SignalItem } from "@/hooks/useAVEWallet";
+import { getCurrencyKlinesData, type SoSoKline } from "@/lib/sosovalue";
 import WalletConnectModal from "@/components/WalletConnectModal";
 import { toast } from "sonner";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
-const INTERVAL_MAP: Record<string, number> = {
-  "1m": 1, "5m": 5, "15m": 15, "30m": 30, "1h": 60, "4h": 240, "1D": 1440,
+const INTERVAL_MAP: Record<string, string> = {
+  "1m": "1d", "5m": "1d", "15m": "1d", "30m": "1d", "1h": "1d", "4h": "1d", "1D": "1d",
 };
 
 const KNOWN_TOKENS = [
@@ -34,9 +32,7 @@ const KNOWN_TOKENS = [
   { symbol: "AVAX", name: "Avalanche", tokenId: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-avalanche", leverage: "25x" },
 ];
 
-// BNB Chain USDT contract
-const USDT_BNB_ADDRESS = "0x55d398326f99059fF775485246999027B3197955";
-const USDT_ABI_BALANCE = "0x70a08231"; // balanceOf(address)
+
 
 interface TokenMarket {
   symbol: string;
@@ -84,42 +80,56 @@ function fmtPrice(p: number): string {
 function fmtVol(v: number): string {
   if (v >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
   if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
+  if (v >= 1e3) return `$${v.toFixed(0)}K`;
+  return `$${v.toFixed(0)}`;
+}
+
+function fmtPrice(p: number): string {
+  if (p >= 1000) return p.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (p >= 1) return p.toFixed(4);
+  if (p >= 0.0001) return p.toFixed(6);
+  return p.toFixed(10);
+}
+function fmtVol(v: number): string {
+  if (v >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
+  if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
   if (v >= 1e3) return `$${(v / 1e3).toFixed(0)}K`;
   return `$${v.toFixed(0)}`;
 }
 
 async function apiFetch(params: string) {
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/ave-klines?${params}`, {
-    headers: { Authorization: `Bearer ${SUPABASE_KEY}`, apikey: SUPABASE_KEY },
-  });
-  if (!res.ok) throw new Error(`API error ${res.status}`);
-  return res.json();
+  return null;
 }
+
+function hotFeed() { return []; }
 
 async function fetchTokenPrice(symbol: string) {
   try {
-    const res = await fetch(`${SUPABASE_URL}/functions/v1/ave-token?symbol=${symbol}`, {
-      headers: { Authorization: `Bearer ${SUPABASE_KEY}`, apikey: SUPABASE_KEY },
-    });
-    if (!res.ok) return null;
-    const d = await res.json();
-    if (d.error) return null;
-    return { price: d.price || 0, change24h: d.priceChange24h || 0, volume24h: d.volume24h || 0 };
+    const { getCurrencyBySymbol, getMarketSnapshot } = await import("@/lib/sosovalue");
+    const currency = await getCurrencyBySymbol(symbol);
+    if (!currency) return null;
+    const snapshot = await getMarketSnapshot(currency.currency_id);
+    return {
+      price: snapshot.price || 0,
+      change24h: snapshot.change_pct_24h || 0,
+      volume24h: snapshot.turnover_24h || 0,
+    };
   } catch { return null; }
 }
 
 // Fetch real USDT balance on BNB Chain
 async function fetchUSDTBalance(address: string): Promise<number> {
+  const USDT_BNB = "0x55d398326f99059fF775485246999027B3197955";
+  const ABI_BALANCE = "0x70a08231";
   try {
     const ethereum = (window as any).ethereum;
     if (!ethereum) return 0;
     const paddedAddr = address.toLowerCase().replace("0x", "").padStart(64, "0");
-    const data = USDT_ABI_BALANCE + paddedAddr;
+    const data = ABI_BALANCE + paddedAddr;
     const result = await ethereum.request({
       method: "eth_call",
-      params: [{ to: USDT_BNB_ADDRESS, data }, "latest"],
+      params: [{ to: USDT_BNB, data }, "latest"],
     });
-    // USDT on BNB has 18 decimals
     const raw = BigInt(result || "0x0");
     return Number(raw) / 1e18;
   } catch {
@@ -137,16 +147,19 @@ function TradingChart({ tokenId, interval, currentPrice }: { tokenId: string; in
   const volumeSeriesRef = useRef<any>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchCandles = useCallback(async () => {
+  const fetchCandles = useCallback(async (): Promise<SoSoKline[]> => {
     try {
-      const intervalMin = INTERVAL_MAP[interval] || 5;
-      const data = await apiFetch(`action=klines&token_id=${encodeURIComponent(tokenId)}&interval=${intervalMin}&limit=300`);
-      return data.candles || [];
+      const symbolMap: Record<string, string> = {
+        eth: "ETH", btc: "BTC", bnb: "BNB", sol: "SOL", pepe: "PEPE",
+        link: "LINK", doge: "DOGE", xrp: "XRP", avax: "AVAX", trump: "TRUMP",
+      };
+      const symbol = symbolMap[tokenId.split("-")[1]?.toLowerCase()] || tokenId.split("-")[0]?.toUpperCase() || "ETH";
+      return await getCurrencyKlinesData(symbol);
     } catch (e) {
       console.error("Failed to fetch candles:", e);
       return [];
     }
-  }, [tokenId, interval]);
+  }, [tokenId]);
 
   useEffect(() => {
     if (!chartContainerRef.current) return;
@@ -451,11 +464,22 @@ export default function Trading() {
     }
   }, [isConnected, address]);
 
-  // Fetch hot tokens
+  // Fetch hot tokens from SoSoValue
   useEffect(() => {
-    apiFetch("action=hot&limit=20").then(data => {
-      if (data.tokens) setHotTokens(data.tokens.map((t: any) => ({ ...t, leverage: "10x" })));
-    }).catch(() => {});
+    import("@/lib/sosovalue").then(({ getHotNews }) => {
+      getHotNews(20).then(news => {
+        const tokens = news.filter(n => n.title).map((n, i) => ({
+          symbol: `HOT${i + 1}`,
+          name: n.title.slice(0, 30),
+          tokenId: `hot-${i}`,
+          leverage: "5x",
+          price: 0,
+          change24h: 0,
+          volume24h: 0,
+        }));
+        setHotTokens(tokens);
+      }).catch(() => {});
+    });
   }, []);
 
   // Fetch prices for known tokens

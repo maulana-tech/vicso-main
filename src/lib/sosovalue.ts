@@ -138,6 +138,30 @@ export async function getSectorSpotlight() {
   return fetchSoSo("/currencies/sector-spotlight");
 }
 
-export async function getCurrencyKlines(currencyId: string, interval = "1d", limit = 30) {
+export async function getCurrencyKlines(currencyId: string, interval = "1d", limit = 30): Promise<unknown[]> {
   return fetchSoSo(`/currencies/${currencyId}/klines?interval=${interval}&limit=${limit}`);
+}
+
+export interface SoSoKline {
+  time: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export async function getCurrencyKlinesData(symbol: string, interval = "1d"): Promise<SoSoKline[]> {
+  const currency = await getCurrencyBySymbol(symbol);
+  if (!currency) return [];
+  const data = await getCurrencyKlines(currency.currency_id, interval, 300);
+  if (!data || !Array.isArray(data) || data.length === 0) return [];
+  return data.map((k: any) => ({
+    time: Math.floor(parseInt(k.timestamp || k.time || 0) / 1000),
+    open: parseFloat(k.open || 0),
+    high: parseFloat(k.high || 0),
+    low: parseFloat(k.low || 0),
+    close: parseFloat(k.close || 0),
+    volume: parseFloat(k.volume || 0),
+  }));
 }
