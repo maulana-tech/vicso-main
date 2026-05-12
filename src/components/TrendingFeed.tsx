@@ -187,7 +187,7 @@ export default function TrendingFeed() {
 
 
   return (
-    <div className="glass rounded-xl overflow-hidden">
+    <div className="rounded-xl overflow-hidden bg-card border border-border">
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2 sm:px-5">
         <div className="flex items-center gap-2">

@@ -662,7 +662,7 @@ export default function Trading() {
         {mobileView === "chart" && (
           <div className="flex flex-col h-full bg-card">
             <div className="flex items-center gap-2 px-3 py-1.5 border-b border-border text-[10px]">
-              <span className="text-foreground font-medium">{selected.symbol} · {selectedTf} · ChainNova</span>
+              <span className="text-foreground font-medium">{selected.symbol} · {selectedTf} · VicSO</span>
               <div className="ml-auto flex items-center gap-1 text-muted-foreground">
                 {Object.keys(INTERVAL_MAP).map(tf => (
                   <button key={tf} onClick={() => setSelectedTf(tf)} className={`px-1.5 py-0.5 rounded text-[9px] ${selectedTf === tf ? "bg-secondary text-foreground" : ""}`}>{tf}</button>
@@ -738,7 +738,7 @@ export default function Trading() {
         <div className="flex-1 flex flex-col min-w-0">
           <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-card">
             <div className="flex items-center gap-3">
-              <span className="font-semibold text-lg text-foreground">{selected.symbol} · {selectedTf} · ChainNova</span>
+              <span className="font-semibold text-lg text-foreground">{selected.symbol} · {selectedTf} · VicSO</span>
               {marketData && (
                 <span className="text-emerald-500 text-xs flex items-center gap-1">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full" /> LIVE

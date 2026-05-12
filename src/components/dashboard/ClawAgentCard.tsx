@@ -28,7 +28,7 @@ export default function ClawAgentCard({ agent, index = 0 }: { agent: ClawAgentSt
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.06 }}
-      className="glass rounded-xl overflow-hidden"
+      className="rounded-xl overflow-hidden bg-card border border-border"
     >
       <div
         className="flex items-center gap-3 p-3 cursor-pointer hover:bg-secondary/30 transition-colors"

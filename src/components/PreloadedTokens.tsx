@@ -81,7 +81,7 @@ export default function PreloadedTokens({ onSelectToken }: Props) {
 
   if (loading && tokens.length === 0) {
     return (
-      <div className="glass rounded-xl p-4">
+      <div className="bg-card border border-border rounded-xl p-4">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <Loader2 className="h-3.5 w-3.5 animate-spin" /> Loading market data...
         </div>
@@ -90,7 +90,7 @@ export default function PreloadedTokens({ onSelectToken }: Props) {
   }
 
   return (
-    <div className="glass rounded-xl p-4">
+    <div className="bg-card border border-border rounded-xl p-4">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Quick Token Check</h4>
       </div>

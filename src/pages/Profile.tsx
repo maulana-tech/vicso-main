@@ -80,7 +80,7 @@ export default function Profile() {
         <p className="mt-1 text-xs sm:text-sm text-muted-foreground">Manage your account and wallet connections</p>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 sm:p-6">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5">
           <div className="relative group shrink-0">
             <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-secondary flex items-center justify-center overflow-hidden border-2 border-border">
@@ -117,7 +117,7 @@ export default function Profile() {
       </motion.div>
 
       {/* Change Password */}
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="glass rounded-xl p-4 sm:p-6">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="bg-card border border-border rounded-xl p-4 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
           <Lock className="h-4 w-4 text-primary" />
           <h3 className="font-heading text-sm font-semibold text-foreground">Change Password</h3>
@@ -136,7 +136,7 @@ export default function Profile() {
         </div>
       </motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass rounded-xl p-4 sm:p-6">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-card border border-border rounded-xl p-4 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
           <BarChart3 className="h-4 w-4 text-primary" />
           <h3 className="font-heading text-sm font-semibold text-foreground">Your Stats</h3>
@@ -156,7 +156,7 @@ export default function Profile() {
         </div>
       </motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass rounded-xl p-4 sm:p-6">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="bg-card border border-border rounded-xl p-4 sm:p-6">
         <h3 className="font-heading text-sm font-semibold text-foreground mb-4">Wallet Connection</h3>
         {isConnected && address ? (
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-lg border border-border bg-secondary/50 p-3 sm:p-4">

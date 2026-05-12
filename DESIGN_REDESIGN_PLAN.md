@@ -1,4 +1,4 @@
-# ChainNova AI — Design Redesign Plan
+# VicSO AI — Design Redesign Plan
 
 ## Goal
 Replace the current "AI-generated" aesthetic (purple gradients, neon glow, glassmorphism overload) with a distinctive, professional crypto trading platform identity that's functional first, visually cohesive, and memorable.

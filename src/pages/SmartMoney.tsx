@@ -137,7 +137,7 @@ export default function SmartMoney() {
       </div>
 
       {/* Wallet Scanner */}
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-3 sm:p-5">
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-3 sm:p-5">
         <h3 className="font-heading text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
           <Scan className="h-4 w-4 text-primary" /> Scan Wallet
         </h3>
@@ -159,15 +159,15 @@ export default function SmartMoney() {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-lg p-3 sm:p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-lg p-3 sm:p-4 text-center">
           <p className="font-heading text-lg sm:text-xl font-bold text-primary">{tracked.length}</p>
           <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">Tracked</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-lg p-3 sm:p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-lg p-3 sm:p-4 text-center">
           <p className="font-heading text-lg sm:text-xl font-bold text-emerald-500">{tracked.filter((w) => w.notifications_on).length}</p>
           <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">Alerts On</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-lg p-3 sm:p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-lg p-3 sm:p-4 text-center">
           <p className="font-heading text-lg sm:text-xl font-bold text-cyan-500">{new Set(tracked.map((w) => w.chain)).size}</p>
           <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">Chains</p>
         </motion.div>
@@ -193,7 +193,7 @@ export default function SmartMoney() {
       )}
 
       {filtered.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 sm:p-5">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-4 sm:p-5">
           <h3 className="font-heading text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
             <Star className="h-4 w-4 text-amber-500" /> Tracked Wallets
           </h3>
@@ -228,7 +228,7 @@ export default function SmartMoney() {
 
       {showAddModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/70 backdrop-blur-sm p-4" onClick={() => setShowAddModal(false)}>
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={(e) => e.stopPropagation()} className="glass-strong rounded-xl p-5 sm:p-6 w-full max-w-md shadow-2xl">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={(e) => e.stopPropagation()} className="bg-card border border-border rounded-xl p-5 sm:p-6 w-full max-w-md shadow-2xl">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-heading text-sm font-semibold text-foreground">Track New Wallet</h3>
               <button onClick={() => setShowAddModal(false)} className="text-muted-foreground hover:text-foreground"><X className="h-4 w-4" /></button>

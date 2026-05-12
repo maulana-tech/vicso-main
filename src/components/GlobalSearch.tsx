@@ -45,7 +45,7 @@ export default function GlobalSearch() {
       <AnimatePresence>
         {open && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-start justify-center bg-background/70 backdrop-blur-sm pt-[15vh]" onClick={() => setOpen(false)}>
-            <motion.div initial={{ opacity: 0, y: -20, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20, scale: 0.95 }} onClick={(e) => e.stopPropagation()} className="glass-strong w-full max-w-lg rounded-xl p-0 shadow-2xl">
+            <motion.div initial={{ opacity: 0, y: -20, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20, scale: 0.95 }} onClick={(e) => e.stopPropagation()} className="bg-card border border-border w-full max-w-lg rounded-xl p-0 shadow-2xl">
               <div className="flex items-center gap-3 border-b border-border px-4 py-3">
                 <Search className="h-4 w-4 text-muted-foreground" />
                 <input

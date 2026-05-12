@@ -112,7 +112,7 @@ export default function TokenAnalyzer() {
 
       {activeTab === "analyze" ? (
         <>
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-3 sm:p-5">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-3 sm:p-5">
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -138,7 +138,7 @@ export default function TokenAnalyzer() {
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {analysis && analysis.tokenData && (
-                  <div className="glass rounded-xl p-4 sm:p-5 space-y-4">
+                  <div className="bg-card border border-border rounded-xl p-4 sm:p-5 space-y-4">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <h3 className="font-heading text-sm font-semibold text-foreground">{analysis.tokenData.name}</h3>
@@ -210,7 +210,7 @@ export default function TokenAnalyzer() {
           <PreloadedTokens onSelectToken={handleTokenSelect} />
         </>
       ) : (
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 sm:p-5">
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-4 sm:p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-heading text-sm font-semibold text-foreground">Analysis History</h3>
             {history.length > 0 && <button onClick={clearHistory} className="flex items-center gap-1.5 text-xs text-red-500 hover:underline"><Trash2 className="h-3 w-3" /> Clear All</button>}

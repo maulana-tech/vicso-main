@@ -156,32 +156,32 @@ export default function WalletDetail() {
         <>
           {/* Stats Cards */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-3 sm:p-4 text-center">
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
               <Wallet className="h-4 w-4 text-primary mx-auto mb-1" />
               <p className="font-heading text-base sm:text-lg font-bold text-foreground">{formatValue(data.nativeBalance)} {data.nativeSymbol}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Balance</p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }} className="glass rounded-xl p-3 sm:p-4 text-center">
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }} className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
               <Activity className="h-4 w-4 text-accent mx-auto mb-1" />
               <p className="font-heading text-base sm:text-lg font-bold text-foreground">{data.txCount.toLocaleString()}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Total Txs</p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }} className="glass rounded-xl p-3 sm:p-4 text-center">
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }} className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
               <Search className="h-4 w-4 text-cyan-500 mx-auto mb-1" />
               <p className="font-heading text-base sm:text-lg font-bold text-foreground">{data.tokenCount}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Tokens</p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.09 }} className="glass rounded-xl p-3 sm:p-4 text-center">
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.09 }} className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
               {data.pnl30d.net >= 0 ? <TrendingUp className="h-4 w-4 text-emerald-500 mx-auto mb-1" /> : <TrendingDown className="h-4 w-4 text-red-500 mx-auto mb-1" />}
               <p className={`font-heading text-base sm:text-lg font-bold ${data.pnl30d.net >= 0 ? "text-emerald-500" : "text-red-500"}`}>{data.pnl30d.net >= 0 ? "+" : ""}{formatValue(data.pnl30d.net)} {data.nativeSymbol}</p>
               <p className="text-[9px] uppercase text-muted-foreground">30d PnL</p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }} className="glass rounded-xl p-3 sm:p-4 text-center">
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }} className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
               <ArrowDownRight className="h-4 w-4 text-emerald-500 mx-auto mb-1" />
               <p className="font-heading text-base sm:text-lg font-bold text-emerald-500">{buys.length}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Buys ({formatValue(buyVolume)} {data.nativeSymbol})</p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass rounded-xl p-3 sm:p-4 text-center">
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
               <ArrowUpRight className="h-4 w-4 text-red-500 mx-auto mb-1" />
               <p className="font-heading text-base sm:text-lg font-bold text-red-500">{sells.length}</p>
               <p className="text-[9px] uppercase text-muted-foreground">Sells ({formatValue(sellVolume)} {data.nativeSymbol})</p>
@@ -200,7 +200,7 @@ export default function WalletDetail() {
           {/* Overview Tab */}
           {activeTab === "overview" && (
             <div className="space-y-4">
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
                 <h3 className="font-heading text-sm font-semibold text-foreground mb-3 flex items-center gap-2"><TrendingUp className="h-4 w-4 text-emerald-500" /> 30-Day Performance</h3>
                 <div className="grid grid-cols-3 gap-3">
                   <div className="rounded-lg bg-secondary/50 border border-border p-3 text-center">
@@ -223,7 +223,7 @@ export default function WalletDetail() {
                 </div>
               </motion.div>
               {data.topInteractions.length > 0 && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
                   <h3 className="font-heading text-sm font-semibold text-foreground mb-3">Top Contract Interactions</h3>
                   <div className="space-y-1.5">{data.topInteractions.map((item, i) => (
                     <div key={i} className="flex items-center justify-between rounded-lg bg-secondary/50 border border-border px-3 py-2">
@@ -238,7 +238,7 @@ export default function WalletDetail() {
 
           {/* Transactions Tab */}
           {activeTab === "transactions" && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
               <h3 className="font-heading text-sm font-semibold text-foreground mb-3">Transaction History ({data.txCount.toLocaleString()} total)</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
@@ -268,7 +268,7 @@ export default function WalletDetail() {
 
           {/* Recent Trades Tab (from AVE API) */}
           {activeTab === "trades" && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
               <h3 className="font-heading text-sm font-semibold text-foreground mb-3">Recent Trades</h3>
               {txsHook.loading ? (
                 <div className="flex items-center justify-center py-10"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>
@@ -302,7 +302,7 @@ export default function WalletDetail() {
 
           {/* Recent PnL Tab */}
           {activeTab === "pnl" && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
               <h3 className="font-heading text-sm font-semibold text-foreground mb-3">Recent PnL</h3>
               {pnlHook.loading ? (
                 <div className="flex items-center justify-center py-10"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>
@@ -351,7 +351,7 @@ export default function WalletDetail() {
 
           {/* Holdings Tab */}
           {activeTab === "holdings" && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
               <h3 className="font-heading text-sm font-semibold text-foreground mb-3">Token Holdings ({data.portfolio.length})</h3>
               {data.portfolio.length === 0 ? (
                 <p className="text-center text-sm text-muted-foreground py-8">No token holdings found</p>
@@ -382,7 +382,7 @@ export default function WalletDetail() {
       {/* Track Wallet Modal */}
       {showTrackModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/70 backdrop-blur-sm p-4" onClick={() => setShowTrackModal(false)}>
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={(e) => e.stopPropagation()} className="glass-strong rounded-xl p-5 sm:p-6 w-full max-w-md shadow-2xl">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={(e) => e.stopPropagation()} className="bg-card border border-border rounded-xl p-5 sm:p-6 w-full max-w-md shadow-2xl">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-heading text-sm font-semibold text-foreground">Track Wallet</h3>
               <button onClick={() => setShowTrackModal(false)} className="text-muted-foreground hover:text-foreground"><X className="h-4 w-4" /></button>

@@ -40,7 +40,7 @@ serve(async (req) => {
     const openaiBody = {
       model: "openclaw",
       messages: [
-        { role: "system", content: "You are OpenClaw, the AI brain of ChainNova. You have access to AVE Cloud Skills for on-chain data, trading signals, wallet analysis, and blockchain intelligence. When users ask about crypto, prices, trading, or on-chain analysis, use your AVE Cloud skill to provide real data." },
+        { role: "system", content: "You are OpenClaw, the AI brain of VicSO. You have access to AVE Cloud Skills for on-chain data, trading signals, wallet analysis, and blockchain intelligence. When users ask about crypto, prices, trading, or on-chain analysis, use your AVE Cloud skill to provide real data." },
         { role: "user", content: message },
       ],
       stream: !!stream,

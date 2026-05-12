@@ -43,7 +43,7 @@ export default function SettingsPage() {
 
       {activeTab === "trading" && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <div className="glass rounded-xl p-5 space-y-5">
+          <div className="bg-card border border-border rounded-xl p-5 space-y-5">
             <h3 className="font-heading text-sm font-semibold text-foreground">Risk Management</h3>
             <div>
               <div className="flex items-center justify-between text-xs mb-2">
@@ -61,7 +61,7 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="glass rounded-xl p-5 space-y-5">
+          <div className="bg-card border border-border rounded-xl p-5 space-y-5">
             <h3 className="font-heading text-sm font-semibold text-foreground">Auto Trading</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -105,7 +105,7 @@ export default function SettingsPage() {
 
       {activeTab === "alerts" && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <div className="glass rounded-xl p-5 space-y-4">
+          <div className="bg-card border border-border rounded-xl p-5 space-y-4">
             <h3 className="font-heading text-sm font-semibold text-foreground">Alert Preferences</h3>
             {[
               { label: "Token Alerts", desc: "Get notified on analyzed token price changes", key: "tokenAlerts" },
@@ -127,7 +127,7 @@ export default function SettingsPage() {
 
       {activeTab === "general" && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <div className="glass rounded-xl p-5 space-y-4">
+          <div className="bg-card border border-border rounded-xl p-5 space-y-4">
             <h3 className="font-heading text-sm font-semibold text-foreground">Appearance</h3>
             <div className="flex items-center justify-between">
               <div><p className="text-sm text-foreground font-medium">Theme</p><p className="text-[10px] text-muted-foreground">Dark mode optimized for trading</p></div>
@@ -135,7 +135,7 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="glass rounded-xl p-5 space-y-4">
+          <div className="bg-card border border-border rounded-xl p-5 space-y-4">
             <h3 className="font-heading text-sm font-semibold text-foreground">Account</h3>
             {user ? (
               <div className="space-y-2 text-xs">

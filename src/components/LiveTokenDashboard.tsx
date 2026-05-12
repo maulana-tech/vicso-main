@@ -47,7 +47,7 @@ export default function LiveTokenDashboard({ data, loading }: { data: TokenData 
   ];
 
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 sm:p-5">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-4 sm:p-5">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           <h3 className="font-heading text-sm font-semibold text-foreground">{data.name}</h3>

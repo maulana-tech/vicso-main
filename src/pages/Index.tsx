@@ -62,7 +62,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between px-1 mb-3">
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-primary" />
-            <h3 className="font-heading text-sm font-semibold text-foreground">ChainNova Skills</h3>
+            <h3 className="font-heading text-sm font-semibold text-foreground">VicSO Skills</h3>
             <span className="text-[10px] text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">AI Pipeline</span>
           </div>
           <button

@@ -89,7 +89,7 @@ export default function Alerts() {
           { label: "Token", count: alerts.filter((a) => a.alert_type === "token").length, color: "text-cyan-500" },
           { label: "Wallet", count: alerts.filter((a) => a.alert_type === "wallet").length, color: "text-amber-500" },
         ].map((s) => (
-          <motion.div key={s.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-lg p-3 text-center">
+          <motion.div key={s.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-lg p-3 text-center">
             <p className={"font-heading text-lg sm:text-2xl font-bold " + s.color}>{s.count}</p>
             <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">{s.label}</p>
           </motion.div>

@@ -204,7 +204,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="rounded-lg p-3 border border-border">
               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
                 <Zap className="h-3.5 w-3.5" />
-                ChainNova Skills
+                VicSO Skills
               </div>
               <div className="mt-2 flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-primary" />

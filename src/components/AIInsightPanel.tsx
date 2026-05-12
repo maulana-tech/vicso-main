@@ -22,7 +22,7 @@ export default function AIInsightPanel({ analysis, loading }: { analysis: AIAnal
 
   if (loading) {
     return (
-      <div className="glass rounded-xl p-5 space-y-4">
+      <div className="bg-card border border-border rounded-xl p-5 space-y-4">
         <div className="flex items-center gap-2">
           <Brain className="h-4 w-4 text-primary animate-pulse" />
           <span className="text-sm font-semibold text-foreground">AI is analyzing...</span>
@@ -57,7 +57,7 @@ export default function AIInsightPanel({ analysis, loading }: { analysis: AIAnal
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-5 space-y-4">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-5 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

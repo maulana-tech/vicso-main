@@ -62,22 +62,22 @@ export default function Portfolio() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-4 text-center">
           <Wallet className="h-4 w-4 text-primary mx-auto mb-1" />
           <p className="font-heading text-lg font-bold text-foreground">{formatVal(totalValue)}</p>
           <p className="text-[9px] uppercase text-muted-foreground">Total Value</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="glass rounded-xl p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="bg-card border border-border rounded-xl p-4 text-center">
           <PieChart className="h-4 w-4 text-cyan-500 mx-auto mb-1" />
           <p className="font-heading text-lg font-bold text-foreground">{tokens.length}</p>
           <p className="text-[9px] uppercase text-muted-foreground">Assets</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass rounded-xl p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-card border border-border rounded-xl p-4 text-center">
           {pnlTotals.totalPnl >= 0 ? <TrendingUp className="h-4 w-4 text-emerald-500 mx-auto mb-1" /> : <TrendingDown className="h-4 w-4 text-red-500 mx-auto mb-1" />}
           <p className={`font-heading text-lg font-bold ${pnlTotals.totalPnl >= 0 ? "text-emerald-500" : "text-red-500"}`}>{formatVal(Math.abs(pnlTotals.totalPnl))}</p>
           <p className="text-[9px] uppercase text-muted-foreground">Total PnL</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass rounded-xl p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="bg-card border border-border rounded-xl p-4 text-center">
           <TrendingUp className="h-4 w-4 text-emerald-500 mx-auto mb-1" />
           <p className="font-heading text-lg font-bold text-foreground">{formatVal(pnlTotals.buyVolume)}</p>
           <p className="text-[9px] uppercase text-muted-foreground">Buy Volume</p>
@@ -95,7 +95,7 @@ export default function Portfolio() {
 
       {/* Holdings Tab */}
       {activeTab === "holdings" && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
           {tokensHook.loading ? (
             <div className="flex items-center justify-center py-10"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>
           ) : tokens.length === 0 ? (
@@ -131,7 +131,7 @@ export default function Portfolio() {
 
       {/* PnL Tab */}
       {activeTab === "pnl" && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass rounded-xl p-5">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl p-5 bg-card border border-border">
           {pnlHook.loading ? (
             <div className="flex items-center justify-center py-10"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>
           ) : pnlItems.length === 0 ? (

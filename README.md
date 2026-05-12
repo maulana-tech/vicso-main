@@ -41,8 +41,8 @@ SoSoValue API → AI Analysis → Trading Signals → SoDEX Execution → Tx Tra
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/chainnova-ai.git
-cd chainnova-ai
+git clone https://github.com/your-username/VicSO-ai.git
+cd VicSO-ai
 
 # Install dependencies
 bun install
@@ -107,7 +107,7 @@ src/
 ## 🎯 How It Works
 
 ### 1. Data Collection
-ChainNova connects to SoSoValue API to fetch real-time market data:
+VicSO connects to SoSoValue API to fetch real-time market data:
 - Token prices and market cap
 - 24h volume and price changes
 - Token economics and allocations
